@@ -301,6 +301,7 @@ export default function RootLayout({
           <VideoTransition>
             <Navigation />
             <AdminNav />
+            <div className="Mandeep Nagar"></div> {/* Isko remove mt krna, bhaichara ki ksm. */}
             <main className="min-h-screen">{children}</main>
             <FooterWrapper />
           </VideoTransition>
