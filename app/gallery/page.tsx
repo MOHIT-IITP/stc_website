@@ -18,41 +18,165 @@ import {
 import Image from "next/image";
 
 const galleryData = {
-  // events: {
-  //   title: "Events & Activities",
-  //   icon: <Calendar className="w-5 h-5" />,
-  //   items: [
-  //     {
-  //       type: "image",
-  //       src: "/images/hack-n-tech-poster.jpg",
-  //       title: "Hack-n-Tech 2024",
-  //       description: "Annual hackathon bringing together innovators from across the nation",
-  //       category: "Hackathon"
-  //     },
-  //     {
-  //       type: "image",
-  //       src: "/images/internship-drive-poster.jpg",
-  //       title: "Internship Drive",
-  //       description: "Career opportunities with top companies",
-  //       category: "Career Development"
-  //     },
-  //     {
-  //       type: "image",
-  //       src: "/images/hackathon-collage.jpg",
-  //       title: "Hackathon Moments",
-  //       description: "Capturing the essence of innovation and collaboration",
-  //       category: "Events"
-  //     },
-  //     {
-  //       type: "video",
-  //       src: "/videos/hackntech.mp4",
-  //       thumbnail: "/images/hack-n-tech-poster.jpg",
-  //       title: "Hack-n-Tech Highlights",
-  //       description: "Experience the energy and innovation of our flagship hackathon event",
-  //       category: "Events"
-  //     }
-  //   ]
-  // },
+  xenithWinners: {
+    title: "Xenith 2025 Winners",
+    icon: <SquareChevronRight className="w-5 h-5" />,
+    items: [
+      {
+        type: "image",
+        src: "/gallery/xenith/hack1.png",
+        title: "Hack N Tech 2.0 Winner",
+        description: "Winners of Hack N Tech 2.0 Hackathon 2025",
+        category: "Hackathon",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/hack2.png",
+        title: "Hack N Tech 2.0 1st Runner Up",
+        description: "1st Runner Up of Hack N Tech 2.0 Hackathon 2025",
+        category: "Hackathon",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/hack3.png",
+        title: "Hack N Tech 2.0 2nd Runner Up",
+        description: "2nd Runner Up of Hack N Tech 2.0 Hackathon 2025",
+        category: "Hackathon",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/idea1.png",
+        title: "Idea Station Winner",
+        description: "Winners of Idea Station 2025",
+        category: "IC",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/idea2.png",
+        title: "Idea Station 1st Runner Up",
+        description: "1st Runner Up of Idea Station 2025",
+        category: "IC",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/idea3.png",
+        title: "Idea Station 2nd Runner Up",
+        description: "2nd Runner Up of Idea Station 2025",
+        category: "IC",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/tech1.png",
+        title: "Tech Hunt Winner",
+        description: "Winners of Tech Hunt 2025",
+        category: "tech hunt",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/tech2.png",
+        title: "Tech Hunt 1st Runner Up",
+        description: "1st Runner Up of Tech Hunt 2025",
+        category: "tech hunt",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/tech3.png",
+        title: "Tech Hunt 2nd Runner Up",
+        description: "2nd Runner Up of Tech Hunt 2025",
+        category: "tech hunt",
+      },
+    ],
+  },
+  XenithMoments: {
+    title: "Xenith 2025 Moments",
+    icon: <SquareChevronRight className="w-5 h-5" />,
+    items: [
+      {
+        type: "image",
+        src: "/gallery/xenith/tech1.jpg",
+        title: "Tech Hunt Night Match",
+        description: "Exciting moments from Tech Hunt Night Match",
+        category: "Tech Hunt",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/tech2.jpg",
+        title: "Tech Hunt Planning",
+        description: "Team strategizing during Tech Hunt 2025",
+        category: "Tech Hunt",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/idea1.jpg",
+        title: "Idea Station Pitching",
+        description: "Participants pitching their innovative ideas",
+        category: "Idea Station",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/idea2.jpg",
+        title: "Idea Station Teamwork",
+        description: "Collaboration in action at Idea Station 2025",
+        category: "Idea Station",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/ideateam.jpg",
+        title: "Idea Station Management Team",
+        description: "Meet Management team of Idea Station 2025",
+        category: "Idea Station",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/session1.jpg",
+        title: "Session at Xenith 2025",
+        description: "Engaging session during Xenith 2025",
+        category: "session",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/sessionmatch.jpg",
+        title: "Mini Match in Session at Xenith 2025",
+        description: "Interactive mini match during session at Xenith 2025",
+        category: "session",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/panel.jpg",
+        title: "Mentor or Judge??",
+        description: "Top mentors of IC-IITP as judges at Xenith 2025",
+        category: "IC",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/internship1.jpg",
+        title: "Internship Drive at Xenith 2025",
+        description: "Panel of some founders and CEO during Internship drive at Xenith 2025",
+        category: "Internship",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/internship2.jpg",
+        title: "Internship Drive at Xenith 2025",
+        description: "Panel of our partner companies during Internship drive at Xenith 2025",
+        category: "Internship",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/interview1.jpg",
+        title: "Internship Interviews at Xenith 2025",
+        description: "Students giving interviews during Internship drive at Xenith 2025",
+        category: "Internship",
+      },
+      {
+        type: "image",
+        src: "/gallery/xenith/interview2.jpg",
+        title: "Internship Interviews at Xenith 2025",
+        description: "Students giving interviews during Internship drive at Xenith 2025",
+        category: "Internship",
+      },
+    ],
+  },
   hackNtech: {
     title: "Hack-N-Tech 2025",
     icon: <SquareChevronRight className="w-5 h-5" />,
@@ -145,7 +269,7 @@ const galleryData = {
     ],
   },
   achievements: {
-    title: "Achievements & Recognition",
+    title: "Hack N Tech Winners",
     icon: <Award className="w-5 h-5" />,
     items: [
       {

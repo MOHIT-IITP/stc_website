@@ -206,6 +206,10 @@ export default function EventsPage() {
             !isRegistrationOpen;
           const isEventEnded = eventDate < now;
 
+          if (isEventEnded && now.getTime() - eventDate.getTime() > 10 * 24 * 60 * 60 * 1000) {
+            return null;
+          }
+
           return {
             ...event,
             _eventDate: eventDate,
@@ -215,7 +219,7 @@ export default function EventsPage() {
             _isRegistrationUpcoming: isRegistrationUpcoming,
             _isEventEnded: isEventEnded,
           };
-        });
+        }).filter(Boolean);
 
         const getEventPriority = (event: Event) => {
           if (event._isEventEnded) return 4; // Past events last
