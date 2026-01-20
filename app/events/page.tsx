@@ -623,7 +623,7 @@ export default function EventsPage() {
                         </div>
                       </div>
 
-                      <div className="w-full h-56 mb-6 rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50 group-hover:shadow-xl transition-all duration-500">
+                      <div className="w-full h-fit mb-6 rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50 group-hover:shadow-xl transition-all duration-500">
                         <img
                           src={winner.image || "/placeholder.svg"}
                           alt={`${winner.teamName} team`}
@@ -648,16 +648,100 @@ export default function EventsPage() {
                         </p>
                       </div>
 
-                      <div className="mb-8">
-                        <h5 className="font-semibold text-gray-900 mb-2 text-base">
-                          Project
-                        </h5>
-                        <p className="text-gray-600 text-sm leading-relaxed">
-                          {winner.project}
-                        </p>
+                      {/* Divider */}
+                         <div className="px-8">
+                        <div
+                          className={`
+                            h-[2px] rounded-full
+                            ${
+                              isWinner
+                                ? "bg-linear-to-r from-transparent via-yellow-300 to-transparent"
+                                : isFirstRunner
+                                  ? "bg-linear-to-r from-transparent via-gray-300 to-transparent"
+                                  : "bg-linear-to-r from-transparent via-orange-300 to-transparent"
+                            }
+                          `}
+                        ></div>
                       </div>
 
-                      <div>
+                      {/* Project Section */}
+                      <div className=" w-full py-6">
+                        <div
+                          className={`
+                            rounded-xl p-5 backdrop-blur-sm border
+                            ${
+                              isWinner
+                                ? "bg-yellow-50/50 border-yellow-200"
+                                : isFirstRunner
+                                  ? "bg-gray-50/50 border-gray-200"
+                                  : "bg-orange-50/50 border-orange-200"
+                            }
+                          `}
+                        >
+                          <div className="flex items-center gap-2 mb-3">
+                            <Target className={`w-5 h-5 ${
+                              isWinner ? 'text-yellow-600' : isFirstRunner ? 'text-gray-600' : 'text-orange-600'
+                            }`} />
+                            <h5 className="font-bold text-gray-900 text-base">
+                              Project
+                            </h5>
+                          </div>
+                          <p className="text-gray-700 text-sm leading-relaxed font-medium">
+                            {winner.project}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Team Members Section */}
+                      <div className="w-full pb-8">
+                        <div
+                          className={`
+                            rounded-xl p-5 backdrop-blur-sm border
+                            ${
+                              isWinner
+                                ? "bg-yellow-50/50 border-yellow-200"
+                                : isFirstRunner
+                                  ? "bg-gray-50/50 border-gray-200"
+                                  : "bg-orange-50/50 border-orange-200"
+                            }
+                          `}
+                        >
+                          <div className="flex items-center gap-2 mb-4">
+                            <Users className={`w-5 h-5 ${
+                              isWinner ? 'text-yellow-600' : isFirstRunner ? 'text-gray-600' : 'text-orange-600'
+                            }`} />
+                            <h5 className="font-bold text-gray-900 text-base">
+                              Team Members
+                            </h5>
+                          </div>
+                          <ul className="space-y-2.5">
+                            {winner.members.map((member, memberIndex) => (
+                              <li
+                                key={memberIndex}
+                                className="flex items-center gap-3 text-sm text-gray-700 font-medium group/member"
+                              >
+                                <span
+                                  className={`
+                                    w-2 h-2 rounded-full shrink-0 
+                                    ${
+                                      isWinner
+                                        ? "bg-linear-to-r from-yellow-500 to-amber-500"
+                                        : isFirstRunner
+                                          ? "bg-linear-to-r from-gray-500 to-slate-500"
+                                          : "bg-linear-to-r from-orange-500 to-red-500"
+                                    }
+                                  `}
+                                ></span>
+                                <span >
+                                  {member}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      {/* <div>
                         <h5 className="font-semibold text-gray-900 mb-3 text-base">
                           Team Members
                         </h5>
@@ -672,7 +756,7 @@ export default function EventsPage() {
                             </li>
                           ))}
                         </ul>
-                      </div>
+                      </div> */}
                     </CardContent>
                   </Card>
                 );

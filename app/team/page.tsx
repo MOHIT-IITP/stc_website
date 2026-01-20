@@ -142,6 +142,16 @@ const developers = [
     description:
       "Provided expert guidance and technical insights throughout the development process, helping shape the website's architecture and features.",
   },
+    {
+    name: "Abhishek Mohanty",
+    designation: "WebWiser Sub-Coordinator",
+    department: "STC Development Team",
+    image: AppConfig.imageUrls.Abhishek,
+    email: "abhishek_2312res891@iitp.ac.in",
+    linkedin: "https://www.linkedin.com/in/abhishekiitp891",
+    description:
+      "Played a key role in development, providing technical direction and implementing critical features that elevated the website's capabilities.",
+  },
   {
     name: "Abhijeet Kumar",
     designation: "Codered Sub-Coordinator",
@@ -151,16 +161,6 @@ const developers = [
     linkedin: "https://www.linkedin.com/in/abhijeetiitp/",
     description:
       "Contributed valuable expertise in web development, offering solutions and optimizations that enhanced the website's functionality and user experience.",
-  },
-  {
-    name: "Abhishek Mohanty",
-    designation: "WebWiser Sub-Coordinator",
-    department: "STC Development Team",
-    image: AppConfig.imageUrls.Abhishek,
-    email: "abhishek_2312res891@iitp.ac.in",
-    linkedin: "https://www.linkedin.com/in/abhishekiitp891",
-    description:
-      "Played a key role in development, providing technical direction and implementing critical features that elevated the website's capabilities.",
   },
   {
     name: "Vatsal Srivastava",
