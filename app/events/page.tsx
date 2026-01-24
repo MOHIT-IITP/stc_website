@@ -146,6 +146,54 @@ const internshipCompanies = [
     image: "/images/company/d2h.png",
   },
   {
+    name: "CodeYoung",
+    category: "EdTech",
+    positions: "Business Development",
+    image: "/images/company/codeyoung.png",
+  },
+  {
+    name: "Embrizon",
+    category: "EdTech",
+    positions: "Business Development",
+    image: "/images/company/embrizon.jpg",
+  },
+  {
+    name: "Inglu",
+    category: "EdTech",
+    positions: "UI/UX Developer",
+    image: "/images/company/inglu.png",
+  },
+  {
+    name: "Prodesk",
+    category: "Product Development",
+    positions: "Software Developer",
+    image: "/images/company/prodesk.png",
+  },
+  {
+    name: "Adshree",
+    category: "Digital Marketing",
+    positions: "Business Development",
+    image: "/images/company/adshree.png"
+  },
+  {
+    name: "IC IITP",
+    category: "Research",
+    positions: "Research Assistant",
+    image: "/images/company/ic.png"
+  },
+  {
+    name: "FlutterFlow",
+    category: "No-Code Platform",
+    positions: "Business Development",
+    image: "/images/company/flutterflow.jpg"
+  },
+  {
+    name: "Idnetify",
+    category: "AI/ML Solutions",
+    positions: "Business Development",
+    image: "/images/company/idnetify.jpg"
+  },
+  {
     name: "FLATX",
     category: "Real Estate",
     positions: "Full Stack Developer",
@@ -274,172 +322,174 @@ export default function EventsPage() {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Upcoming Events
-            </h2>
-            <p className="text-xl text-gray-600">
-              Stay tuned for more exciting opportunities and events
-            </p>
-          </div>
-
-          {loadingEvents ? (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-              <p className="mt-4 text-gray-600">Loading upcoming events...</p>
-            </div>
-          ) : upcomingEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {upcomingEvents
-                .slice(0, showAllEvents ? upcomingEvents.length : 6)
-                .map((event) => (
-                  <Card
-                    key={event._id}
-                    className="group h-full flex flex-col rounded-2xl overflow-hidden border border-gray-200 bg-white/60 backdrop-blur-md shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                  >
-                    {event.imageUrl && (
-                      <div className="relative aspect-[4/5] bg-gray-200 overflow-hidden">
-                        <Image
-                          src={event.imageUrl}
-                          alt={event.title}
-                          fill
-                          className=" object-contain transition-transform duration-500 group-hover:scale-105"
-                        />
-
-                        {event.redirectLink && (
-                          <div
-                            className={`absolute top-4 right-4 text-xs px-3 py-1.5 rounded-full font-semibold shadow-md backdrop-blur-lg
-                            ${
-                              event._isEventEnded
-                                ? "bg-gray-600/90 text-white"
-                                : event._isRegistrationOpen
-                                  ? "bg-green-600/90 text-white"
-                                  : "bg-amber-600/90 text-white"
-                            }`}
-                          >
-                            {event._isEventEnded
-                              ? "Event Ended"
-                              : event._isRegistrationOpen
-                                ? "Registration Open"
-                                : "Registration Closed"}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <CardContent className="p-7">
-                      <div className="flex items-center gap-3 mb-4">
-                        <h3 className="text-2xl font-extrabold text-gray-900 leading-snug tracking-tight">
-                          {event.title}
-                        </h3>
-                      </div>
-
-                      <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
-                        {event.content}
-                      </p>
-                      <div className="space-y-2 mb-6">
-                        <div className="flex items-center text-sm text-gray-500 gap-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{formatEventDate(event.eventDate)}</span>
-                        </div>
-                        <div className="flex items-center text-sm text-gray-500 gap-2">
-                          <Users className="w-4 h-4" />
-                          <span>{event.club}</span>
-                        </div>
-                      </div>
-
-                      {(event.redirectLink || event.resourcesLink) && (
-                        <div className="pt-5 border-t border-gray-200">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {event.redirectLink && (
-                              <Link
-                                href={
-                                  event._isRegistrationOpen
-                                    ? event.redirectLink
-                                    : "#"
-                                }
-                                target="_blank"
-                                className={`relative flex items-center justify-center gap-2 px-4 py-2.5 
-                                rounded-lg font-semibold text-sm
-                                ${
-                                  event._isRegistrationOpen
-                                    ? "text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl hover:-translate-y-1"
-                                    : "text-gray-400 bg-gray-100 cursor-not-allowed"
-                                } 
-                                transition-all duration-300`}
-                                onClick={(e) => {
-                                  if (!event._isRegistrationOpen) {
-                                    e.preventDefault();
-                                  }
-                                }}
-                              >
-                                <CalendarCheck className="w-4 h-4" />
-                                {event._isRegistrationOpen
-                                  ? event.redirectLabel || "Register Now"
-                                  : "Registration Closed"}
-                              </Link>
-                            )}
-
-                            {event.resourcesLink && (
-                              <Link
-                                href={event.resourcesLink}
-                                target="_blank"
-                                className="flex items-center justify-center gap-2 px-4 py-2.5 
-              bg-gray-100 border border-gray-300 rounded-lg text-gray-700 
-              hover:bg-gray-200 hover:text-gray-900
-              shadow-sm hover:shadow transition-all duration-300 hover:-translate-y-1"
-                              >
-                                <Download className="w-4 h-4" />
-                                {event.resourcesLabel || "Rulebook"}
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                No Upcoming Events
-              </h3>
-              <p className="text-gray-500">
-                Stay tuned! New events will be announced soon.
+      {upcomingEvents.some(event => !event._isEventEnded) && (
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Upcoming Events
+              </h2>
+              <p className="text-xl text-gray-600">
+                Stay tuned for more exciting opportunities and events
               </p>
             </div>
-          )}
 
-          {upcomingEvents.length > 0 && (
-            <div className="flex justify-center items-center mt-12 space-x-4">
-              {upcomingEvents.length > 6 && (
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 px-6 py-3 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-md"
-                  onClick={() => setShowAllEvents(!showAllEvents)}
-                >
-                  {showAllEvents ? "Show Less" : "Show More"}
-                </Button>
-              )}
-              <Link href="/calendar">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  View Full Calendar
-                </Button>
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
+            {loadingEvents ? (
+              <div className="text-center py-12">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <p className="mt-4 text-gray-600">Loading upcoming events...</p>
+              </div>
+            ) : upcomingEvents.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {upcomingEvents
+                  .slice(0, showAllEvents ? upcomingEvents.length : 6)
+                  .map((event) => (
+                    <Card
+                      key={event._id}
+                      className="group h-full flex flex-col rounded-2xl overflow-hidden border border-gray-200 bg-white/60 backdrop-blur-md shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                    >
+                      {event.imageUrl && (
+                        <div className="relative aspect-[4/5] bg-gray-200 overflow-hidden">
+                          <Image
+                            src={event.imageUrl}
+                            alt={event.title}
+                            fill
+                            className=" object-contain transition-transform duration-500 group-hover:scale-105"
+                          />
+
+                          {event.redirectLink && (
+                            <div
+                              className={`absolute top-4 right-4 text-xs px-3 py-1.5 rounded-full font-semibold shadow-md backdrop-blur-lg
+                              ${
+                                event._isEventEnded
+                                  ? "bg-gray-600/90 text-white"
+                                  : event._isRegistrationOpen
+                                    ? "bg-green-600/90 text-white"
+                                    : "bg-amber-600/90 text-white"
+                              }`}
+                            >
+                              {event._isEventEnded
+                                ? "Event Ended"
+                                : event._isRegistrationOpen
+                                  ? "Registration Open"
+                                  : "Registration Closed"}
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <CardContent className="p-7">
+                        <div className="flex items-center gap-3 mb-4">
+                          <h3 className="text-2xl font-extrabold text-gray-900 leading-snug tracking-tight">
+                            {event.title}
+                          </h3>
+                        </div>
+
+                        <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">
+                          {event.content}
+                        </p>
+                        <div className="space-y-2 mb-6">
+                          <div className="flex items-center text-sm text-gray-500 gap-2">
+                            <Calendar className="w-4 h-4" />
+                            <span>{formatEventDate(event.eventDate)}</span>
+                          </div>
+                          <div className="flex items-center text-sm text-gray-500 gap-2">
+                            <Users className="w-4 h-4" />
+                            <span>{event.club}</span>
+                          </div>
+                        </div>
+
+                        {(event.redirectLink || event.resourcesLink) && (
+                          <div className="pt-5 border-t border-gray-200">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {event.redirectLink && (
+                                <Link
+                                  href={
+                                    event._isRegistrationOpen
+                                      ? event.redirectLink
+                                      : "#"
+                                  }
+                                  target="_blank"
+                                  className={`relative flex items-center justify-center gap-2 px-4 py-2.5 
+                                  rounded-lg font-semibold text-sm
+                                  ${
+                                    event._isRegistrationOpen
+                                      ? "text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                                      : "text-gray-400 bg-gray-100 cursor-not-allowed"
+                                  } 
+                                  transition-all duration-300`}
+                                  onClick={(e) => {
+                                    if (!event._isRegistrationOpen) {
+                                      e.preventDefault();
+                                    }
+                                  }}
+                                >
+                                  <CalendarCheck className="w-4 h-4" />
+                                  {event._isRegistrationOpen
+                                    ? event.redirectLabel || "Register Now"
+                                    : "Registration Closed"}
+                                </Link>
+                              )}
+
+                              {event.resourcesLink && (
+                                <Link
+                                  href={event.resourcesLink}
+                                  target="_blank"
+                                  className="flex items-center justify-center gap-2 px-4 py-2.5 
+                bg-gray-100 border border-gray-300 rounded-lg text-gray-700 
+                hover:bg-gray-200 hover:text-gray-900
+                shadow-sm hover:shadow transition-all duration-300 hover:-translate-y-1"
+                                >
+                                  <Download className="w-4 h-4" />
+                                  {event.resourcesLabel || "Rulebook"}
+                                </Link>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-8 h-8 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  No Upcoming Events
+                </h3>
+                <p className="text-gray-500">
+                  Stay tuned! New events will be announced soon.
+                </p>
+              </div>
+            )}
+
+            {upcomingEvents.length > 0 && (
+              <div className="flex justify-center items-center mt-12 space-x-4">
+                {upcomingEvents.length > 6 && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-blue-600 text-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 px-6 py-3 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-md"
+                    onClick={() => setShowAllEvents(!showAllEvents)}
+                  >
+                    {showAllEvents ? "Show Less" : "Show More"}
+                  </Button>
+                )}
+                <Link href="/calendar">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    View Full Calendar
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Hack N Tech Hackathon */}
       <section className="py-20">
