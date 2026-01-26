@@ -35,20 +35,6 @@ const subClubs = [
     ],
   },
   {
-    name: "Mech-X",
-    subtitle: "Robotics Club",
-    description:
-      "Building and programming robots through competitions and practical learning experiences.",
-    logo: "/DomainCards/Robot.png",
-    icon: Code,
-    activities: [
-      "Robot building",
-      "Arduino/Raspberry Pi",
-      "Automation projects",
-      "Robotics competitions",
-    ],
-  },
-  {
     name: "Pixelerate",
     subtitle: "Design Club",
     description:
@@ -130,6 +116,20 @@ const subClubs = [
       "Algorithm training",
       "Problem solving",
       "Programming competitions",
+    ],
+  },
+  {
+    name: "Mech-X",
+    subtitle: "Robotics Club",
+    description:
+      "Building and programming robots through competitions and practical learning experiences.",
+    logo: "/DomainCards/Robot.png",
+    icon: Code,
+    activities: [
+      "Robot building",
+      "Arduino/Raspberry Pi",
+      "Automation projects",
+      "Robotics competitions",
     ],
   },
   {
@@ -388,11 +388,6 @@ export default function TatvaPage() {
                               <span>{activity}</span>
                             </li>
                           ))}
-                          {club.activities.length > 3 && (
-                            <li className="text-teal-600 font-medium">
-                              +{club.activities.length - 3} more
-                            </li>
-                          )}
                         </ul>
                       </div>
                       <div className="mt-4 pt-3 border-t border-gray-100 flex items-center text-teal-600 font-medium text-sm">
