@@ -26,6 +26,7 @@ const navItems = [
     { label: "Notifications", href: "/admin/notifications" },
     { label: "Registration", href: "/admin/registration" },
     { label: "Competitions", href: "/admin/competitions" },
+    { label: "Certificates", href: "/admin/certificates" },
 ];
 
 const AdminNav = () => {
@@ -61,8 +62,8 @@ const AdminNav = () => {
                                 <Link
                                     href={item.href}
                                     className={`relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${(item.href === '/' ? pathname === '/' : pathname === item.href)
-                                            ? `${theme.navActive} font-semibold`
-                                            : `${theme.navText} ${theme.navHover}`
+                                        ? `${theme.navActive} font-semibold`
+                                        : `${theme.navText} ${theme.navHover}`
                                         }`}
                                 >
                                     {item.label}
@@ -91,7 +92,6 @@ const AdminNav = () => {
                 </div>
             </div>
 
-            {/* Mobile menu with animations */}
             <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
                 }`}>
                 <div className={`px-4 pt-2 pb-4 space-y-2 sm:px-6 bg-blue-50 shadow-lg transform transition-transform duration-300 ${isOpen ? 'translate-y-0' : '-translate-y-4'
@@ -101,8 +101,8 @@ const AdminNav = () => {
                             <Link
                                 href={item.href}
                                 className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 transform hover:translate-x-1 ${(item.href === '/' ? pathname === '/' : pathname.startsWith(item.href))
-                                        ? `text-${theme.accent}-700 font-bold`
-                                        : `text-gray-600 hover:text-${theme.accent}-600`
+                                    ? `text-${theme.accent}-700 font-bold`
+                                    : `text-gray-600 hover:text-${theme.accent}-600`
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >

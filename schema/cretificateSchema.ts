@@ -7,6 +7,7 @@ const certificateSchema = new Schema({
     club: {type: String},
     joinedFrom: {type: Date},
     joinedTo: {type: Date},
+    description: {type: String},
     createdAt: {type: Date, default: Date.now}
 });
 
