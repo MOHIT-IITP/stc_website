@@ -256,19 +256,6 @@ export default function CertificateDetailPage() {
                                 </div>
                             )}
 
-                            <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                <div className="flex-shrink-0 w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                    <CalendarDays className="w-5 h-5 text-indigo-600" />
-                                </div>
-                                <div>
-                                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                        Certificate Date
-                                    </p>
-                                    <p className="text-lg font-semibold text-gray-900">
-                                        {formatDate(certificate.createdAt)}
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
