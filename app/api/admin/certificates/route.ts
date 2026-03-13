@@ -62,6 +62,61 @@ export async function POST(request: NextRequest) {
     }
 }
 
+export async function PUT(request: NextRequest) {
+    try {
+        const session = await getServerSession();
+        if (!session) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        await connectDB();
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
+
+        if (!id) {
+            return NextResponse.json({ error: 'Certificate ID required' }, { status: 400 });
+        }
+
+        const body = await request.json();
+        const existingCertificate = await Certificate.findById(id);
+
+        if (!existingCertificate) {
+            return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
+        }
+
+        const trimmedCertificateId = body.CertificateId?.trim();
+        if (
+            trimmedCertificateId &&
+            trimmedCertificateId !== existingCertificate.CertificateId
+        ) {
+            const duplicate = await Certificate.findOne({ CertificateId: trimmedCertificateId });
+            if (duplicate) {
+                return NextResponse.json({ error: 'Certificate ID already exists' }, { status: 409 });
+            }
+        }
+
+        const updatedCertificate = await Certificate.findByIdAndUpdate(
+            id,
+            {
+                CertificateId: trimmedCertificateId || existingCertificate.CertificateId,
+                name: body.name ?? existingCertificate.name,
+                position: body.position ?? existingCertificate.position,
+                club: body.club || undefined,
+                joinedFrom: body.joinedFrom || undefined,
+                joinedTo: body.joinedTo || undefined,
+                description: body.description || undefined,
+                createdAt: body.createdAt || existingCertificate.createdAt,
+            },
+            { new: true, runValidators: true }
+        );
+
+        return NextResponse.json(updatedCertificate);
+    } catch (error) {
+        console.error('Error updating certificate:', error);
+        return NextResponse.json({ error: 'Failed to update certificate' }, { status: 500 });
+    }
+}
+
 export async function DELETE(request: NextRequest) {
     try {
         const session = await getServerSession();

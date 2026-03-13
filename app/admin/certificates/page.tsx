@@ -20,9 +20,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Plus, Trash2, Loader2, Award, Copy, Check } from "lucide-react";
+import { Plus, Trash2, Loader2, Award, Copy, Check, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Description } from "@radix-ui/react-toast";
 import { Textarea } from "@/components/ui/textarea";
 
 interface Certificate {
@@ -43,6 +42,7 @@ export default function AdminCertificatesPage() {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [copiedId, setCopiedId] = useState<string | null>(null);
+    const [editingCertificateId, setEditingCertificateId] = useState<string | null>(null);
     const { toast } = useToast();
 
     const [formData, setFormData] = useState({
@@ -59,6 +59,8 @@ export default function AdminCertificatesPage() {
     useEffect(() => {
         fetchCertificates();
     }, []);
+
+    const isEditMode = Boolean(editingCertificateId);
 
     const fetchCertificates = async () => {
         try {
@@ -101,8 +103,13 @@ export default function AdminCertificatesPage() {
                 description: formData.description || undefined,
             };
 
-            const response = await fetch("/api/admin/certificates", {
-                method: "POST",
+            const requestUrl = isEditMode
+                ? `/api/admin/certificates?id=${editingCertificateId}`
+                : "/api/admin/certificates";
+            const requestMethod = isEditMode ? "PUT" : "POST";
+
+            const response = await fetch(requestUrl, {
+                method: requestMethod,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
@@ -110,20 +117,26 @@ export default function AdminCertificatesPage() {
             if (response.ok) {
                 toast({
                     title: "Success",
-                    description: "Certificate created successfully",
+                    description: isEditMode
+                        ? "Certificate updated successfully"
+                        : "Certificate created successfully",
                 });
                 setDialogOpen(false);
                 resetForm();
                 fetchCertificates();
             } else {
                 const errorData = await response.json();
-                alert(`Failed to create certificate: ${errorData.error || response.statusText}`);
+                alert(
+                    `Failed to ${isEditMode ? "update" : "create"} certificate: ${errorData.error || response.statusText}`
+                );
             }
         } catch (error) {
             console.error("Error saving certificate:", error);
             toast({
                 title: "Error",
-                description: "Failed to create certificate",
+                description: isEditMode
+                    ? "Failed to update certificate"
+                    : "Failed to create certificate",
                 variant: "destructive",
             });
         } finally {
@@ -160,6 +173,7 @@ export default function AdminCertificatesPage() {
     };
 
     const resetForm = () => {
+        setEditingCertificateId(null);
         setFormData({
             CertificateId: "",
             name: "",
@@ -170,6 +184,33 @@ export default function AdminCertificatesPage() {
             description: "",
             certificateDate: "",
         });
+    };
+
+    const formatDateForInput = (dateStr?: string) => {
+        if (!dateStr) return "";
+        const date = new Date(dateStr);
+        if (Number.isNaN(date.getTime())) return "";
+        return date.toISOString().split("T")[0];
+    };
+
+    const handleEdit = (certificate: Certificate) => {
+        setEditingCertificateId(certificate._id);
+        setFormData({
+            CertificateId: certificate.CertificateId || "",
+            name: certificate.name || "",
+            position: certificate.position || "",
+            club: certificate.club || "",
+            joinedFrom: formatDateForInput(certificate.joinedFrom),
+            joinedTo: formatDateForInput(certificate.joinedTo),
+            description: certificate.description || "",
+            certificateDate: formatDateForInput(certificate.createdAt),
+        });
+        setDialogOpen(true);
+    };
+
+    const openCreateDialog = () => {
+        resetForm();
+        setDialogOpen(true);
     };
 
     const copyToClipboard = (text: string) => {
@@ -201,10 +242,7 @@ export default function AdminCertificatesPage() {
                             </p>
                         </div>
                         <Button
-                            onClick={() => {
-                                resetForm();
-                                setDialogOpen(true);
-                            }}
+                            onClick={openCreateDialog}
                             className="bg-[#0f2a4d] hover:bg-[#1a4b8c]"
                         >
                             <Plus className="w-4 h-4 mr-2" />
@@ -227,10 +265,7 @@ export default function AdminCertificatesPage() {
                                     Start by creating your first certificate
                                 </p>
                                 <Button
-                                    onClick={() => {
-                                        resetForm();
-                                        setDialogOpen(true);
-                                    }}
+                                    onClick={openCreateDialog}
                                     className="bg-[#0f2a4d] hover:bg-[#1a4b8c]"
                                 >
                                     <Plus className="w-4 h-4 mr-2" />
@@ -306,6 +341,14 @@ export default function AdminCertificatesPage() {
                                                 <TableCell>
                                                     <div className="flex justify-end gap-2">
                                                         <Button
+                                                            onClick={() => handleEdit(cert)}
+                                                            variant="outline"
+                                                            size="sm"
+                                                        >
+                                                            <Pencil className="w-4 h-4 mr-1" />
+                                                            Edit
+                                                        </Button>
+                                                        <Button
                                                             onClick={() => handleDelete(cert)}
                                                             variant="destructive"
                                                             size="sm"
@@ -325,12 +368,24 @@ export default function AdminCertificatesPage() {
                 </div>
             </div>
 
-            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <Dialog
+                open={dialogOpen}
+                onOpenChange={(open) => {
+                    setDialogOpen(open);
+                    if (!open) {
+                        resetForm();
+                    }
+                }}
+            >
                 <DialogContent className="max-w-lg">
                     <DialogHeader>
-                        <DialogTitle>Add New Certificate</DialogTitle>
+                        <DialogTitle>
+                            {isEditMode ? "Edit Certificate" : "Add New Certificate"}
+                        </DialogTitle>
                         <DialogDescription>
-                            Fill in the details to create a new certificate. Leave Certificate ID empty to auto-generate.
+                            {isEditMode
+                                ? "Update the certificate details and save your changes."
+                                : "Fill in the details to create a new certificate. Leave Certificate ID empty to auto-generate."}
                         </DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleSubmit} className="space-y-4 overflow-auto max-h-[70vh] pr-2">
@@ -451,12 +506,12 @@ export default function AdminCertificatesPage() {
                                 {submitting ? (
                                     <>
                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Creating...
+                                        {isEditMode ? "Saving..." : "Creating..."}
                                     </>
                                 ) : (
                                     <>
                                         <Award className="w-4 h-4 mr-2" />
-                                        Create Certificate
+                                        {isEditMode ? "Save Changes" : "Create Certificate"}
                                     </>
                                 )}
                             </Button>
