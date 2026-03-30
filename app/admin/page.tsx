@@ -8,7 +8,6 @@ import {
   UserPlus,
   Trophy,
   FileText,
-  ListChecks,
 } from "lucide-react"
 import AdminNav from "@/components/adminNav"
 
@@ -18,7 +17,6 @@ interface Stats {
   registrations: number
   registrationResponses: number
   competitionResults: number
-  techHuntResults?: number
 }
 
 export default function AdminDashboard() {
@@ -28,7 +26,6 @@ export default function AdminDashboard() {
     registrations: 0,
     registrationResponses: 0,
     competitionResults: 0,
-    techHuntResults: 0,
   })
 
   const [loading, setLoading] = useState(true)
@@ -102,16 +99,7 @@ export default function AdminDashboard() {
       iconBg: "bg-yellow-100",
       textColor: "text-yellow-700"
     },
-    {
-      title: "Tech Hunt",
-      value: stats.techHuntResults ?? 0,
-      icon: <ListChecks className="w-6 h-6 text-indigo-600" />,
-      description: "Participants & progress",
-      href: "/admin/tech-hunt",
-      bgColor: "bg-indigo-50",
-      iconBg: "bg-indigo-100",
-      textColor: "text-indigo-700"
-    },
+
   ]
 
   return (

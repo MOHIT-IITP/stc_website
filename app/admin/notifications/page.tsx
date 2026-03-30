@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import AdminNav from "@/components/adminNav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,11 +16,12 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Plus, Trash2, Edit, Bell, Loader2 } from "lucide-react";
+import { Plus, Trash2, Edit, Bell, Loader2, ShieldAlert } from "lucide-react";
 import { uploadToImageKit, deleteFromImageKit } from "@/lib/imagekit";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import { toIndianDateString } from "@/lib/formatDate";
+import { UserSession, hasPermission } from "@/lib/permissions";
 
 interface Notification {
   _id: string;
@@ -36,6 +38,7 @@ interface Notification {
 }
 
 export default function AdminNotificationsPage() {
+  const { data: session } = useSession() as { data: UserSession | null };
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -46,6 +49,12 @@ export default function AdminNotificationsPage() {
  
   const [imagePreview, setImagePreview] = useState<string>("");
   const { toast } = useToast();
+
+  // Permission checks
+  const canRead = hasPermission(session, 'notifications.read');
+  const canCreate = hasPermission(session, 'notifications.create');
+  const canUpdate = hasPermission(session, 'notifications.update');
+  const canDelete = hasPermission(session, 'notifications.delete');
 
   const [formData, setFormData] = useState({
     title: "",
@@ -60,8 +69,12 @@ export default function AdminNotificationsPage() {
   });
 
   useEffect(() => {
-    fetchNotifications();
-  },);
+    if (canRead) {
+      fetchNotifications();
+    } else {
+      setLoading(false);
+    }
+  }, [canRead]);
 
   const fetchNotifications = async () => {
     try {
@@ -69,6 +82,12 @@ export default function AdminNotificationsPage() {
       if (response.ok) {
         const data = await response.json();
         setNotifications(data);
+      } else if (response.status === 403) {
+        toast({
+          title: "Access Denied",
+          description: "You do not have permission to view notifications",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Error fetching notifications:", error);
@@ -151,6 +170,13 @@ export default function AdminNotificationsPage() {
         setDialogOpen(false);
         resetForm();
         fetchNotifications();
+      } else if (response.status === 403) {
+        const data = await response.json();
+        toast({
+          title: "Access Denied",
+          description: data.message || "You do not have permission to perform this action",
+          variant: "destructive",
+        });
       } else {
         throw new Error("Failed to save notification");
       }
@@ -192,6 +218,13 @@ export default function AdminNotificationsPage() {
           description: "Notification deleted successfully",
         });
         fetchNotifications();
+      } else if (response.status === 403) {
+        const data = await response.json();
+        toast({
+          title: "Access Denied",
+          description: data.message || "You do not have permission to delete notifications",
+          variant: "destructive",
+        });
       } else {
         throw new Error("Failed to delete notification");
       }
@@ -294,24 +327,31 @@ export default function AdminNotificationsPage() {
         )}
       </CardContent>
       <CardFooter className="bg-gray-50 p-4 flex gap-2">
-        <Button
-          onClick={() => handleEdit(notification)}
-          variant="outline"
-          size="sm"
-          className="flex-1"
-        >
-          <Edit className="w-4 h-4 mr-2" />
-          Edit
-        </Button>
-        <Button
-          onClick={() => handleDelete(notification)}
-          variant="destructive"
-          size="sm"
-          className="flex-1"
-        >
-          <Trash2 className="w-4 h-4 mr-2" />
-          Delete
-        </Button>
+        {canUpdate && (
+          <Button
+            onClick={() => handleEdit(notification)}
+            variant="outline"
+            size="sm"
+            className="flex-1"
+          >
+            <Edit className="w-4 h-4 mr-2" />
+            Edit
+          </Button>
+        )}
+        {canDelete && (
+          <Button
+            onClick={() => handleDelete(notification)}
+            variant="destructive"
+            size="sm"
+            className="flex-1"
+          >
+            <Trash2 className="w-4 h-4 mr-2" />
+            Delete
+          </Button>
+        )}
+        {!canUpdate && !canDelete && (
+          <span className="text-sm text-gray-500 italic">View only</span>
+        )}
       </CardFooter>
     </Card>
   );
@@ -331,38 +371,54 @@ export default function AdminNotificationsPage() {
                 Send important updates to students
               </p>
             </div>
-            <Button
-              onClick={() => {
-                resetForm();
-                setDialogOpen(true);
-              }}
-              className="bg-[#0f2a4d] hover:bg-[#1a4b8c]"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              New Notification
-            </Button>
+            {canCreate && (
+              <Button
+                onClick={() => {
+                  resetForm();
+                  setDialogOpen(true);
+                }}
+                className="bg-[#0f2a4d] hover:bg-[#1a4b8c]"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                New Notification
+              </Button>
+            )}
           </div>
 
-          {/* Content */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            {loading ? (
-              <div className="flex justify-center items-center py-12">
-                <Loader2 className="w-8 h-8 animate-spin text-[#1a4b8c]" />
-              </div>
-            ) : (
-              <Tabs defaultValue="active" className="w-full">
-                <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
-                  <TabsTrigger value="active">
-                    Active Notifications ({activeNotifications.length})
-                  </TabsTrigger>
-                  <TabsTrigger value="expired">
-                    Expired Notifications ({expiredNotifications.length})
-                  </TabsTrigger>
-                </TabsList>
+          {/* Permission warning */}
+          {!canRead && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-8 text-center">
+              <ShieldAlert className="w-12 h-12 mx-auto text-amber-500 mb-4" />
+              <h2 className="text-xl font-semibold text-amber-800 mb-2">
+                Access Restricted
+              </h2>
+              <p className="text-amber-600">
+                You do not have permission to view notifications. Please contact your administrator.
+              </p>
+            </div>
+          )}
 
-                <TabsContent value="active">
-                  {activeNotifications.length === 0 ? (
-                    <p className="text-center text-gray-500 py-12">
+          {/* Content */}
+          {canRead && (
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              {loading ? (
+                <div className="flex justify-center items-center py-12">
+                  <Loader2 className="w-8 h-8 animate-spin text-[#1a4b8c]" />
+                </div>
+              ) : (
+                <Tabs defaultValue="active" className="w-full">
+                  <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
+                    <TabsTrigger value="active">
+                      Active Notifications ({activeNotifications.length})
+                    </TabsTrigger>
+                    <TabsTrigger value="expired">
+                      Expired Notifications ({expiredNotifications.length})
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <TabsContent value="active">
+                    {activeNotifications.length === 0 ? (
+                      <p className="text-center text-gray-500 py-12">
                       No active notifications
                     </p>
                   ) : (
@@ -396,6 +452,7 @@ export default function AdminNotificationsPage() {
               </Tabs>
             )}
           </div>
+          )}
         </div>
       </div>
 

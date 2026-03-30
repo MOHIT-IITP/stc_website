@@ -1,30 +1,60 @@
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import bcrypt from "bcrypt"
+import connectDB from "./connectdb"
+import User from "../schema/UserSchema"
+import Role from "../schema/RoleSchema"
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        const adminLogin = process.env.ADMIN_LOGIN
-        const adminPassword = process.env.ADMIN_PASSWORD
-        
-        if (
-          credentials?.username === adminLogin &&
-          credentials?.password === adminPassword
-        ) {
-          return {
-            id: "1",
-            name: "Admin",
-            email: "admin@example.com",
-            isAdmin: true
-          }
+        if (!credentials?.email || !credentials?.password) {
+          return null
         }
-        return null
+
+        try {
+          await connectDB()
+          
+          const user = await User.findOne({ 
+            email: credentials.email,
+            isActive: true 
+          }).populate({
+            path: 'roleId',
+            model: Role,
+            select: 'name permissions isActive'
+          })
+
+          if (!user || !user.roleId || !user.roleId.isActive) {
+            return null
+          }
+
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.hashedPassword)
+          if (!isPasswordValid) {
+            return null
+          }
+
+          await User.findByIdAndUpdate(user._id, { lastLoginAt: new Date() })
+
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: {
+              id: user.roleId._id.toString(),
+              name: user.roleId.name,
+              permissions: user.roleId.permissions
+            }
+          }
+        } catch (error) {
+          console.error('Auth error:', error)
+          return null
+        }
       }
     })
   ],
@@ -32,16 +62,28 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
+  session: {
+    strategy: 'jwt',
+    maxAge: 1 * 24 * 60 * 60, 
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.isAdmin = (user as { isAdmin?: boolean }).isAdmin
+        token.userId = user.id
+        token.role = user.role
+        token.permissions = user.role.permissions
       }
       return token
     },
     async session({ session, token }) {
-      if (session?.user) {
-        (session.user as { isAdmin?: boolean }).isAdmin = token.isAdmin as boolean | undefined
+      if (session?.user && token) {
+        session.user.id = token.userId as string
+        session.user.role = token.role as {
+          id: string
+          name: string
+          permissions: string[]
+        }
+        session.user.permissions = token.permissions as string[]
       }
       return session
     },

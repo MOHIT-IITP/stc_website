@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { checkPermission, permissionDeniedResponse, UserSession } from '@/lib/permissions';
 import connectDB from '@/lib/connectdb';
 import RegistrationSubmission from '@/schema/RegistrationSubmissionSchema';
 
-// GET all submissions with optional filters
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions) as UserSession | null;
     if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!checkPermission(session, 'registrations.read')) {
+      return NextResponse.json(permissionDeniedResponse('registrations.read'), { status: 403 });
     }
 
     await connectDB();
@@ -28,27 +33,30 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(submissions);
   } catch (error) {
     console.error('Error fetching submissions:', error);
-    return NextResponse.json({ error: 'Failed to fetch submissions' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Failed to fetch submissions' }, { status: 500 });
   }
 }
 
-// PUT - Update submission status
 export async function PUT(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions) as UserSession | null;
     if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!checkPermission(session, 'registrations.update')) {
+      return NextResponse.json(permissionDeniedResponse('registrations.update'), { status: 403 });
     }
 
     await connectDB();
     const { id, status } = await request.json();
 
     if (!id || !status) {
-      return NextResponse.json({ error: 'Submission ID and status are required' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Submission ID and status are required' }, { status: 400 });
     }
 
     if (!['pending', 'approved', 'rejected'].includes(status)) {
-      return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Invalid status' }, { status: 400 });
     }
 
     const submission = await RegistrationSubmission.findByIdAndUpdate(
@@ -58,22 +66,25 @@ export async function PUT(request: NextRequest) {
     );
 
     if (!submission) {
-      return NextResponse.json({ error: 'Submission not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Submission not found' }, { status: 404 });
     }
 
     return NextResponse.json(submission);
   } catch (error) {
     console.error('Error updating submission:', error);
-    return NextResponse.json({ error: 'Failed to update submission' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Failed to update submission' }, { status: 500 });
   }
 }
 
-// DELETE - Delete submission
 export async function DELETE(request: NextRequest) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions) as UserSession | null;
     if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
+    if (!checkPermission(session, 'registrations.delete')) {
+      return NextResponse.json(permissionDeniedResponse('registrations.delete'), { status: 403 });
     }
 
     await connectDB();
@@ -81,18 +92,18 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json({ error: 'Submission ID required' }, { status: 400 });
+      return NextResponse.json({ success: false, error: 'Submission ID required' }, { status: 400 });
     }
 
     const submission = await RegistrationSubmission.findByIdAndDelete(id);
 
     if (!submission) {
-      return NextResponse.json({ error: 'Submission not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Submission not found' }, { status: 404 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting submission:', error);
-    return NextResponse.json({ error: 'Failed to delete submission' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Failed to delete submission' }, { status: 500 });
   }
 }

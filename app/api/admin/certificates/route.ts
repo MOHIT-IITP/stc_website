@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import { checkPermission, permissionDeniedResponse, UserSession } from '@/lib/permissions';
 import connectDB from '@/lib/connectdb';
 import Certificate from '@/schema/cretificateSchema';
 
@@ -12,20 +14,33 @@ function generateCertificateId(): string {
 
 export async function GET() {
     try {
+        const session = await getServerSession(authOptions) as UserSession | null;
+        if (!session) {
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
+        if (!checkPermission(session, 'certificates.read')) {
+            return NextResponse.json(permissionDeniedResponse('certificates.read'), { status: 403 });
+        }
+
         await connectDB();
         const certificates = await Certificate.find().sort({ createdAt: -1 });
         return NextResponse.json(certificates);
     } catch (error) {
         console.error('Error fetching certificates:', error);
-        return NextResponse.json({ error: 'Failed to fetch certificates' }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Failed to fetch certificates' }, { status: 500 });
     }
 }
 
 export async function POST(request: NextRequest) {
     try {
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions) as UserSession | null;
         if (!session) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
+        if (!checkPermission(session, 'certificates.create')) {
+            return NextResponse.json(permissionDeniedResponse('certificates.create'), { status: 403 });
         }
 
         await connectDB();
@@ -35,7 +50,7 @@ export async function POST(request: NextRequest) {
         if (certificateId) {
             const exists = await Certificate.findOne({ CertificateId: certificateId });
             if (exists) {
-                return NextResponse.json({ error: 'Certificate ID already exists' }, { status: 409 });
+                return NextResponse.json({ success: false, error: 'Certificate ID already exists' }, { status: 409 });
             }
         } else {
             certificateId = generateCertificateId();
@@ -45,8 +60,6 @@ export async function POST(request: NextRequest) {
                 exists = await Certificate.findOne({ CertificateId: certificateId });
             }
         }
-
-        console.log('Creating certificate with data:', { ...body, CertificateId: certificateId });
 
         const certificate = await Certificate.create({
             ...body,
@@ -58,15 +71,19 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(certificate, { status: 201 });
     } catch (error) {
         console.error('Error creating certificate:', error);
-        return NextResponse.json({ error: 'Failed to create certificate' }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Failed to create certificate' }, { status: 500 });
     }
 }
 
 export async function PUT(request: NextRequest) {
     try {
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions) as UserSession | null;
         if (!session) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
+        if (!checkPermission(session, 'certificates.update')) {
+            return NextResponse.json(permissionDeniedResponse('certificates.update'), { status: 403 });
         }
 
         await connectDB();
@@ -74,14 +91,14 @@ export async function PUT(request: NextRequest) {
         const id = searchParams.get('id');
 
         if (!id) {
-            return NextResponse.json({ error: 'Certificate ID required' }, { status: 400 });
+            return NextResponse.json({ success: false, error: 'Certificate ID required' }, { status: 400 });
         }
 
         const body = await request.json();
         const existingCertificate = await Certificate.findById(id);
 
         if (!existingCertificate) {
-            return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
+            return NextResponse.json({ success: false, error: 'Certificate not found' }, { status: 404 });
         }
 
         const trimmedCertificateId = body.CertificateId?.trim();
@@ -91,7 +108,7 @@ export async function PUT(request: NextRequest) {
         ) {
             const duplicate = await Certificate.findOne({ CertificateId: trimmedCertificateId });
             if (duplicate) {
-                return NextResponse.json({ error: 'Certificate ID already exists' }, { status: 409 });
+                return NextResponse.json({ success: false, error: 'Certificate ID already exists' }, { status: 409 });
             }
         }
 
@@ -113,15 +130,19 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json(updatedCertificate);
     } catch (error) {
         console.error('Error updating certificate:', error);
-        return NextResponse.json({ error: 'Failed to update certificate' }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Failed to update certificate' }, { status: 500 });
     }
 }
 
 export async function DELETE(request: NextRequest) {
     try {
-        const session = await getServerSession();
+        const session = await getServerSession(authOptions) as UserSession | null;
         if (!session) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
+        if (!checkPermission(session, 'certificates.delete')) {
+            return NextResponse.json(permissionDeniedResponse('certificates.delete'), { status: 403 });
         }
 
         await connectDB();
@@ -129,18 +150,18 @@ export async function DELETE(request: NextRequest) {
         const id = searchParams.get('id');
 
         if (!id) {
-            return NextResponse.json({ error: 'Certificate ID required' }, { status: 400 });
+            return NextResponse.json({ success: false, error: 'Certificate ID required' }, { status: 400 });
         }
 
         const certificate = await Certificate.findByIdAndDelete(id);
 
         if (!certificate) {
-            return NextResponse.json({ error: 'Certificate not found' }, { status: 404 });
+            return NextResponse.json({ success: false, error: 'Certificate not found' }, { status: 404 });
         }
 
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error deleting certificate:', error);
-        return NextResponse.json({ error: 'Failed to delete certificate' }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Failed to delete certificate' }, { status: 500 });
     }
 }

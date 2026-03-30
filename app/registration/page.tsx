@@ -32,7 +32,7 @@ export default function RegistrationsPage() {
 
   useEffect(() => {
     fetchRegistrations();
-  },);
+  }, []);
 
   const fetchRegistrations = async () => {
     try {

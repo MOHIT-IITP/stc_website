@@ -74,7 +74,7 @@ export default function AdminEventsPage() {
 
   useEffect(() => {
     fetchEvents();
-  },);
+  }, []);
 
   const fetchEvents = async () => {
     try {

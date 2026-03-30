@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
 
 function LoginForm() {
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -34,13 +34,13 @@ function LoginForm() {
 
         try {
             const result = await signIn("credentials", {
-                username,
+                email,
                 password,
                 redirect: false,
             })
 
             if (result?.error) {
-                setError("Invalid username or password")
+                setError("Invalid email or password")
             } else {
                 router.push(callbackUrl)
             }
@@ -74,15 +74,15 @@ function LoginForm() {
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="username" className="text-[#0f2a4d] font-medium">
-                                Username
+                            <Label htmlFor="email" className="text-[#0f2a4d] font-medium">
+                                Email
                             </Label>
                             <Input
-                                id="username"
-                                type="text"
-                                placeholder="Enter username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                id="email"
+                                type="email"
+                                placeholder="Enter email address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                                 className="border-gray-300 focus:border-[#0f2a4d] focus:ring-[#0f2a4d]"
                             />

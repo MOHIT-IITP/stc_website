@@ -5,17 +5,23 @@ import Notifications from '@/schema/NotificationsSchema'
 import RegistrationTemplate from '@/schema/RegistrationTemplateSchema'
 import RegistrationSubmission from '@/schema/RegistrationSubmissionSchema'
 import CompetitionResult from '@/schema/CompetitionResultSchema'
-import Xenith from '@/schema/XenithSchema'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { checkPermission, permissionDeniedResponse, UserSession } from '@/lib/permissions'
 
 export async function GET() {
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions) as UserSession | null
     if (!session) {
         return NextResponse.json(
             { success: false, error: 'Unauthorized' },
             { status: 401 }
         )
     }
+
+    if (!checkPermission(session, 'dashboard.read')) {
+        return NextResponse.json(permissionDeniedResponse('dashboard.read'), { status: 403 })
+    }
+
     try {
         await connectDB()
         const EventsCount = await Events.countDocuments()
@@ -24,15 +30,12 @@ export async function GET() {
         const RegistrationSubmissionsCount = await RegistrationSubmission.countDocuments()
         const CompetitionResultsCount = await CompetitionResult.countDocuments()
 
-        const techHuntResultsCount = await Xenith.countDocuments()
-
         const stats = {
             events: EventsCount,
             notifications: NotificationsCount,
             registrations: RegistrationFormsCount,
             registrationResponses: RegistrationSubmissionsCount,
             competitionResults: CompetitionResultsCount,
-            techHuntResults: techHuntResultsCount
         }
 
         return NextResponse.json(

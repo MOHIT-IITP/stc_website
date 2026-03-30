@@ -2,8 +2,9 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React, { useState } from 'react'
-import { signOut } from "next-auth/react";
-import { Menu, X } from "lucide-react"
+import { signOut, useSession } from "next-auth/react";
+import { Menu, X } from "lucide-react";
+import { getNavigationPermissions, UserSession } from "@/lib/permissions";
 
 
 const theme = {
@@ -20,23 +21,33 @@ const theme = {
 }
 
 
-const navItems = [
-    { label: "Dashboard", href: "/admin" },
-    { label: "Events", href: "/admin/events" },
-    { label: "Notifications", href: "/admin/notifications" },
-    { label: "Registration", href: "/admin/registration" },
-    { label: "Competitions", href: "/admin/competitions" },
-    { label: "Certificates", href: "/admin/certificates" },
-];
-
 const AdminNav = () => {
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false)
-    const isAdmin = pathname?.startsWith('/admin')
-    if (!isAdmin) return null
+    const [isOpen, setIsOpen] = useState(false);
+    const { data: session } = useSession() as { data: UserSession | null };
+    const isAdmin = pathname?.startsWith('/admin');
+    
+    if (!isAdmin) return null;
+    
+    const navPermissions = getNavigationPermissions(session);
+    
+    const allNavItems = [
+        { label: "Dashboard", href: "/admin", permission: "dashboard" },
+        { label: "Events", href: "/admin/events", permission: "events" },
+        { label: "Notifications", href: "/admin/notifications", permission: "notifications" },
+        { label: "Registration", href: "/admin/registration", permission: "registrations" },
+        { label: "Competitions", href: "/admin/competitions", permission: "competitions" },
+        { label: "Certificates", href: "/admin/certificates", permission: "certificates" },
+        { label: "Users", href: "/admin/users", permission: "users" },
+        { label: "Roles", href: "/admin/roles", permission: "roles" },
+    ];
+    
+    const navItems = allNavItems.filter(item => 
+        navPermissions[item.permission as keyof typeof navPermissions]
+    );
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${theme.navBg} py-4 border-b ${theme.border}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo Section */}
                     <Link href="/" className="flex items-center space-x-3 group">
@@ -70,6 +81,16 @@ const AdminNav = () => {
                                 </Link>
                             </div>
                         ))}
+                        
+                        {session?.user && (
+                            <div className="ml-4 flex items-center space-x-3 px-3 py-2 bg-gray-50 rounded-lg">
+                                <div className="text-sm">
+                                    <div className="font-medium text-gray-900">{session.user.name}</div>
+                                    <div className="text-gray-500">{session.user.role.name}</div>
+                                </div>
+                            </div>
+                        )}
+                        
                         <button className="ml-2 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200" onClick={() => signOut({ callbackUrl: '/' })}>
                             Logout
                         </button>
