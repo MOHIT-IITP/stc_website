@@ -90,9 +90,9 @@ const page = () => {
 
         
         <Header
-          title={domains.webwiser.title}
-          subtitle={domains.webwiser.branch}
-          imageUrl={domains.webwiser.cardUrl}
+          title={domains.tatva.webwiser.title}
+          subtitle={domains.tatva.webwiser.branch}
+          imageUrl={domains.tatva.webwiser.cardUrl}
           stats={{
             activeMembers: 150,
             contestsHeld: 24,
@@ -104,7 +104,7 @@ const page = () => {
           fromColor="#4541f7"
           toColor="#c742f6"
           to={{
-            whatsappLink: domains.webwiser.whatsappLink,
+            whatsappLink: domains.tatva.webwiser.whatsappLink,
             direction: 'left'
           }}
           prvDomain='/wings/tatva/subclubs/tech-hub'
@@ -122,9 +122,9 @@ const page = () => {
           }}
         /> */}
         <About 
-          title={domains.webwiser.title}
-          about= {domains.webwiser.description}
-          message={domains.webwiser.message}
+          title={domains.tatva.webwiser.title}
+          about= {domains.tatva.webwiser.description}
+          message={domains.tatva.webwiser.message}
           fromColor= "#4541f7"
           toColor="#c742f6"
           to="left"
@@ -132,7 +132,7 @@ const page = () => {
 
           <Box sx={{ my: 8 }}>
             <MemberSection
-              members={domains.webwiser.team.map((member, index) => ({
+              members={domains.tatva.webwiser.team.map((member, index) => ({
                 id: `member-${index + 1}`,
                 name: member.name,
                 role: member.position,
@@ -159,7 +159,7 @@ const page = () => {
 
         
         {/* <Team
-          teamData={domains.webwiser.team}
+          teamData={domains.tatva.webwiser.team}
         /> */}
         
     </Box>

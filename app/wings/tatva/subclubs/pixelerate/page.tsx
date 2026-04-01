@@ -88,13 +88,13 @@ const page = () => {
         /> */}
 
       <Header
-        title={domains.pixelerate.title}
-        subtitle={domains.pixelerate.branch}
-        imageUrl={domains.pixelerate.cardUrl}
+        title={domains.tatva.pixelerate.title}
+        subtitle={domains.tatva.pixelerate.branch}
+        imageUrl={domains.tatva.pixelerate.cardUrl}
         fromColor="#7b68ee"
         toColor="#4b0082"
         to={{
-          whatsappLink: domains.pixelerate.whatsappLink,
+          whatsappLink: domains.tatva.pixelerate.whatsappLink,
           direction: 'left'
         }}
         prvDomain="/wings/tatva/subclubs/webwiser"
@@ -112,9 +112,9 @@ const page = () => {
           }}
         /> */}
       <About
-        title={domains.pixelerate.title}
-        about={domains.pixelerate.description}
-        message={domains.pixelerate.message}
+        title={domains.tatva.pixelerate.title}
+        about={domains.tatva.pixelerate.description}
+        message={domains.tatva.pixelerate.message}
         fromColor="#7b68ee"
         toColor="#4b0082"
         to="bottom"
@@ -122,7 +122,7 @@ const page = () => {
 
       <Box sx={{ my: 8 }}>
         <MemberSection
-          members={domains.pixelerate.team.map((member, index) => ({
+          members={domains.tatva.pixelerate.team.map((member, index) => ({
             id: `member-${index + 1}`,
             name: member.name,
             role: member.position,

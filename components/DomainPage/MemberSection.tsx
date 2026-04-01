@@ -44,34 +44,43 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
     // For 3 members: 1 column on mobile, 3 on larger screens with wider cards
     if (count === 3)
       return {
-        container: `${baseStyles} max-w-6xl`, // Increased from max-w-5xl to max-w-6xl
-        grid: "grid-cols-1 md:grid-cols-3", // Changed from sm:grid-cols-2 to md:grid-cols-3
-        gap: "gap-6 md:gap-8 lg:gap-10", // Adjusted gaps for better spacing
+        container: `${baseStyles} max-w-6xl`,
+        grid: "grid-cols-1 md:grid-cols-3",
+        gap: "gap-6 md:gap-8 lg:gap-10",
         specialLayout: false,
       };
 
-    // For 4 members: 2 columns on mobile, 4 on larger screens with wider cards
+    // For 4 members: Show all in one row
     if (count === 4)
       return {
-        container: `${baseStyles} max-w-7xl`, // Increased from max-w-6xl to max-w-7xl
-        grid: "grid-cols-2 md:grid-cols-4", // Changed from sm:grid-cols-2 to md:grid-cols-4
-        gap: "gap-4 md:gap-6 lg:gap-8", // Adjusted gaps for better spacing
+        container: `${baseStyles} max-w-7xl`,
+        grid: "grid-cols-2 md:grid-cols-4",
+        gap: "gap-4 md:gap-6 lg:gap-8",
         specialLayout: false,
       };
 
-    // For 5 members: Special layout (2-3)
+    // For 5 members: Special layout (2 top, 3 bottom)
     if (count === 5)
       return {
         container: `${baseStyles} max-w-6xl`,
-        grid: "grid-cols-2 md:grid-cols-3",
+        grid: "grid-cols-1 md:grid-cols-3",
         gap: "gap-4 sm:gap-6",
         specialLayout: true,
       };
 
-    // For 6+ members: 2 columns on mobile, 3 on medium, 4 on large screens
+    // For 6 members: 3 top, 3 bottom
+    if (count === 6)
+      return {
+        container: `${baseStyles} max-w-7xl`,
+        grid: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+        gap: "gap-4 sm:gap-6",
+        specialLayout: true,
+      };
+
+    // For 7+ members: 1 card at a time on mobile, 2 on medium, 3 on large screens
     return {
       container: `${baseStyles} max-w-7xl`,
-      grid: "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+      grid: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
       gap: "gap-4 sm:gap-5",
       specialLayout: false,
     };
@@ -169,7 +178,7 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
 
 const ProfileCard: React.FC<{ member: Member }> = ({ member }) => {
   return (
-    <div className="w-full h-[300px] sm:h-[340px] md:h-[380px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-sky-300/60 to-sky-500/60 shadow-md sm:shadow-lg overflow-hidden relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="w-full h-[300px] sm:h-[340px] md:h-[380px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-gray-300/60 to-gray-500/60 shadow-md sm:shadow-lg overflow-hidden relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       {/* Profile Image - Responsive container with fixed aspect ratio */}
       <div className="relative w-full h-full">
         <Image

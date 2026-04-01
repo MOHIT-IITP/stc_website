@@ -26,13 +26,13 @@ const page = () => {
         /> */}
         
         <Header 
-          title={domains.appistry.title}
-          subtitle= {domains.appistry.branch}
-          imageUrl= {domains.appistry.cardUrl}
+          title={domains.tatva.appistry.title}
+          subtitle= {domains.tatva.appistry.branch}
+          imageUrl= {domains.tatva.appistry.cardUrl}
            fromColor= "#12E7B5"
           toColor="#09A9BB"
           to={{
-            whatsappLink: domains.appistry.whatsappLink,
+            whatsappLink: domains.tatva.appistry.whatsappLink,
             direction: 'left'
           }}
           prvDomain='/wings/tatva/subclubs/pixelerate'
@@ -51,9 +51,9 @@ const page = () => {
         /> */}
         <About
             
-          title={domains.appistry.title}
-          about={domains.appistry.description}
-          message={domains.appistry.message}
+          title={domains.tatva.appistry.title}
+          about={domains.tatva.appistry.description}
+          message={domains.tatva.appistry.message}
           fromColor= "#12E7B5"
           toColor="#09A9BB"
           to=''
@@ -73,7 +73,7 @@ const page = () => {
         /> */}
         <Box sx={{ my: 8 }}>
           <MemberSection
-            members={domains.appistry.team.map((member, index) => ({
+            members={domains.tatva.appistry.team.map((member, index) => ({
             id: `member-${index + 1}`,
             name: member.name,
             role: member.position,

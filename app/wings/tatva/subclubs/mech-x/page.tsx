@@ -84,7 +84,7 @@ const page = () => {
         fromColor="#1E1637"
         toColor="#e51111"
         to={{
-          whatsappLink: domains.mech_x.whatsappLink,
+          whatsappLink: domains.tatva.mech_x.whatsappLink,
           direction: 'left'
         }}
         prvDomain="/wings/tatva/subclubs/tech-hub"
@@ -102,7 +102,7 @@ const page = () => {
 
       <Box sx={{ my: 8 }}>
         <MemberSection
-          members={domains.mech_x.team.map((member, index) => ({
+          members={domains.tatva.mech_x.team.map((member, index) => ({
             id: `member-${index + 1}`,
             name: member.name,
             role: member.position,

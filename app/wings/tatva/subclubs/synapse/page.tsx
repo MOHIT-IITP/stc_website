@@ -90,13 +90,13 @@ const page = () => {
         
         <Header 
         
-          title={domains.synapse.title}
-          subtitle= {domains.synapse.branch}
-          imageUrl= {domains.synapse.cardUrl}
+          title={domains.tatva.synapse.title}
+          subtitle= {domains.tatva.synapse.branch}
+          imageUrl= {domains.tatva.synapse.cardUrl}
           fromColor="#118ce5"
           toColor="#9142f6"
           to={{
-            whatsappLink: domains.synapse.whatsappLink,
+            whatsappLink: domains.tatva.synapse.whatsappLink,
             direction: 'left'
           }}
           prvDomain='/wings/tatva/subclubs/analytical-arena'
@@ -118,9 +118,9 @@ const page = () => {
 
         <About
           
-          title={domains.synapse.title}
-          about={domains.synapse.description}
-          message={domains.synapse.message}
+          title={domains.tatva.synapse.title}
+          about={domains.tatva.synapse.description}
+          message={domains.tatva.synapse.message}
           fromColor= "#118ce5"
           toColor="#9142f6"
           to=''
@@ -128,7 +128,7 @@ const page = () => {
 
                 <Box sx={{ my: 8 }}>
                   <MemberSection
-                    members={domains.synapse.team.map((member, index) => ({
+                    members={domains.tatva.synapse.team.map((member, index) => ({
                     id: `member-${index + 1}`,
                     name: member.name,
                     role: member.position,

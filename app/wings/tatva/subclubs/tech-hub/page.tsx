@@ -28,13 +28,13 @@ const TechHubPage = () => {
 
         
         <Header
-          title={domains.tech_hub.title}
-          subtitle= {domains.tech_hub.branch}
-          imageUrl= {domains.tech_hub.cardUrl}
+          title={domains.tatva.tech_hub.title}
+          subtitle= {domains.tatva.tech_hub.branch}
+          imageUrl= {domains.tatva.tech_hub.cardUrl}
           fromColor="#fcb224"
           toColor="#f3465d"
           to={{
-            whatsappLink: domains.tech_hub.whatsappLink,
+            whatsappLink: domains.tatva.tech_hub.whatsappLink,
             direction: 'left'
           }}
           prvDomain='/wings/tatva/subclubs/codered'
@@ -55,9 +55,9 @@ const TechHubPage = () => {
         /> */}
         <About
           
-          title={domains.tech_hub.title}
-          about={domains.tech_hub.description}
-          message={domains.tech_hub.message}
+          title={domains.tatva.tech_hub.title}
+          about={domains.tatva.tech_hub.description}
+          message={domains.tatva.tech_hub.message}
           fromColor= "fcb224"
           toColor="#f3465d"
           to=''
@@ -65,7 +65,7 @@ const TechHubPage = () => {
 
         <Box sx={{ my: 8 }}>
           <MemberSection
-            members={domains.tech_hub.team.map((member, index) => ({
+            members={domains.tatva.tech_hub.team.map((member, index) => ({
             id: `member-${index + 1}`,
             name: member.name,
             role: member.position,

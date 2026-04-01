@@ -89,13 +89,13 @@ const page = () => {
       /> */}
 
       <Header
-        title={domains.code_red.title}
-        subtitle={domains.code_red.branch}
-        imageUrl={domains.code_red.cardUrl}
+        title={domains.tatva.code_red.title}
+        subtitle={domains.tatva.code_red.branch}
+        imageUrl={domains.tatva.code_red.cardUrl}
         fromColor="#e51111"
         toColor="#1E1637"
         to={{
-          whatsappLink: domains.code_red.whatsappLink,
+          whatsappLink: domains.tatva.code_red.whatsappLink,
           direction: 'left'
         }}
         prvDomain="/wings/tatva/subclubs/hackshield"
@@ -113,9 +113,9 @@ const page = () => {
         }}
       /> */}
       <About
-        title={domains.code_red.title}
-        about={domains.code_red.description}
-        message={domains.code_red.message}
+        title={domains.tatva.code_red.title}
+        about={domains.tatva.code_red.description}
+        message={domains.tatva.code_red.message}
         fromColor="#e51111"
         toColor="#1E1637"
         to=""
@@ -134,7 +134,7 @@ const page = () => {
       /> */}
       <Box sx={{ my: 8 }}>
         <MemberSection
-          members={domains.code_red.team.map((member, index) => ({
+          members={domains.tatva.code_red.team.map((member, index) => ({
           id: `member-${index + 1}`,
           name: member.name,
           role: member.position,

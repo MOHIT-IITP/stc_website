@@ -89,13 +89,13 @@ const page = () => {
       /> */}
 
       <Header
-        title={domains.hackshield.title}
-        subtitle={domains.hackshield.branch}
-        imageUrl={domains.hackshield.cardUrl}
+        title={domains.tatva.hackshield.title}
+        subtitle={domains.tatva.hackshield.branch}
+        imageUrl={domains.tatva.hackshield.cardUrl}
         fromColor="#B53fff"
         toColor="#e590e3"
         to={{
-          whatsappLink: domains.hackshield.whatsappLink,
+          whatsappLink: domains.tatva.hackshield.whatsappLink,
           direction: 'left'
         }}
         prvDomain="/wings/tatva/subclubs/synapse"
@@ -113,9 +113,9 @@ const page = () => {
         }}
       /> */}
       <About
-        title={domains.hackshield.title}
-        about={domains.hackshield.description}
-        message={domains.hackshield.message}
+        title={domains.tatva.hackshield.title}
+        about={domains.tatva.hackshield.description}
+        message={domains.tatva.hackshield.message}
         fromColor="#B53fff"
         toColor="#e590e3"
         to="right"
@@ -134,7 +134,7 @@ const page = () => {
       /> */}
       <Box sx={{ my: 8 }}>
         <MemberSection
-          members={domains.hackshield.team.map((member, index) => ({
+          members={domains.tatva.hackshield.team.map((member, index) => ({
           id: `member-${index + 1}`,
           name: member.name,
           role: member.position,

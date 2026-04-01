@@ -88,13 +88,13 @@ const page = () => {
         /> */}
 
         <Header 
-          title={domains.analytical_arena.title}
-          subtitle={domains.analytical_arena.branch}
-          imageUrl={domains.analytical_arena.cardUrl}
+          title={domains.tatva.analytical_arena.title}
+          subtitle={domains.tatva.analytical_arena.branch}
+          imageUrl={domains.tatva.analytical_arena.cardUrl}
           fromColor="#e5d011"
           toColor="#f64242"
           to={{
-            whatsappLink: domains.analytical_arena.whatsappLink,
+            whatsappLink: domains.tatva.analytical_arena.whatsappLink,
             direction: 'left'
           }}
           prvDomain='/wings/tatva/subclubs/appistry'
@@ -113,9 +113,9 @@ const page = () => {
           }}
         /> */}
         <About
-          title={domains.analytical_arena.title}
-          about={domains.analytical_arena.description}
-          message={domains.analytical_arena.message}
+          title={domains.tatva.analytical_arena.title}
+          about={domains.tatva.analytical_arena.description}
+          message={domains.tatva.analytical_arena.message}
           fromColor= "#e5d011"
           toColor="#f64242"
           to=''
@@ -133,7 +133,7 @@ const page = () => {
         /> */}
         <Box sx={{ my: 8 }}>
           <MemberSection
-            members={domains.analytical_arena.team.map((member, index) => ({
+            members={domains.tatva.analytical_arena.team.map((member, index) => ({
             id: `member-${index + 1}`,
             name: member.name,
             role: member.position,
