@@ -31,6 +31,7 @@ const AppConfig = {
 
       //HackShield
       dikshaHackShield: "/Wings/Tatva/HackShield/diksha.jpg",
+      dikshaSynapse: "/Wings/Tatva/Synapse/diksha.png",
       ripunjay: "/Wings/Tatva/HackShield/ripunjay.jpg",
       suman: "/Wings/Tatva/HackShield/suman.jpg",
       // yash: "/Wings/Tatva/HackShield/yash.jpg",
@@ -63,6 +64,7 @@ const AppConfig = {
       adarsh: "/Wings/Tatva/Mech-X/adarsh.jpeg",
       nidhi: "/Wings/Tatva/Mech-X/nidhi.png",
       vipulMechX: "/Wings/Tatva/Mech-X/vipul.jpeg",
+      adityaMechX: "/Wings/Tatva/Mech-X/aditya.png",
     },
 
     disha: {

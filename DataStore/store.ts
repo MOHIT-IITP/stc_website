@@ -252,14 +252,7 @@ const domains = {
         linkedin: "www.linkedin.com/in/ayesha-rahman01",
         github: "https://github.com/ayesha-rahman01",
       },
-      {
-        name: "Saisworup Rout",
-        position: "Sub-Coordinator",
-        imgUrl: AppConfig.imageUrls.tatva.Saisworup,
-        email: "saisworup_ua2504cdh142@iitp.ac.in",
-        linkedin: "https://www.linkedin.com/in/saisworuprout/",
-        github: "https://github.com/saisworuprout",
-      },
+      
       {
         name: "Astitva Verma",
         position: "Member",
@@ -364,6 +357,14 @@ const domains = {
         linkedin: "https://www.linkedin.com/in/sara-sinha-547a58369",
         github: "https://github.com/sarasinha1207",
       },
+      {
+        name: "Diksha Sharma",
+        position: "Member",
+        imgUrl: AppConfig.imageUrls.tatva.dikshaSynapse,
+        email: "diksha_ua2504cdh62@iitp.ac.in",
+        linkedin: "https://www.linkedin.com/in/diksha-sharma-25643a374",
+        github: "",
+      },
     ],
   },
 
@@ -460,15 +461,7 @@ const domains = {
         linkedin: "https://www.linkedin.com/in/diksha-ballav-a79049312/",
         github: "https://github.com/DikshaBallav",
       },
-      {
-        name: "Aditya Raj",
-        position: "Member",
-        imgUrl: AppConfig.imageUrls.tatva.aditya,
-        email: "aditya_24a12res817@iitp.ac.in",
-        linkedin: "https://linkedin.com/in/aditya-raj-354686334",
-        github: "https://github.com/aditya-raj009",
-      },
-    ],
+          ],
   },
 
   hackshield: {
@@ -488,15 +481,7 @@ const domains = {
       //   linkedin: "https://linkedin.com/in/brsrk94",
       //   github: "https://github.com/brsrk94",
       // },
-      {
-        name: "Diksha Sharma",
-        position: "Member",
-        imgUrl: AppConfig.imageUrls.tatva.dikshaHackShield,
-        email: "diksha_ua2504cdh62@iitp.ac.in",
-        linkedin: "https://www.linkedin.com/in/diksha-sharma-25643a374",
-        github: "",
-      },
-      {
+            {
         name: "Ripunjay",
         position: "Member",
         imgUrl: AppConfig.imageUrls.tatva.ripunjay,
@@ -623,6 +608,14 @@ const domains = {
         email: "vipul_us2603cdh73@iitp.ac.in",
         linkedin: "https://www.linkedin.com/in/vipul-krishna-1251062b0/",
         github: "https://github.com/Roxen1449",
+      },
+      {
+        name: "Aditya Raj",
+        position: "Member",
+        imgUrl: AppConfig.imageUrls.tatva.adityaMechX,
+        email: "aditya_24a12res817@iitp.ac.in",
+        linkedin: "https://linkedin.com/in/aditya-raj-354686334",
+        github: "https://github.com/aditya-raj009",
       },
     ],
   },
