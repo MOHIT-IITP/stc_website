@@ -1,23 +1,25 @@
 import { config } from 'dotenv';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 config({ path: path.join(__dirname, '../.env.local') });
 
-import connectDB from '../lib/connectdb';
-import User from '../schema/UserSchema';
-import Role from '../schema/RoleSchema';
+import connectDB from '../lib/connectdb.js';
+import User from '../schema/UserSchema.js';
+import Role from '../schema/RoleSchema.js';
 import bcrypt from 'bcrypt';
 
 async function createInitialAdmin() {
   try {
     await connectDB();
     
-    const existingUsers = await User.find({});
-    if (existingUsers.length > 0) {
-      console.log(' Users already exist in the database. Cannot create initial admin.');
-      console.log(' Use the Users management page to create additional users.');
-      return;
-    }
+    // const existingUsers = await User.find({});
+    // if (existingUsers.length > 0) {
+    //   console.log(' Users already exist in the database. Cannot create initial admin.');
+    //   console.log(' Use the Users management page to create additional users.');
+    //   return;
+    // }
 
     const superAdminRole = await Role.findOne({ name: 'Super Admin' });
     if (!superAdminRole) {
@@ -72,14 +74,12 @@ async function createInitialAdmin() {
 
 export { createInitialAdmin };
 
-if (require.main === module) {
-  createInitialAdmin()
-    .then(() => {
-      console.log('Script completed successfully');
-      process.exit(0);
-    })
-    .catch((error) => {
-      console.error('Script failed:', error);
-      process.exit(1);
-    });
-}
+createInitialAdmin()
+  .then(() => {
+    console.log('Script completed successfully');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('Script failed:', error);
+    process.exit(1);
+  });
