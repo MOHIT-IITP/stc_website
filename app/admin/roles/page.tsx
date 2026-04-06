@@ -50,6 +50,16 @@ const AVAILABLE_PERMISSIONS = [
   { id: 'competitions.update', label: 'Competitions - Update', category: 'Competitions' },
   { id: 'competitions.delete', label: 'Competitions - Delete', category: 'Competitions' },
   
+  { id: 'resources.read', label: 'Resources - Read', category: 'Resources' },
+  { id: 'resources.create', label: 'Resources - Create', category: 'Resources' },
+  { id: 'resources.update', label: 'Resources - Update', category: 'Resources' },
+  { id: 'resources.delete', label: 'Resources - Delete', category: 'Resources' },
+  
+  { id: 'clubs.read', label: 'Clubs - Read', category: 'Club Management' },
+  { id: 'clubs.create', label: 'Clubs - Create', category: 'Club Management' },
+  { id: 'clubs.update', label: 'Clubs - Update', category: 'Club Management' },
+  { id: 'clubs.delete', label: 'Clubs - Delete', category: 'Club Management' },
+  
   { id: 'users.read', label: 'Users - Read', category: 'User Management' },
   { id: 'users.create', label: 'Users - Create', category: 'User Management' },
   { id: 'users.update', label: 'Users - Update', category: 'User Management' },

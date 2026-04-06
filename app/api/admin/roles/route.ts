@@ -152,7 +152,9 @@ export async function POST(request: NextRequest) {
       'registrations.read', 'registrations.create', 'registrations.update', 'registrations.delete',
       'competitions.read', 'competitions.create', 'competitions.update', 'competitions.delete',
       'users.read', 'users.create', 'users.update', 'users.delete',
-      'roles.read', 'roles.create', 'roles.update', 'roles.delete'
+      'roles.read', 'roles.create', 'roles.update', 'roles.delete',
+      'resources.read', 'resources.create', 'resources.update', 'resources.delete',
+      'clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete'
     ];
 
     const invalidPermissions = permissions.filter((p: string) => !validPermissions.includes(p));

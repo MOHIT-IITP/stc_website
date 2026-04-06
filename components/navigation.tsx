@@ -110,6 +110,7 @@ export function Navigation() {
     { href: "/registration", label: "Registration" },
     { href: "/results", label: "Results" },
     { href: "/gallery", label: "Gallery" },
+    { href: "/resources", label: "Resources" },
   ];
 
   const _handleDownloadBrochure = () => {

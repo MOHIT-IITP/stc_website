@@ -15,6 +15,10 @@ export type Permission =
   | 'users.read' | 'users.create' | 'users.update' | 'users.delete'
   // Role 
   | 'roles.read' | 'roles.create' | 'roles.update' | 'roles.delete'
+  // Resources
+  | 'resources.read' | 'resources.create' | 'resources.update' | 'resources.delete'
+  // Clubs
+  | 'clubs.read' | 'clubs.create' | 'clubs.update' | 'clubs.delete'
 
 export interface UserSession {
   user: {
@@ -36,7 +40,6 @@ export function hasPermission(session: UserSession | null, permission: Permissio
   }
   return session.user.permissions.includes(permission)
 }
-
 
 export function hasAnyPermission(session: UserSession | null, permissions: Permission[]): boolean {
   if (!session?.user?.permissions) {
@@ -110,7 +113,9 @@ export function getNavigationPermissions(session: UserSession | null) {
       registrations: false,
       competitions: false,
       users: false,
-      roles: false
+      roles: false,
+      resources: false,
+      clubs: false
     }
   }
 
@@ -122,7 +127,9 @@ export function getNavigationPermissions(session: UserSession | null) {
     registrations: hasAnyPermission(session, ['registrations.read', 'registrations.create', 'registrations.update', 'registrations.delete']),
     competitions: hasAnyPermission(session, ['competitions.read', 'competitions.create', 'competitions.update', 'competitions.delete']),
     users: hasAnyPermission(session, ['users.read', 'users.create', 'users.update', 'users.delete']),
-    roles: hasAnyPermission(session, ['roles.read', 'roles.create', 'roles.update', 'roles.delete'])
+    roles: hasAnyPermission(session, ['roles.read', 'roles.create', 'roles.update', 'roles.delete']),
+    resources: hasAnyPermission(session, ['resources.read', 'resources.create', 'resources.update', 'resources.delete']),
+    clubs: hasAnyPermission(session, ['clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete'])
   }
 }
 

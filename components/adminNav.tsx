@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React, { useState } from 'react'
 import { signOut, useSession } from "next-auth/react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { getNavigationPermissions, UserSession } from "@/lib/permissions";
 
 
@@ -24,6 +24,7 @@ const theme = {
 const AdminNav = () => {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const { data: session } = useSession() as { data: UserSession | null };
     const isAdmin = pathname?.startsWith('/admin');
     
@@ -38,6 +39,8 @@ const AdminNav = () => {
         { label: "Registration", href: "/admin/registration", permission: "registrations" },
         { label: "Competitions", href: "/admin/competitions", permission: "competitions" },
         { label: "Certificates", href: "/admin/certificates", permission: "certificates" },
+        { label: "Resources", href: "/admin/resources", permission: "resources" },
+        { label: "Clubs", href: "/admin/clubs", permission: "clubs" },
         { label: "Users", href: "/admin/users", permission: "users" },
         { label: "Roles", href: "/admin/roles", permission: "roles" },
     ];
@@ -45,6 +48,10 @@ const AdminNav = () => {
     const navItems = allNavItems.filter(item => 
         navPermissions[item.permission as keyof typeof navPermissions]
     );
+    
+    const firstFiveItems = navItems.slice(0, 5);
+    const remainingItems = navItems.slice(5);
+    
     return (
         <nav className={`fixed w-full z-50 transition-all duration-300 ${theme.navBg} py-4 border-b ${theme.border}`}>
             <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,11 +75,11 @@ const AdminNav = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-1">
-                        {navItems.map((item) => (
+                        {firstFiveItems.map((item) => (
                             <div key={item.href} className="relative flex items-center">
                                 <Link
                                     href={item.href}
-                                    className={`relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${(item.href === '/' ? pathname === '/' : pathname === item.href)
+                                    className={`relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${(item.href === '/admin' ? pathname === '/admin' : pathname === item.href)
                                         ? `${theme.navActive} font-semibold`
                                         : `${theme.navText} ${theme.navHover}`
                                         }`}
@@ -81,6 +88,40 @@ const AdminNav = () => {
                                 </Link>
                             </div>
                         ))}
+                        
+                        {remainingItems.length > 0 && (
+                            <div className="relative">
+                                <button
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    className={`relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap flex items-center gap-1 ${
+                                        remainingItems.some(item => pathname === item.href)
+                                            ? `${theme.navActive} font-semibold`
+                                            : `${theme.navText} ${theme.navHover}`
+                                    }`}
+                                >
+                                    More
+                                    <ChevronDown className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
+                                {dropdownOpen && (
+                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
+                                        {remainingItems.map((item) => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                className={`block px-4 py-2 text-sm transition-colors ${
+                                                    pathname === item.href
+                                                        ? 'bg-blue-50 text-blue-700 font-medium'
+                                                        : 'text-gray-700 hover:bg-gray-50'
+                                                }`}
+                                                onClick={() => setDropdownOpen(false)}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        )}
                         
                         {session?.user && session.user.role && (
                             <div className="ml-4 flex items-center space-x-3 px-3 py-2 bg-gray-50 rounded-lg">
@@ -121,7 +162,7 @@ const AdminNav = () => {
                         <div key={item.href}>
                             <Link
                                 href={item.href}
-                                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 transform hover:translate-x-1 ${(item.href === '/' ? pathname === '/' : pathname.startsWith(item.href))
+                                className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 transform hover:translate-x-1 ${(item.href === '/admin' ? pathname === '/admin' : pathname.startsWith(item.href))
                                     ? `text-${theme.accent}-700 font-bold`
                                     : `text-gray-600 hover:text-${theme.accent}-600`
                                     }`}
