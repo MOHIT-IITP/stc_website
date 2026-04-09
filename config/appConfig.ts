@@ -50,6 +50,8 @@ const AppConfig = {
       diksha: "/Wings/Tatva/Analytical Arena/diksha.png",
       reshma: "/Wings/Tatva/Analytical Arena/reshma.png",
       suyash: "/Wings/Tatva/Analytical Arena/suyash.png",
+      tisha: "/Wings/Tatva/Analytical Arena/TishaDutta.jpg",
+      tripti: "/Wings/Tatva/Analytical Arena/Tripti.jpeg",
 
       //CodeRed
       RonakDokania: "/Wings/Tatva/Codered/RonakDokania.jpg",
