@@ -2,11 +2,8 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { Navigation } from "@/components/navigation"
-import { FooterWrapper } from "@/components/footer-wrapper"
-import VideoTransition from "@/components/video-transition"
+import { LayoutWrapper } from "@/components/layout-wrapper"
 import { SessionWrapper } from "@/lib/SessionWrapper"
-import AdminNav from "@/components/adminNav"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -298,13 +295,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans antialiased overflow-x-hidden`}>
         <SessionWrapper>
-          <VideoTransition>
-            <Navigation />
-            <AdminNav />
-            <div className="Mandeep Nagar"></div> {/* Isko remove mt krna, bhaichara ki ksm. */}
-            <main className="min-h-screen">{children}</main>
-            <FooterWrapper />
-          </VideoTransition>
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
         </SessionWrapper>
       </body>
     </html>
