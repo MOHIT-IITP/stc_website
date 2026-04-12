@@ -95,20 +95,24 @@ export function HeroSection() {
 
 				<div className="flex justify-center">
 					<Link
-						href="/xenith"
-						className="group relative inline-flex items-center gap-3 px-8 py-4 mt-4 bg-gradient-to-br from-[#1a1a2e]/80 to-[#0f0f1e]/80 backdrop-blur-xl rounded-xl border-2 border-[#ba9efe]/30 hover:border-[#ba9efe] shadow-2xl shadow-[#ba9efe]/20 hover:shadow-[#ba9efe]/40 transition-all duration-500 hover:scale-105"
+						href="/phoenix"
+						aria-label="Open Phoenix event page"
+						className="group relative mt-4 inline-flex items-center justify-center overflow-hidden rounded-2xl border border-emerald-200/20 bg-[linear-gradient(145deg,rgba(13,36,31,0.96),rgba(5,16,14,0.96))] px-5 py-4 shadow-[0_12px_35px_rgba(4,18,16,0.6)] ring-1 ring-emerald-300/15 transition-all duration-500 hover:-translate-y-0.5 hover:border-emerald-200/45 hover:shadow-[0_16px_45px_rgba(20,115,96,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200/60"
 					>
-						<div className="absolute inset-0 bg-gradient-to-br from-[#ba9efe]/0 via-[#ba9efe]/0 to-[#ba9efe]/0 group-hover:from-[#ba9efe]/10 group-hover:via-[#ba9efe]/5 group-hover:to-transparent rounded-xl transition-all duration-500"></div>
+						<div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-300/0 via-emerald-200/0 to-teal-100/0 transition-all duration-500 group-hover:from-emerald-300/10 group-hover:via-emerald-200/5 group-hover:to-transparent"></div>
 						
-						<div className="relative flex items-center gap-2">
-							<img src="/xenith/logo.png" alt="Xenith Logo" className="h-8 md:h-10 group-hover:rotate-12 transition-transform duration-500" />
-							<img src="/xenith/xenith.png" alt="Xenith" className="h-4 md:h-5 group-hover:brightness-125 transition-all duration-500" />
+						<div className="relative flex items-center">
+							<img
+								src="/phoenix/typographic logo.png"
+								alt="Phoenix"
+								className="h-30 w-auto object-contain drop-shadow-[0_0_18px_rgba(197,255,238,0.3)] transition-all duration-500 group-hover:brightness-110 sm:h-24 md:h-28"
+							/>
 						</div>
 
-						<div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#ba9efe]/60 rounded-tl-xl"></div>
-						<div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#ba9efe]/60 rounded-br-xl"></div>
+						<div className="absolute -left-1 -top-1 h-4 w-4 rounded-tl-xl border-l-2 border-t-2 border-emerald-200/60"></div>
+						<div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-br-xl border-b-2 border-r-2 border-emerald-200/60"></div>
 						
-						<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#ba9efe]/0 group-hover:bg-[#ba9efe]/5 rounded-xl transition-all duration-500 pointer-events-none"></div>
+						<div className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-emerald-100/0 transition-all duration-500 group-hover:bg-emerald-100/5"></div>
 					</Link>
 				</div>
 			</div>
