@@ -64,7 +64,7 @@ export default function CalendarPage() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("/api/admin/events");
+      const response = await fetch("/api/events");
       if (response.ok) {
         const data = await response.json();
         setEvents(data);
