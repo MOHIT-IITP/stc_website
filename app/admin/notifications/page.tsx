@@ -32,6 +32,8 @@ interface Notification {
   uploadedBy: string;
   redirectLink?: string;
   redirectLabel?: string;
+  redirectLink2?: string;
+  redirectLabel2?: string;
   isImportant: boolean;
   createdAt: string;
   expireAt?: string;
@@ -64,6 +66,8 @@ export default function AdminNotificationsPage() {
     uploadedBy: "",
     redirectLink: "",
     redirectLabel: "",
+    redirectLink2: "",
+    redirectLabel2: "",
     isImportant: false,
     expireAt: "",
   });
@@ -252,6 +256,8 @@ export default function AdminNotificationsPage() {
         : "",
       redirectLink: notification.redirectLink || "",
       redirectLabel: notification.redirectLabel || "",
+      redirectLink2: notification.redirectLink2 || "",
+      redirectLabel2: notification.redirectLabel2 || "",
     });
     setImagePreview(notification.imageUrl || "");
     setDialogOpen(true);
@@ -268,6 +274,8 @@ export default function AdminNotificationsPage() {
       expireAt: "",
       redirectLink: "",
       redirectLabel: "",
+      redirectLink2: "",
+      redirectLabel2: "",
     });
     setEditingNotification(null);
     setImageFile(null);
@@ -531,6 +539,36 @@ export default function AdminNotificationsPage() {
                 value={formData.redirectLabel}
                 onChange={(e) =>
                   setFormData({ ...formData, redirectLabel: e.target.value })
+                }
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Leave empty for permanent notification
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="redirectLink2">Redirect Link 2 (Optional)</Label>
+              <Input
+                id="redirectLink2"
+                type="text"
+                value={formData.redirectLink2}
+                onChange={(e) =>
+                  setFormData({ ...formData, redirectLink2: e.target.value })
+                }
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Leave empty for permanent notification
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="redirectLabel2">Redirect Label 2 (Optional)</Label>
+              <Input
+                id="redirectLabel2"
+                type="text"
+                value={formData.redirectLabel2}
+                onChange={(e) =>
+                  setFormData({ ...formData, redirectLabel2: e.target.value })
                 }
               />
               <p className="text-xs text-gray-500 mt-1">

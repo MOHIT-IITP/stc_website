@@ -44,6 +44,7 @@ interface Event {
   redirectLabel?: string;
   resourcesLink?: string;
   resourcesLabel?: string;
+  showNotification: boolean;
 }
 
 export default function AdminEventsPage() {
@@ -70,6 +71,7 @@ export default function AdminEventsPage() {
     redirectLabel: "",
     resourcesLink: "",
     resourcesLabel: "",
+    showNotification: false,
   });
 
   useEffect(() => {
@@ -229,6 +231,7 @@ export default function AdminEventsPage() {
       redirectLabel: event.redirectLabel || "",
       resourcesLink: event.resourcesLink || "",
       resourcesLabel: event.resourcesLabel || "",
+      showNotification: event.showNotification || false,
     });
     setImagePreview(event.imageUrl || "");
     setDialogOpen(true);
@@ -249,6 +252,7 @@ export default function AdminEventsPage() {
       redirectLabel: "",
       resourcesLink: "",
       resourcesLabel: "",
+      showNotification: false,
     });
     setEditingEvent(null);
     setImageFile(null);
@@ -292,6 +296,11 @@ export default function AdminEventsPage() {
         {event.isImportant && (
           <span className="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
             Important
+          </span>
+        )}
+        {event.showNotification && (
+          <span className="inline-block ml-2 bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+            Notification Shown
           </span>
         )}
       </CardContent>
@@ -570,6 +579,19 @@ export default function AdminEventsPage() {
                 className="w-4 h-4"
               />
               <Label htmlFor="isImportant">Mark as Important</Label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                id="showNotification"
+                type="checkbox"
+                checked={formData.showNotification}
+                onChange={(e) =>
+                  setFormData({ ...formData, showNotification: e.target.checked })
+                }
+                className="w-4 h-4"
+              />
+              <Label htmlFor="showNotification">Show Notification</Label>
             </div>
 
             <div className="flex gap-2 pt-4">

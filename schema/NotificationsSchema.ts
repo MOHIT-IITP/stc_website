@@ -7,6 +7,8 @@ const NotificationsSchema = new Schema({
   imageFileId: String,
   redirectLink: String,
   redirectLabel: String,
+  redirectLink2: String,
+  redirectLabel2: String,
   createdAt: { type: Date, default: Date.now },
   uploadedBy: { type: String, required: true },
   isImportant: { type: Boolean, default: false },

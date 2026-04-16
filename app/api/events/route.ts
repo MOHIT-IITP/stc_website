@@ -6,7 +6,11 @@ export async function GET() {
   try {
     await connectDB();
     const events = await Events.find().sort({ createdAt: -1 });
-    return NextResponse.json(events);
+    const activeEvents = events.filter(event => {
+      if (!event.expireAt) return true; 
+      return new Date(event.expireAt) > new Date(); 
+    });
+    return NextResponse.json(activeEvents);
   } catch (error) {
     console.error('Error fetching events:', error);
     return NextResponse.json({ success: false, error: 'Failed to fetch events' }, { status: 500 });

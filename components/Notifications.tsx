@@ -20,17 +20,36 @@ interface Notification {
   redirectLabel?: string;
 }
 
+interface Event {
+  _id: string;
+  title: string;
+  content: string;
+  imageUrl?: string;
+  createdAt: string;
+  uploadedBy: string;
+  isImportant: boolean;
+  expireAt?: string;
+  redirectLink?: string;
+  redirectLabel?: string;
+  resourcesLink?: string;
+  resourcesLabel?: string;
+  eventDate: string;
+  showNotification: boolean;
+}
+
 const Notifications = () => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchNotifications();
+    fetchEvents();
   }, []);
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch("/api/notification");
+      const response = await fetch("/api/notification"); 
       if (response.ok) {
         const data = await response.json();
         const activeNotifications = data.filter((notif: Notification) => {
@@ -45,6 +64,26 @@ const Notifications = () => {
       setLoading(false);
     }
   };
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch("/api/events");
+      if (response.ok) {
+        const data = await response.json();
+        const activeEvents = data.filter((event: Event) => {
+          if (!event.expireAt) return event.showNotification;
+          return (
+            (event.showNotification) &&
+            new Date(event.expireAt) > new Date()
+          );
+        });
+        setEvents(activeEvents);
+      }
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    }
+  };
+
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -66,6 +105,11 @@ const Notifications = () => {
     }
   };
 
+  const formatEventDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return toIndianDateString(dateString);
+  }
+
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
@@ -74,7 +118,7 @@ const Notifications = () => {
     );
   }
 
-  if (notifications.length === 0) {
+  if (notifications.length === 0 && events.length === 0) {
     return null;
   }
 
@@ -161,6 +205,82 @@ const Notifications = () => {
                 </Card>
               </div>
             ))}
+            {events.map((event) => (
+              <div key={event._id} className="mt-4">
+                <Card
+                  className={`w-[250px] md:w-[360px] h-full flex flex-col rounded-2xl transition-all duration-300 ${
+                    event.isImportant
+                      ? "border border-red-500/20 shadow-red-100 shadow-md bg-white/80"
+                      : "border border-gray-200/70 bg-white/80"
+                  } hover:scale-[1.02]`}
+                >
+                  {event.imageUrl && (
+                    <div className="relative aspect-[4/5]  bg-gray-100">
+                      <Image
+                        src={event.imageUrl}
+                        alt={event.title}
+                        fill
+                        className="object-cover rounded-2xl"
+                      />
+                      {event.isImportant && (
+                        <div className="absolute top-3 right-3">
+                          <Badge
+                            variant="destructive"
+                            className="flex items-center gap-1 bg-green-600 text-white"
+                          >
+                            <AlertCircle className="w-3 h-3" />
+                            Registration Live
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  <CardContent className="p-5 flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-[#0f2a4d] mb-2 line-clamp-2 min-h-[3rem]">
+                        {event.title}
+                      </h3>
+                      <p className="text-sm text-gray-700 mb-4 leading-relaxed line-clamp-3">
+                        {event.content}
+                      </p>
+                    </div>
+                    <div className="md:flex items-center justify-between">
+                    {event.redirectLink && (
+                      <div className="pb-4">
+                        <Link
+                          href={event.redirectLink}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          className="inline-flex border border-gray-300/20 px-4 py-2 rounded-xl bg-blue-100 hover:bg-blue-500 hover:text-white items-center gap-1 text-sm text-blue-600  font-medium transition-colors"
+                        >
+                          {event.redirectLabel || "Learn More"}
+                        </Link>
+                      </div>
+                    )}
+                    {event.resourcesLink && (
+                      <div className="pb-4">
+                        <Link
+                          href={event.resourcesLink}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          className="inline-flex border border-gray-300/20 px-4 py-2 rounded-xl bg-blue-100 hover:bg-blue-500 hover:text-white items-center gap-1 text-sm text-blue-600  font-medium transition-colors"
+                          >
+                          {event.resourcesLabel || "Learn More"}
+                        </Link>
+                      </div>
+                    )}
+                    </div>
+                    <div className="pt-3 border-t border-gray-200 flex items-center text-xs text-gray-500 mt-auto">
+                      <Clock className="w-3.5 h-3.5 mr-1" />
+                      <p>Event start at: </p>
+                      <span>{formatEventDate(event.eventDate)}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))
+            }
           </div>
         </div>
 

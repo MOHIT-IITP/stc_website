@@ -236,7 +236,7 @@ export default function EventsPage() {
 
   const fetchUpcomingEvents = async () => {
     try {
-      const response = await fetch("/api/admin/events");
+      const response = await fetch("/api/events");
       if (response.ok) {
         const data = await response.json();
         const now = new Date();

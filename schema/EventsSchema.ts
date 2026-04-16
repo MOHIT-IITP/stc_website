@@ -15,6 +15,7 @@ const EventsSchema = new Schema({
   redirectLabel: String,
   resourcesLink: String,
   resourcesLabel: String,
+  showNotification: { type: Boolean, default: false },
   expireAt: Date,
 });
 

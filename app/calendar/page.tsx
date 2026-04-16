@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { toIndianDateString, toIndianDateTimeString } from "@/lib/formatDate";
+import Link from "next/link";
 
 const MONTHS = [
   "January",
@@ -46,6 +47,8 @@ interface Event {
   eventDate: string;
   expireAt?: string;
   imageUrl?: string;
+  redirectLink?: string;
+  redirectLabel?: string;
   isImportant?: boolean;
   createdAt: string;
 }
@@ -301,6 +304,13 @@ export default function CalendarPage() {
                       <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-bold">
                         IMPORTANT
                       </div>
+                    )}
+                    {event.redirectLink && (
+                      <Link href={event.redirectLink} rel="noopener noreferrer">
+                      <div className="absolute top-13 right-2 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-bold">
+                        {event.redirectLabel || "Learn More"}
+                      </div>
+                      </Link>
                     )}
                     {isExpired(event) && (
                       <div className="absolute top-2 left-2 bg-gray-600 text-white text-xs px-3 py-1 rounded-full">
