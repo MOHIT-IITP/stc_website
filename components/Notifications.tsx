@@ -30,7 +30,7 @@ const Notifications = () => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch("/api/admin/notifications");
+      const response = await fetch("/api/notification");
       if (response.ok) {
         const data = await response.json();
         const activeNotifications = data.filter((notif: Notification) => {

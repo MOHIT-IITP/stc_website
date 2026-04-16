@@ -36,7 +36,7 @@ export default function RegistrationsPage() {
 
   const fetchRegistrations = async () => {
     try {
-      const response = await fetch("/api/admin/registration-templates");
+      const response = await fetch("/api/registration");
       if (response.ok) {
         const data = await response.json();
         // Only show active forms
