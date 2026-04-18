@@ -24,7 +24,7 @@ export function HeroSection() {
         src="/phoenix/bg2.png"
         alt="Hero Blur Overlay"
         fill
-        className="absolute inset-0 z-5  object-cover object-center opacity-60 "
+        className="absolute inset-0 z-5  object-cover object-center opacity-30 "
       />
 
       {/* Gradient Overlay */}
