@@ -141,6 +141,13 @@ const AppConfig = {
       shourya: "/Management/Sponsor/Shourya.jpg",
     },
 
+
+    // phoenix
+
+    // hero-bg: "/phoenix/bg.svg",
+    // topography: "/phoenix/topography.png",
+
+
     // Domains Page Cards
     ArenaBox2: "/DomainCards/Arena.png",
     CodeRedBox2: "/DomainCards/CodeRed.png",
@@ -252,6 +259,9 @@ const AppConfig = {
     // Session13: "/images/Session&Webinar/Session13.jpeg",
     // Session14: "/images/Session&Webinar/Session14.jpeg",
     // Session15: "/images/Session&Webinar/Session15.jpeg",
+
+    
+
   },
 };
 export default AppConfig;
