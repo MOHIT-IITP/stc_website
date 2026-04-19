@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AppConfig from "@/config/appConfig";
 
 export function HeroSection() {
   const navItems = [
@@ -13,14 +14,14 @@ export function HeroSection() {
     <section className="relative min-h-screen w-full overflow-hidden bg-[#020b09] pt-20">
       {/* Background Image */}
       <Image
-        src="/phoenix/bg.svg"
+src={AppConfig.imageUrls.phoenix.bg}
         alt="Hero Background"
         fill
         priority
         className="absolute inset-0 object-cover object-center z-10"
       />
       {/* <Image
-        src="/phoenix/bg2.svg"
+src={AppConfig.imageUrls.phoenix.bg2}
         alt="Hero Blur Overlay"
         fill
         className="absolute inset-0 z-5  object-cover object-center opacity-30 "
@@ -40,7 +41,7 @@ export function HeroSection() {
       <div className="relative z-30 mx-auto flex min-h-screen w-full max-w-[1188px] flex-col px-6 py-6 text-white sm:px-10 lg:px-12">
         <nav className="fixed top-0 left-0 right-0 z-50 flex h-24 items-center justify-between px-6 sm:px-10 lg:px-12">
           <Image
-            src="/phoenix/logo.png"
+    src={AppConfig.imageUrls.phoenix.logo}
             alt="Phoenix"
             width={124}
             height={124}
@@ -62,7 +63,7 @@ export function HeroSection() {
 
         <div className="flex flex-1 items-center justify-center pb-[12vh] pt-[10vh] sm:pb-[14vh] sm:pt-[10vh] lg:pb-[16vh] lg:pt-[12vh]">
           <Image
-            src="/phoenix/phoenix.svg"
+    src={AppConfig.imageUrls.phoenix.phoenix}
             alt="Hero Text"
             width={900}
             height={400}
@@ -72,7 +73,7 @@ export function HeroSection() {
       </div>
 
       <Image
-        src="/phoenix/stars.svg"
+src={AppConfig.imageUrls.phoenix.stars}
         alt=""
         width={420}
         height={240}

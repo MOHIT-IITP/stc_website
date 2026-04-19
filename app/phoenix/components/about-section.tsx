@@ -1,5 +1,6 @@
 import Image from "next/image";
 import PhoenixBg from "./phoenix-bg";
+import AppConfig from "@/config/appConfig";
 
 export default function AboutSection() {
   return (
@@ -18,7 +19,7 @@ export default function AboutSection() {
         {/* Stars Image - Left Top Corner */}
         <div className="absolute left-0 top-0 hidden lg:flex">
           <img
-            src="/phoenix/stars.svg"
+src={AppConfig.imageUrls.phoenix.stars}
             alt="Stars"
             className="w-64 h-auto opacity-60"
           />
@@ -91,7 +92,7 @@ export default function AboutSection() {
           {/* LOGO GRAPHIC (Right) */}
           <div className="flex justify-center items-center relative scale-90 md:scale-100">
             <img
-              src="./phoenix/aboutLogo.svg"
+src={AppConfig.imageUrls.phoenix.aboutLogo}
               alt="Phoenix Logo"
               className="w-full max-w-[380px] h-auto object-contain drop-shadow-[0_0_15px_rgba(183,228,199,0.2)]"
             />

@@ -1,3 +1,5 @@
+import AppConfig from "@/config/appConfig";
+
 export default function PhoenixBg() {
   return (
     <>
@@ -6,7 +8,7 @@ export default function PhoenixBg() {
         aria-hidden
         className="pointer-events-none fixed inset-0 z-5"
         style={{
-          backgroundImage: "url('/phoenix/about-gradient.svg')",
+          backgroundImage: `url('${AppConfig.imageUrls.phoenix.aboutGradient}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -19,7 +21,7 @@ export default function PhoenixBg() {
         aria-hidden
         className="pointer-events-none fixed inset-0 z-6"
         style={{
-          backgroundImage: "url('/phoenix/about-stars.svg')",
+          backgroundImage: `url('${AppConfig.imageUrls.phoenix.aboutStars}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

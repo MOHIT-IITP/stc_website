@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import PhoenixBg from "./phoenix-bg";
+import AppConfig from "@/config/appConfig";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -126,7 +127,7 @@ export default function ContactSection() {
             {/* Background image */}
             <div className="absolute inset-0">
               <img
-                src="/phoenix/contact-section.svg"
+src={AppConfig.imageUrls.phoenix.contactSection}
                 alt="Contact illustration"
                 className="w-full h-full object-cover"
               />

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // import { Button } from "@/components/ui/button"
 // import { ArrowRight, Users, Award, TrendingUp } from "lucide-react"
 import Link from "next/link";
+import AppConfig from "@/config/appConfig";
 
 const heroImage = "/07.jpg";
 
@@ -114,7 +115,7 @@ export function HeroSection() {
 
             <div className="relative flex items-center">
               <img
-                src="/phoenix/logo.png"
+src={AppConfig.imageUrls.phoenix.logo}
                 alt="Phoenix"
                 className="h-30 w-auto object-contain drop-shadow-[0_0_18px_rgba(197,255,238,0.3)] transition-all duration-500 group-hover:brightness-110 sm:h-24 md:h-28"
               />

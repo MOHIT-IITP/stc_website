@@ -1,4 +1,5 @@
 import PhoenixBg from "./phoenix-bg";
+import AppConfig from "@/config/appConfig";
 
 export default function FeaturedEvents() {
   const events = [
@@ -66,7 +67,7 @@ export default function FeaturedEvents() {
               key={event.id}
               className="relative w-full aspect-[9/13] group cursor-pointer"
               style={{
-                backgroundImage: "url('/phoenix/Eventcard.svg')",
+                backgroundImage: `url('${AppConfig.imageUrls.phoenix.eventcard}')`,
                 backgroundSize: "contain",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",

@@ -141,11 +141,34 @@ const AppConfig = {
       shourya: "/Management/Sponsor/Shourya.jpg",
     },
 
+    phoenix: {
+      // Background Images
+      bg: "/phoenix/bg.svg",
+      bg2: "/phoenix/bg2.svg",
+      bg2png: "/phoenix/bg2.png",
+      
+      // Logo and Branding
+      logo: "/phoenix/logo.png",
+      phoenix: "/phoenix/phoenix.svg",
+      aboutLogo: "/phoenix/aboutLogo.svg",
+      
+      // Background Elements
+      aboutGradient: "/phoenix/about-gradient.svg",
+      aboutStars: "/phoenix/about-stars.svg",
+      stars: "/phoenix/stars.svg",
+      
+      // Section Images
+      eventcard: "/phoenix/Eventcard.svg",
+      contactSection: "/phoenix/contact-section.svg",
+    },
 
-    // phoenix
-
-    // hero-bg: "/phoenix/bg.svg",
-    // topography: "/phoenix/topography.png",
+    // Homepage Images
+    homepage: {
+      // Hero Section
+      heroBackground: "/07.jpg",
+      stcLogo: "/images/stc-logo.jpg",
+    },
+   
 
 
     // Domains Page Cards

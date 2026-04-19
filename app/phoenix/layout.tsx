@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
+import AppConfig from "@/config/appConfig";
 
 const DESCRIPTION = 'Phoenix - Event at IIT Patna by STC Hybrid. Explore innovation, technology, and creativity with workshops, competitions, and guest lectures. Join us to experience the future of tech!  ';
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
         siteName: 'STC',
         images: [
             {
-                url: '/phoenix/Main logo.png',
+                url: AppConfig.imageUrls.phoenix.logo,
                 width: 1200,
                 height: 630,
                 alt: 'Phoenix',
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
         type: 'website',
     },
     icons: {
-        icon: '/phoenix/Main logo.png',
+        icon: AppConfig.imageUrls.phoenix.logo,
     },
     robots: {
         index: true,
