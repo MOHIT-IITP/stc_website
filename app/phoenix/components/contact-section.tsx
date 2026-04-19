@@ -158,7 +158,7 @@ src={AppConfig.imageUrls.phoenix.contactSection}
                           stc_iitp@iitp.ac.in
                         </p>
                         <p className="text-white text-sm font-medium">
-                          tatya@iitp.ac.in
+                          tatva@iitp.ac.in
                         </p>
                         <p className="text-white text-sm font-medium">
                           arthniti@iitp.ac.in
