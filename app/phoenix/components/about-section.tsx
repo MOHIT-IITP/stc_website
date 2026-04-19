@@ -1,56 +1,45 @@
+import Image from "next/image";
+import PhoenixBg from "./phoenix-bg";
+
 export default function AboutSection() {
   return (
     <section
-      className="relative min-h-screen w-screen overflow-hidden text-white font-sans"
+      id="about"
+      className="relative min-h-screen w-screen overflow-hidden text-white font-sans pt-20"
       style={{
         background:
           "radial-gradient(circle at 50% 50%, #0D261C 0%, #05100B 100%)",
       }}
     >
-      {/* SVG gradient overlay */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "url('/phoenix/about-gradient.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.9,
-        }}
-      />
-
-      {/* Background starry layers */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)",
-          backgroundSize: "120px 120px, 60px 60px",
-          backgroundPosition: "0 0, 30px 30px",
-          opacity: 0.6,
-        }}
-      />
+      <PhoenixBg />
 
       {/* Foreground Content */}
       <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-6 py-12 tracking-tight">
+        {/* Stars Image - Left Top Corner */}
+        <div className="absolute left-0 top-0 hidden lg:flex">
+          <img
+            src="/phoenix/stars.svg"
+            alt="Stars"
+            className="w-64 h-auto opacity-60"
+          />
+        </div>
+
         {/* Main Grid: Text and Logo */}
-        <div className="max-w-7xl w-full grid md:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+        <div className="max-w-5xl w-full grid md:grid-cols-[1fr_0.85fr] gap-8 lg:gap-12 items-center">
           {/* CONTENT BOX (Left) */}
-          <div className="relative p-8 md:p-10 rounded-[20px] bg-[#0E211A]/80 backdrop-blur-md border border-white/5 shadow-2xl min-h-[420px] md:min-h-[520px]">
+          <div className="relative p-6 md:p-8 rounded-[20px] bg-[#163031]/80 backdrop-blur-md border border-white/5 shadow-2xl">
             {/* L-Shape Corner accents */}
-            <div className="absolute top-0 left-0 w-16 h-16 border-t-[2px] border-l-[2px] border-[#B7E4C7] rounded-tl-[20px]"></div>
-            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-[2px] border-r-[2px] border-[#B7E4C7] rounded-br-[20px]"></div>
+            <div className="absolute top-0 left-0 w-16 h-16 border-t-[2px] border-l-[2px] border-[#1C3F35] rounded-tl-[20px]"></div>
+            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-[2px] border-r-[2px] border-[#1C3F35] rounded-br-[20px]"></div>
 
             <p
-              className="text-[18px] tracking-normal text-[#D1D5DC]"
+              className="text-[15px] tracking-normal text-[#D1D5DC]"
               style={{
                 fontFamily:
                   'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial',
-                fontWeight: 700,
+                fontWeight: 400,
                 fontStyle: "normal",
-                lineHeight: "29.25px",
+                lineHeight: "24px",
                 verticalAlign: "middle",
                 letterSpacing: "0%",
               }}
@@ -62,13 +51,13 @@ export default function AboutSection() {
             </p>
 
             <p
-              className="text-[18px] tracking-normal text-[#D1D5DC] mt-6"
+              className="text-[15px] tracking-normal text-[#D1D5DC] mt-3"
               style={{
                 fontFamily:
                   'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial',
-                fontWeight: 700,
+                fontWeight: 400,
                 fontStyle: "normal",
-                lineHeight: "29.25px",
+                lineHeight: "24px",
                 verticalAlign: "middle",
                 letterSpacing: "0%",
               }}
@@ -80,13 +69,13 @@ export default function AboutSection() {
             </p>
 
             <p
-              className="text-[18px] tracking-normal text-[#D1D5DC] mt-6"
+              className="text-[15px] tracking-normal text-[#D1D5DC] mt-3"
               style={{
                 fontFamily:
                   'Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial',
-                fontWeight: 700,
+                fontWeight: 400,
                 fontStyle: "normal",
-                lineHeight: "29.25px",
+                lineHeight: "24px",
                 verticalAlign: "middle",
                 letterSpacing: "0%",
               }}
@@ -104,7 +93,7 @@ export default function AboutSection() {
             <img
               src="./phoenix/aboutLogo.svg"
               alt="Phoenix Logo"
-              className="w-full max-w-[500px] h-auto object-contain drop-shadow-[0_0_15px_rgba(183,228,199,0.2)]"
+              className="w-full max-w-[380px] h-auto object-contain drop-shadow-[0_0_15px_rgba(183,228,199,0.2)]"
             />
           </div>
         </div>
@@ -139,9 +128,6 @@ export default function AboutSection() {
           </div>
         </div>
       </div>
-
-      {/* Right Scroll Indicator (Visual only) */}
-      <div className="absolute right-8 top-[56%] -translate-y-1/2 w-1.5 h-16 bg-white/40 rounded-full hidden md:block"></div>
     </section>
   );
 }

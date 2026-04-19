@@ -252,7 +252,13 @@ const domains = {
           linkedin: "www.linkedin.com/in/ayesha-rahman01",
           github: "https://github.com/ayesha-rahman01",
         },
-
+        {
+          name: "Arunesh Kumar",
+          position: "Sub-Coordinator",
+          imgUrl: AppConfig.imageUrls.tatva.arunesh,
+          email: "arunesh_24a12res142@iitp.ac.in",
+          linkedin: "www.linkedin.com/in/arunesh-kumar-19n11m06y",
+        },
         {
           name: "Astitva Verma",
           position: "Member",
@@ -260,6 +266,14 @@ const domains = {
           email: "astitva_ua2504cdh195@iitp.ac.in",
           linkedin: "https://www.linkedin.com/in/astitvaverma/",
           github: "https://github.com/astitvaverma",
+        },
+        {
+          name: "Aditi Dwivedi",
+          position: "Member",
+          imgUrl: AppConfig.imageUrls.tatva.aditi,
+          email: " aditi_ua2503cdh366@iitp.ac.in",
+          linkedin: "https://www.linkedin.com/in/aditi-5071622b1",
+          github: "https://github.com/Aditi11111-IIT",
         },
       ],
     },
@@ -463,21 +477,13 @@ const domains = {
           github: "https://github.com/DikshaBallav",
         },
         {
-          name: "Tripti Kumari",
+          name: "Tripti Rani Kachhap",
           position: "Member",
           imgUrl: AppConfig.imageUrls.tatva.tripti,
           email: "tripti_25s12res179@iitp.ac.in",
           linkedin: "https://www.linkedin.com/in/tripti-rani-kachhap-aa558b340",
           github: "https://github.com/dystopiandust",
         },
-        {
-          name: "Tisha Dutta",
-          position: "Member",
-          imgUrl: AppConfig.imageUrls.tatva.tisha,
-          email: "tisha_24a12res1142@iitp.ac.in",
-          linkedin: "https://www.linkedin.com/in/tishadutta",
-          github: "https://GitHub.com/TishaDutta7",
-        }
       ],
     },
 

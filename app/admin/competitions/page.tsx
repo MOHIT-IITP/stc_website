@@ -1,139 +1,163 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react'
-import AdminNav from '@/components/adminNav'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Card, CardContent } from "@/components/ui/card"
-import { Plus, Trophy, Edit, Trash2, Loader2, Medal, Award } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+import { useState, useEffect } from "react";
+import AdminNav from "@/components/adminNav";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Plus,
+  Trophy,
+  Edit,
+  Trash2,
+  Loader2,
+  Medal,
+  Award,
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CompetitionResult {
-  _id: string
-  name: string
-  collegeMail: string
-  rollNo: string
-  competitionName: string
-  club: string
-  rank: number
-  uploadedBy: string
-  createdAt: string
+  _id: string;
+  name: string;
+  collegeMail: string;
+  rollNo: string;
+  competitionName: string;
+  club: string;
+  rank: number;
+  uploadedBy: string;
+  createdAt: string;
 }
 
 export default function AdminCompetitionsPage() {
-  const [results, setResults] = useState<CompetitionResult[]>([])
-  const [loading, setLoading] = useState(true)
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [editingResult, setEditingResult] = useState<CompetitionResult | null>(null)
-  const { toast } = useToast()
+  const [results, setResults] = useState<CompetitionResult[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingResult, setEditingResult] = useState<CompetitionResult | null>(
+    null,
+  );
+  const { toast } = useToast();
 
   const [formData, setFormData] = useState({
-    name: '',
-    collegeMail: '',
-    rollNo: '',
-    competitionName: '',
-    club: '',
-    rank: '',
-    uploadedBy: '',
-  })
+    name: "",
+    collegeMail: "",
+    rollNo: "",
+    competitionName: "",
+    club: "",
+    rank: "",
+    uploadedBy: "",
+  });
 
   useEffect(() => {
-    fetchResults()
-  },)
+    fetchResults();
+  });
 
   const fetchResults = async () => {
     try {
-      const response = await fetch('/api/admin/competitions')
+      const response = await fetch("/api/admin/competitions");
       if (response.ok) {
-        const data = await response.json()
-        setResults(data)
+        const data = await response.json();
+        setResults(data);
       }
     } catch (error) {
-      console.error('Error fetching results:', error)
+      console.error("Error fetching results:", error);
       toast({
         title: "Error",
         description: "Failed to fetch competition results",
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
       const resultData = {
         ...formData,
         rank: parseInt(formData.rank),
-      }
+      };
 
       const response = editingResult
-        ? await fetch('/api/admin/competitions', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+        ? await fetch("/api/admin/competitions", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: editingResult._id, ...resultData }),
           })
-        : await fetch('/api/admin/competitions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        : await fetch("/api/admin/competitions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(resultData),
-          })
+          });
 
       if (response.ok) {
         toast({
           title: "Success",
-          description: `Competition result ${editingResult ? 'updated' : 'added'} successfully`,
-        })
-        setDialogOpen(false)
-        resetForm()
-        fetchResults()
+          description: `Competition result ${editingResult ? "updated" : "added"} successfully`,
+        });
+        setDialogOpen(false);
+        resetForm();
+        fetchResults();
       } else {
-        throw new Error('Failed to save result')
+        throw new Error("Failed to save result");
       }
     } catch (error) {
-      console.error('Error saving result:', error)
+      console.error("Error saving result:", error);
       toast({
         title: "Error",
-        description: `Failed to ${editingResult ? 'update' : 'add'} competition result`,
-        variant: "destructive"
-      })
+        description: `Failed to ${editingResult ? "update" : "add"} competition result`,
+        variant: "destructive",
+      });
     }
-  }
+  };
 
   const handleDelete = async (result: CompetitionResult) => {
-    if (!confirm('Are you sure you want to delete this competition result?')) return
+    if (!confirm("Are you sure you want to delete this competition result?"))
+      return;
 
     try {
       const response = await fetch(`/api/admin/competitions?id=${result._id}`, {
-        method: 'DELETE',
-      })
+        method: "DELETE",
+      });
 
       if (response.ok) {
         toast({
           title: "Success",
           description: "Competition result deleted successfully",
-        })
-        fetchResults()
+        });
+        fetchResults();
       } else {
-        throw new Error('Failed to delete result')
+        throw new Error("Failed to delete result");
       }
     } catch (error) {
-      console.error('Error deleting result:', error)
+      console.error("Error deleting result:", error);
       toast({
         title: "Error",
         description: "Failed to delete competition result",
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     }
-  }
+  };
 
   const handleEdit = (result: CompetitionResult) => {
-    setEditingResult(result)
+    setEditingResult(result);
     setFormData({
       name: result.name,
       collegeMail: result.collegeMail,
@@ -142,54 +166,80 @@ export default function AdminCompetitionsPage() {
       club: result.club,
       rank: result.rank.toString(),
       uploadedBy: result.uploadedBy,
-    })
-    setDialogOpen(true)
-  }
+    });
+    setDialogOpen(true);
+  };
 
   const resetForm = () => {
     setFormData({
-      name: '',
-      collegeMail: '',
-      rollNo: '',
-      competitionName: '',
-      club: '',
-      rank: '',
-      uploadedBy: '',
-    })
-    setEditingResult(null)
-  }
+      name: "",
+      collegeMail: "",
+      rollNo: "",
+      competitionName: "",
+      club: "",
+      rank: "",
+      uploadedBy: "",
+    });
+    setEditingResult(null);
+  };
 
   const getRankBadge = (rank: number) => {
-    if (rank === 1) return <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold"><Trophy className="w-4 h-4" /> 1st Place</span>
-    if (rank === 2) return <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold"><Medal className="w-4 h-4" /> 2nd Place</span>
-    if (rank === 3) return <span className="inline-flex items-center gap-1 bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold"><Award className="w-4 h-4" /> 3rd Place</span>
-    return <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Rank {rank}</span>
-  }
+    if (rank === 1)
+      return (
+        <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">
+          <Trophy className="w-4 h-4" /> 1st Place
+        </span>
+      );
+    if (rank === 2)
+      return (
+        <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold">
+          <Medal className="w-4 h-4" /> 2nd Place
+        </span>
+      );
+    if (rank === 3)
+      return (
+        <span className="inline-flex items-center gap-1 bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">
+          <Award className="w-4 h-4" /> 3rd Place
+        </span>
+      );
+    return (
+      <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+        Rank {rank}
+      </span>
+    );
+  };
 
   // Group results by competition
-  const groupedResults = results.reduce((acc, result) => {
-    if (!acc[result.competitionName]) {
-      acc[result.competitionName] = []
-    }
-    acc[result.competitionName].push(result)
-    return acc
-  }, {} as Record<string, CompetitionResult[]>)
+  const groupedResults = results.reduce(
+    (acc, result) => {
+      if (!acc[result.competitionName]) {
+        acc[result.competitionName] = [];
+      }
+      acc[result.competitionName].push(result);
+      return acc;
+    },
+    {} as Record<string, CompetitionResult[]>,
+  );
 
   return (
     <>
       <AdminNav />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-32 pb-12">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-blue-50 pt-32 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h1 className="text-4xl font-bold text-[#0f2a4d] mb-2">Competition Results</h1>
-              <p className="text-lg text-[#1a4b8c]">Publish and manage competition winners</p>
+              <h1 className="text-4xl font-bold text-[#0f2a4d] mb-2">
+                Competition Results
+              </h1>
+              <p className="text-lg text-[#1a4b8c]">
+                Publish and manage competition winners
+              </p>
             </div>
-            <Button 
+            <Button
               onClick={() => {
-                resetForm()
-                setDialogOpen(true)
+                resetForm();
+                setDialogOpen(true);
               }}
               className="bg-[#0f2a4d] hover:bg-[#1a4b8c]"
             >
@@ -207,69 +257,89 @@ export default function AdminCompetitionsPage() {
             ) : results.length === 0 ? (
               <div className="text-center py-12">
                 <Trophy className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                <p className="text-xl text-gray-500">No competition results published yet</p>
+                <p className="text-xl text-gray-500">
+                  No competition results published yet
+                </p>
               </div>
             ) : (
               <div className="space-y-8">
-                {Object.entries(groupedResults).map(([competitionName, competitionResults]) => (
-                  <Card key={competitionName} className="overflow-hidden">
-                    <CardContent className="p-0">
-                      <div className="bg-gradient-to-r from-[#0f2a4d] to-[#1a4b8c] p-6">
-                        <div className="flex items-center gap-3">
-                          <Trophy className="w-6 h-6 text-white" />
-                          <h2 className="text-2xl font-bold text-white">{competitionName}</h2>
+                {Object.entries(groupedResults).map(
+                  ([competitionName, competitionResults]) => (
+                    <Card key={competitionName} className="overflow-hidden">
+                      <CardContent className="p-0">
+                        <div className="bg-linear-to-r from-[#0f2a4d] to-[#1a4b8c] p-6">
+                          <div className="flex items-center gap-3">
+                            <Trophy className="w-6 h-6 text-white" />
+                            <h2 className="text-2xl font-bold text-white">
+                              {competitionName}
+                            </h2>
+                          </div>
+                          <p className="text-sm text-blue-100 mt-2">
+                            Club: {competitionResults[0].club} •{" "}
+                            {competitionResults.length} Winner
+                            {competitionResults.length > 1 ? "s" : ""}
+                          </p>
                         </div>
-                        <p className="text-sm text-blue-100 mt-2">
-                          Club: {competitionResults[0].club} • {competitionResults.length} Winner{competitionResults.length > 1 ? 's' : ''}
-                        </p>
-                      </div>
-                      
-                      <div className="overflow-x-auto">
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead>Rank</TableHead>
-                              <TableHead>Name</TableHead>
-                              <TableHead>Roll No</TableHead>
-                              <TableHead>Email</TableHead>
-                              <TableHead>Published By</TableHead>
-                              <TableHead className="text-right">Actions</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {competitionResults.sort((a, b) => a.rank - b.rank).map((result) => (
-                              <TableRow key={result._id}>
-                                <TableCell>{getRankBadge(result.rank)}</TableCell>
-                                <TableCell className="font-medium">{result.name}</TableCell>
-                                <TableCell>{result.rollNo}</TableCell>
-                                <TableCell className="text-sm text-gray-600">{result.collegeMail}</TableCell>
-                                <TableCell className="text-sm text-gray-600">{result.uploadedBy}</TableCell>
-                                <TableCell className="text-right">
-                                  <div className="flex justify-end gap-2">
-                                    <Button
-                                      onClick={() => handleEdit(result)}
-                                      variant="outline"
-                                      size="sm"
-                                    >
-                                      <Edit className="w-4 h-4" />
-                                    </Button>
-                                    <Button
-                                      onClick={() => handleDelete(result)}
-                                      variant="destructive"
-                                      size="sm"
-                                    >
-                                      <Trash2 className="w-4 h-4" />
-                                    </Button>
-                                  </div>
-                                </TableCell>
+
+                        <div className="overflow-x-auto">
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Rank</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Roll No</TableHead>
+                                <TableHead>Email</TableHead>
+                                <TableHead>Published By</TableHead>
+                                <TableHead className="text-right">
+                                  Actions
+                                </TableHead>
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                            </TableHeader>
+                            <TableBody>
+                              {competitionResults
+                                .sort((a, b) => a.rank - b.rank)
+                                .map((result) => (
+                                  <TableRow key={result._id}>
+                                    <TableCell>
+                                      {getRankBadge(result.rank)}
+                                    </TableCell>
+                                    <TableCell className="font-medium">
+                                      {result.name}
+                                    </TableCell>
+                                    <TableCell>{result.rollNo}</TableCell>
+                                    <TableCell className="text-sm text-gray-600">
+                                      {result.collegeMail}
+                                    </TableCell>
+                                    <TableCell className="text-sm text-gray-600">
+                                      {result.uploadedBy}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                      <div className="flex justify-end gap-2">
+                                        <Button
+                                          onClick={() => handleEdit(result)}
+                                          variant="outline"
+                                          size="sm"
+                                        >
+                                          <Edit className="w-4 h-4" />
+                                        </Button>
+                                        <Button
+                                          onClick={() => handleDelete(result)}
+                                          variant="destructive"
+                                          size="sm"
+                                        >
+                                          <Trash2 className="w-4 h-4" />
+                                        </Button>
+                                      </div>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ),
+                )}
               </div>
             )}
           </div>
@@ -281,10 +351,14 @@ export default function AdminCompetitionsPage() {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>
-              {editingResult ? 'Edit Competition Result' : 'Add Competition Result'}
+              {editingResult
+                ? "Edit Competition Result"
+                : "Add Competition Result"}
             </DialogTitle>
             <DialogDescription>
-              {editingResult ? 'Update competition result details' : 'Fill in the details to add a new competition result'}
+              {editingResult
+                ? "Update competition result details"
+                : "Fill in the details to add a new competition result"}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -293,7 +367,9 @@ export default function AdminCompetitionsPage() {
               <Input
                 id="competitionName"
                 value={formData.competitionName}
-                onChange={(e) => setFormData({ ...formData, competitionName: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, competitionName: e.target.value })
+                }
                 placeholder="e.g., CodeFest 2024"
                 required
               />
@@ -304,7 +380,9 @@ export default function AdminCompetitionsPage() {
               <Input
                 id="club"
                 value={formData.club}
-                onChange={(e) => setFormData({ ...formData, club: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, club: e.target.value })
+                }
                 placeholder="e.g., STC Hybrid"
                 required
               />
@@ -316,7 +394,9 @@ export default function AdminCompetitionsPage() {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Full name"
                   required
                 />
@@ -327,7 +407,9 @@ export default function AdminCompetitionsPage() {
                 <Input
                   id="rollNo"
                   value={formData.rollNo}
-                  onChange={(e) => setFormData({ ...formData, rollNo: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rollNo: e.target.value })
+                  }
                   placeholder="e.g., 2201CS01"
                   required
                 />
@@ -340,7 +422,9 @@ export default function AdminCompetitionsPage() {
                 id="collegeMail"
                 type="email"
                 value={formData.collegeMail}
-                onChange={(e) => setFormData({ ...formData, collegeMail: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, collegeMail: e.target.value })
+                }
                 placeholder="student@iitp.ac.in"
                 required
               />
@@ -354,7 +438,9 @@ export default function AdminCompetitionsPage() {
                   type="number"
                   min="1"
                   value={formData.rank}
-                  onChange={(e) => setFormData({ ...formData, rank: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, rank: e.target.value })
+                  }
                   placeholder="1, 2, 3..."
                   required
                 />
@@ -365,7 +451,9 @@ export default function AdminCompetitionsPage() {
                 <Input
                   id="uploadedBy"
                   value={formData.uploadedBy}
-                  onChange={(e) => setFormData({ ...formData, uploadedBy: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, uploadedBy: e.target.value })
+                  }
                   placeholder="Your name"
                   required
                 />
@@ -386,12 +474,12 @@ export default function AdminCompetitionsPage() {
                 className="flex-1 bg-[#0f2a4d] hover:bg-[#1a4b8c]"
               >
                 <Trophy className="w-4 h-4 mr-2" />
-                {editingResult ? 'Update Result' : 'Add Result'}
+                {editingResult ? "Update Result" : "Add Result"}
               </Button>
             </div>
           </form>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

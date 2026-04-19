@@ -11,10 +11,11 @@ const AppConfig = {
       debojyoti: "/Wings/Tatva/WebWiser/debojyoti.jpeg",
 
       //Pixelerate
-      Saisworup: "/Wings/Tatva/Pixelerate/Saisworup.jpg",
       ayesha: "/Wings/Tatva/Pixelerate/ayesha.png",
       nikhil: "/Wings/Tatva/Pixelerate/nikhil.png",
       astitva: "/Wings/Tatva/Pixelerate/astitva.jpeg",
+      arunesh: "/Wings/Tatva/Pixelerate/arunesh.png",
+      aditi: "/Wings/Tatva/Pixelerate/aditi.jpeg",
 
       //Appistry
       bhaavya: "/Wings/Tatva/Appistry/bhaavya.jpg",
@@ -38,20 +39,19 @@ const AppConfig = {
       // adityaHackShield: "/Wings/Tatva/HackShield/aditya.jpg",
 
       //Tech Hub
-      amarjeet: "/Wings/Tatva/Tech hub/amarjeet.jpg",
-      ambikesh: "/Wings/Tatva/Tech hub/ambikesh.jpg",
-      manas: "/Wings/Tatva/Tech hub/manas.jpg",
-      shreya: "/Wings/Tatva/Tech hub/shreya.JPG",
-      divya: "/Wings/Tatva/Tech hub/divya.png",
+      amarjeet: "/Wings/Tatva/TechHub/amarjeet.jpg",
+      ambikesh: "/Wings/Tatva/TechHub/ambikesh.jpg",
+      manas: "/Wings/Tatva/TechHub/manas.jpg",
+      shreya: "/Wings/Tatva/TechHub/shreya.JPG",
+      divya: "/Wings/Tatva/TechHub/divya.png",
 
       //Analytical Arena
-      aastha: "/Wings/Tatva/Analytical Arena/aastha.png",
-      aditya: "/Wings/Tatva/Analytical Arena/aditya.png",
-      diksha: "/Wings/Tatva/Analytical Arena/diksha.png",
-      reshma: "/Wings/Tatva/Analytical Arena/reshma.png",
-      suyash: "/Wings/Tatva/Analytical Arena/suyash.png",
-      tisha: "/Wings/Tatva/Analytical Arena/TishaDutta.jpg",
-      tripti: "/Wings/Tatva/Analytical Arena/Tripti.jpeg",
+      aastha: "/Wings/Tatva/AnalyticalArena/aastha.png",
+      aditya: "/Wings/Tatva/AnalyticalArena/aditya.png",
+      diksha: "/Wings/Tatva/AnalyticalArena/diksha.png",
+      reshma: "/Wings/Tatva/AnalyticalArena/reshma.png",
+      suyash: "/Wings/Tatva/AnalyticalArena/suyash.png",
+      tripti: "/Wings/Tatva/AnalyticalArena/Tripti.jpeg",
 
       //CodeRed
       RonakDokania: "/Wings/Tatva/Codered/RonakDokania.jpg",
