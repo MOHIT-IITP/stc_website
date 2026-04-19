@@ -53,7 +53,7 @@ const Page = () => {
   useEffect(() => {
     // Set mounted to true on client-side
     setMounted(true);
-    
+
     const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
@@ -67,12 +67,12 @@ const Page = () => {
     // Show confetti after a small delay to ensure proper rendering
     const confettiTimer = setTimeout(() => {
       setShowConfetti(true);
-      
+
       // Hide confetti after 5 seconds
       const hideTimer = setTimeout(() => {
         setShowConfetti(false);
       }, 5000);
-      
+
       return () => clearTimeout(hideTimer);
     }, 300);
 
@@ -105,7 +105,7 @@ const Page = () => {
         top: Math.random() * 100,
         left: Math.random() * 100,
         opacity: Math.random(),
-      }))
+      })),
     );
   }, []);
 
@@ -161,10 +161,14 @@ const Page = () => {
           // Same priority level, sort by date
           if (aPriority === 4) {
             // For past events, newest first
-            return (b._eventDate?.getTime() || 0) - (a._eventDate?.getTime() || 0);
+            return (
+              (b._eventDate?.getTime() || 0) - (a._eventDate?.getTime() || 0)
+            );
           }
           // For all other cases, soonest first
-          return (a._eventDate?.getTime() || 0) - (b._eventDate?.getTime() || 0);
+          return (
+            (a._eventDate?.getTime() || 0) - (b._eventDate?.getTime() || 0)
+          );
         });
 
         setEvents(sortedEvents);
@@ -194,7 +198,7 @@ const Page = () => {
             gravity={0.2}
             colors={["#ba9efe", "#d4b3ff", "#6366f1", "#a78bfa", "#8b5cf6"]}
             onConfettiComplete={() => setShowConfetti(false)}
-            style={{ position: 'fixed', top: 0, left: 0 }}
+            style={{ position: "fixed", top: 0, left: 0 }}
           />
         </div>
       )}
@@ -252,12 +256,25 @@ const Page = () => {
                         <div className="mt-2 md:mt-3 flex items-center justify-center md:justify-start gap-2">
                           <div className="relative flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-gray-600/10 to-gray-700/10 border border-gray-500/20">
                             <span className="relative flex items-center justify-center h-3 w-3">
-                              <svg className="h-2.5 w-2.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              <svg
+                                className="h-2.5 w-2.5 text-green-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={3}
+                                  d="M5 13l4 4L19 7"
+                                />
                               </svg>
                             </span>
                             <span className="text-purple-200 text-xs font-medium">
-                              <span className="font-bold text-white">XENITH 2025</span> was a grand success!
+                              <span className="font-bold text-white">
+                                XENITH 2025
+                              </span>{" "}
+                              was a grand success!
                             </span>
                           </div>
                         </div>
@@ -732,11 +749,11 @@ const Page = () => {
               <div className="relative z-10 container mx-auto px-4 md:px-12 lg:px-20">
                 <div className="text-center mb-12 md:mb-16 pt-4">
                   <div className="flex items-center justify-center gap-3 mb-4">
-                    <div className="h-1 w-8 md:w-12 bg-gradient-to-r from-transparent to-[#ba9efe]"></div>
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#ba9efe] via-[#d4b3ff] to-[#ba9efe] bg-clip-text text-transparent tracking-tight">
+                    <div className="h-1 w-8 md:w-12 bg-gradient-to-r from-transparent to-[#00C984]"></div>
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#00C984] via-[#33D9A0] to-[#00C984] bg-clip-text text-transparent tracking-tight">
                       Our Sponsors
                     </h2>
-                    <div className="h-1 w-8 md:w-12 bg-gradient-to-l from-transparent to-[#ba9efe]"></div>
+                    <div className="h-1 w-8 md:w-12 bg-gradient-to-l from-transparent to-[#00C984]"></div>
                   </div>
                   <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto px-4">
                     Powered by industry leaders who believe in innovation
