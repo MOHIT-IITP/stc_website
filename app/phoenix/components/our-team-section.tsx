@@ -17,126 +17,144 @@ const teamMembers: TeamMember[] = [
     id: 1,
     name: "Sophia Alvarez",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 2,
     name: "Marcus Chen",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 3,
     name: "Priya Nair",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 4,
     name: "James Whitfield",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 5,
     name: "Elena Russo",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 6,
     name: "David Osei",
     role: "Lead",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop&crop=face",
     category: "LEADS",
   },
   {
     id: 7,
     name: "William Baron",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 8,
     name: "Aisha Kamara",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 9,
     name: "Lucas Martins",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 10,
     name: "Mei Lin",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1598550880863-4e8aa3d0edb4?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1598550880863-4e8aa3d0edb4?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 11,
     name: "Ryan O'Sullivan",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 12,
     name: "Fatima Al-Rashid",
     role: "Coordinator",
-    image: "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?w=400&h=600&fit=crop&crop=face",
     category: "COORDINATORS",
   },
   {
     id: 13,
     name: "Noah Fischer",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
   {
     id: 14,
     name: "Amara Diallo",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
   {
     id: 15,
     name: "Kenji Watanabe",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
   {
     id: 16,
     name: "Isabella Torres",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
   {
     id: 17,
     name: "Omar Hassan",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
   {
     id: 18,
     name: "Zoe Campbell",
     role: "Member",
-    image: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=400&h=600&fit=crop&crop=face",
+    image:
+      "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=400&h=600&fit=crop&crop=face",
     category: "MEMBERS",
   },
 ];
@@ -147,7 +165,9 @@ export default function MyTeam() {
   const [activeTab, setActiveTab] = useState<Role>("COORDINATORS");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const filtered = teamMembers.filter((member) => member.category === activeTab);
+  const filtered = teamMembers.filter(
+    (member) => member.category === activeTab,
+  );
   const centeredMember = filtered[activeIndex] ?? filtered[0] ?? null;
 
   const handleTabChange = (tab: Role) => {
@@ -164,13 +184,9 @@ export default function MyTeam() {
   };
 
   return (
-    <section
-      className="relative isolate  z-9 flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden  py-16"
-    >
+    <section className="relative isolate  z-9 flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden  py-16">
       <Starfield />
-      <div
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-[420px] -translate-y-1/2 blur-3xl opacity-80"
-      />
+      <div className="pointer-events-none absolute inset-x-0 top-1/2 h-[420px] -translate-y-1/2 blur-3xl opacity-80" />
 
       <div className="relative z-10 text-center mb-2">
         <h1
@@ -189,7 +205,10 @@ export default function MyTeam() {
         </h1>
         <p
           className="mt-2 text-sm tracking-[0.25em]"
-          style={{ color: "rgba(205,233,221,0.72)", fontFamily: "Inter, system-ui, sans-serif" }}
+          style={{
+            color: "rgba(205,233,221,0.72)",
+            fontFamily: "Inter, system-ui, sans-serif",
+          }}
         >
           The minds behind the magic
         </p>
@@ -222,8 +241,16 @@ export default function MyTeam() {
       </div>
 
       <div className="absolute right-8 top-[40%] z-20 flex gap-3 md:right-10">
-        <NavArrow dir="left" onClick={handlePrev} disabled={activeIndex === 0} />
-        <NavArrow dir="right" onClick={handleNext} disabled={activeIndex >= filtered.length - 1} />
+        <NavArrow
+          dir="left"
+          onClick={handlePrev}
+          disabled={activeIndex === 0}
+        />
+        <NavArrow
+          dir="right"
+          onClick={handleNext}
+          disabled={activeIndex >= filtered.length - 1}
+        />
       </div>
 
       <div className="relative z-10 mt-4 flex w-full max-w-[1200px] items-end justify-center gap-6 px-2 md:gap-8">
@@ -234,13 +261,17 @@ export default function MyTeam() {
               key={offset}
               className="relative shrink-0 transition-all duration-500"
               style={{
-                width: isCenter ? "292px" : "118px",
-                height: isCenter ? "420px" : "334px",
+                width: isCenter ? "420px" : "118px",
+                height: "420px",
                 transform: "translateY(0px)",
                 zIndex: isCenter ? 10 : 1,
               }}
             >
-              {isCenter ? <CenterCard member={centeredMember} /> : <EmptyCard />}
+              {isCenter ? (
+                <CenterCard member={centeredMember} />
+              ) : (
+                <EmptyCard />
+              )}
             </div>
           );
         })}
@@ -318,10 +349,29 @@ function EmptyCard() {
         border: "1px solid rgba(255,255,255,0.82)",
       }}
     >
-      <svg width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="46" height="38" rx="4" stroke="#bfc7c4" strokeWidth="2" />
+      <svg
+        width="48"
+        height="40"
+        viewBox="0 0 48 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="1"
+          y="1"
+          width="46"
+          height="38"
+          rx="4"
+          stroke="#bfc7c4"
+          strokeWidth="2"
+        />
         <circle cx="16" cy="14" r="5" stroke="#bfc7c4" strokeWidth="2" />
-        <path d="M2 32 L14 20 L22 28 L30 18 L46 32" stroke="#bfc7c4" strokeWidth="2" fill="none" />
+        <path
+          d="M2 32 L14 20 L22 28 L30 18 L46 32"
+          stroke="#bfc7c4"
+          strokeWidth="2"
+          fill="none"
+        />
       </svg>
     </div>
   );
@@ -336,9 +386,27 @@ function GoldOrnament() {
       xmlns="http://www.w3.org/2000/svg"
       style={{ zIndex: 5 }}
     >
-      <path d="M100 0 C92 18, 82 34, 98 52 C114 34, 108 18, 100 0Z" stroke="#f1bb63" strokeWidth="1.5" fill="none" opacity="0.85" />
-      <path d="M100 50 C70 60, 30 80, 10 120" stroke="#f1bb63" strokeWidth="1.2" fill="none" opacity="0.7" />
-      <path d="M100 50 C130 60, 170 80, 190 120" stroke="#f1bb63" strokeWidth="1.2" fill="none" opacity="0.7" />
+      <path
+        d="M100 0 C92 18, 82 34, 98 52 C114 34, 108 18, 100 0Z"
+        stroke="#f1bb63"
+        strokeWidth="1.5"
+        fill="none"
+        opacity="0.85"
+      />
+      <path
+        d="M100 50 C70 60, 30 80, 10 120"
+        stroke="#f1bb63"
+        strokeWidth="1.2"
+        fill="none"
+        opacity="0.7"
+      />
+      <path
+        d="M100 50 C130 60, 170 80, 190 120"
+        stroke="#f1bb63"
+        strokeWidth="1.2"
+        fill="none"
+        opacity="0.7"
+      />
     </svg>
   );
 }
@@ -368,11 +436,21 @@ function NavArrow({
     >
       {dir === "left" ? (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M8 2L4 6L8 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <path
+            d="M8 2L4 6L8 10"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
         </svg>
       ) : (
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-          <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <path
+            d="M4 2L8 6L4 10"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
         </svg>
       )}
     </button>
@@ -386,7 +464,8 @@ function Dash() {
         display: "inline-block",
         width: "32px",
         height: "2px",
-        background: "linear-gradient(90deg, transparent, #a8d5b5 30%, rgba(168,213,181,0.95))",
+        background:
+          "linear-gradient(90deg, transparent, #a8d5b5 30%, rgba(168,213,181,0.95))",
         verticalAlign: "middle",
         opacity: 0.8,
       }}

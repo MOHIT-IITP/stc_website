@@ -282,7 +282,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${inter.variable} overflow-x-hidden`}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/images/stc-logo.jpg" type="image/jpeg" />
