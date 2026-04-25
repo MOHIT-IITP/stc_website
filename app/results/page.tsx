@@ -44,6 +44,7 @@ export default function ResultsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedClub, setSelectedClub] = useState<string>("all");
   const [selectedCompetition, setSelectedCompetition] = useState<string>("all");
+  const [lastRefresh, setLastRefresh] = useState(Date.now());
 
   useEffect(() => {
     fetchResults();
@@ -51,15 +52,18 @@ export default function ResultsPage() {
 
   useEffect(() => {
     filterResults();
-  }, [searchQuery, selectedClub, selectedCompetition, results]);
+  }, [searchQuery, selectedClub, selectedCompetition]);
 
   const fetchResults = async () => {
     try {
-      const response = await fetch("/api/admin/competitions");
+      // Add timestamp to force cache refresh
+      const timestamp = Date.now();
+      const response = await fetch(`/api/results?t=${timestamp}`);
       if (response.ok) {
         const data = await response.json();
         setResults(data);
         setFilteredResults(data);
+        setLastRefresh(timestamp);
       }
     } catch (error) {
       console.error("Error fetching results:", error);
@@ -181,66 +185,81 @@ export default function ResultsPage() {
         </div>
 
         {/* Search and Filter Section */}
-        <div className="mb-6 sm:mb-8 space-y-3 max-w-5xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <Input
-              placeholder="Search by name, competition, or roll number..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-11 sm:h-12 border-2 border-gray-200 focus:border-[#1a4b8c] text-sm sm:text-base"
-            />
-          </div>
+        <div className="mb-2 sm:mb-4 max-w-5xl mx-auto">
+          <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
+            <div className="relative">
+              <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400" />
+              <Input
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-7 h-8 border border-gray-200 focus:border-[#1a4b8c] text-xs sm:text-sm w-full sm:w-auto"
+              />
+            </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Select value={selectedClub} onValueChange={setSelectedClub}>
-              <SelectTrigger className="h-11 sm:h-12 border-2 border-gray-200 text-sm sm:text-base flex-1">
-                <Filter className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="All Clubs" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Clubs</SelectItem>
-                {getAvailableClubs().map((club) => (
-                  <SelectItem key={club} value={club}>
-                    {club}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="flex gap-2 sm:gap-2">
+              <Select value={selectedClub} onValueChange={setSelectedClub}>
+                <SelectTrigger className="h-8 border border-gray-200 text-xs sm:text-sm w-24 sm:w-32">
+                  <Filter className="w-3 h-3 mr-1" />
+                  <SelectValue placeholder="Clubs" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Clubs</SelectItem>
+                  {getAvailableClubs().map((club) => (
+                    <SelectItem key={club} value={club}>
+                      {club}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-            <Select
-              value={selectedCompetition}
-              onValueChange={setSelectedCompetition}
-            >
-              <SelectTrigger className="h-11 sm:h-12 border-2 border-gray-200 text-sm sm:text-base flex-2">
-                <Filter className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="All Competitions" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Competitions</SelectItem>
-                {getAvailableCompetitions().map((comp) => (
-                  <SelectItem key={comp} value={comp}>
-                    {comp}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Select
+                value={selectedCompetition}
+                onValueChange={setSelectedCompetition}
+              >
+                <SelectTrigger className="h-8 border border-gray-200 text-xs sm:text-sm w-28 sm:w-36">
+                  <Filter className="w-3 h-3 mr-1" />
+                  <SelectValue placeholder="Comps" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Comps</SelectItem>
+                  {getAvailableCompetitions().map((comp) => (
+                    <SelectItem key={comp} value={comp}>
+                      {comp}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-            {(searchQuery ||
-              selectedClub !== "all" ||
-              selectedCompetition !== "all") && (
+              {(searchQuery ||
+                selectedClub !== "all" ||
+                selectedCompetition !== "all") && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedClub("all");
+                    setSelectedCompetition("all");
+                  }}
+                  className="h-8 px-2 text-xs sm:text-sm border border-gray-200"
+                >
+                  Clear
+                </Button>
+              )}
+
               <Button
                 variant="outline"
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedClub("all");
                   setSelectedCompetition("all");
+                  fetchResults(); // Force refresh
                 }}
-                className="border-2 h-11 sm:h-12 px-4 sm:px-6"
+                className="h-8 px-2 text-xs sm:text-sm border border-gray-200"
               >
-                Clear All
+                ↻
               </Button>
-            )}
+            </div>
           </div>
         </div>
 
