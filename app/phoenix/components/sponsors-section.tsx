@@ -31,44 +31,47 @@ export default function SponsorsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-          {sponsors.map((sponsor, index) => (
-            <div key={index} className="group relative">
-              <div className="relative h-[300px] md:h-[350px] bg-gradient-to-br from-[#1a3a2e]/90 to-[#0f2618]/90 backdrop-blur-sm rounded-2xl overflow-hidden border-2 border-[#1C3F35]/40 transition-all duration-500 hover:border-[#1C3F35] hover:shadow-2xl hover:shadow-[#1C3F35]/40 hover:scale-[1.02]">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1C3F35]/0 via-[#1C3F35]/0 to-[#1C3F35]/0 group-hover:from-[#1C3F35]/20 group-hover:via-[#1C3F35]/10 group-hover:to-transparent transition-all duration-500"></div>
+          <a
+  href="#contact"
+  className="group relative md:col-span-2 lg:col-span-1 cursor-pointer"
+>
+  <div className="relative h-[300px] md:h-[350px] bg-gradient-to-br from-green-400/10 via-emerald-500/10 to-lime-400/5 backdrop-blur-md rounded-xl overflow-hidden border border-green-300/40 transition-all duration-300 hover:shadow-xl hover:shadow-green-400/20 hover:scale-105">
+    
+    <div className="absolute inset-0 bg-gradient-to-br from-green-400/15 via-emerald-500/15 to-lime-400/10 group-hover:from-green-400/25 group-hover:via-emerald-500/25 group-hover:to-lime-400/20 transition-all duration-500"></div>
 
-                {/* Corner decorations */}
-                <div className="absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 border-[#1C3F35] opacity-60 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-[#1C3F35] opacity-60 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-[#1C3F35] opacity-60 group-hover:opacity-100 transition-opacity"></div>
-                <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-[#1C3F35] opacity-60 group-hover:opacity-100 transition-opacity"></div>
+    <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-8">
+      <h3 className="text-xl md:text-2xl font-semibold text-center text-white/90 mb-2 group-hover:text-green-300 transition-colors">
+        Your Brand Here
+      </h3>
 
-                <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-8 pt-20">
-                  <div className="relative mb-4 md:mb-6">
-                    <div className="absolute inset-0 bg-[#1C3F35]/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
-                    <div className="relative w-28 h-28 md:w-36 md:h-36 bg-[#0a3a2a]/60 rounded-2xl flex items-center justify-center backdrop-blur-sm border-2 border-[#1C3F35]/40 group-hover:border-[#1C3F35]/70 transition-all duration-500 overflow-hidden">
-                      <img
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1C3F35]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </div>
-                  </div>
+      <p className="text-white/60 text-xs md:text-sm text-center mb-4 max-w-[240px]">
+        Be part of the xenith. Add yourself as a sponsor and empower the next generation of tech leaders.
+      </p>
 
-                  {/* Company name */}
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 transition-colors duration-300">
-                    {sponsor.name}
-                  </h3>
+      <div className="flex items-center gap-2 text-green-300 font-medium text-sm md:text-base">
+        <span>Become a Sponsor</span>
+        <svg
+          className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 7l5 5m0 0l-5 5m5-5H6"
+          />
+        </svg>
+      </div>
+    </div>
 
-                  <p className="text-gray-400 text-sm md:text-base text-center mb-4 transition-colors">
-                    Official Sponsor
-                  </p>
-                </div>
-
-                <div className="absolute inset-0 rounded-2xl border-2 border-[#1C3F35]/0 group-hover:border-[#1C3F35]/30 group-hover:scale-105 transition-all duration-700"></div>
-              </div>
-            </div>
-          ))}
+    <div className="absolute top-2 left-2 w-3 h-3 md:w-4 md:h-4 border-t border-l border-green-300/50"></div>
+    <div className="absolute top-2 right-2 w-3 h-3 md:w-4 md:h-4 border-t border-r border-green-300/50"></div>
+    <div className="absolute bottom-2 left-2 w-3 h-3 md:w-4 md:h-4 border-b border-l border-green-300/50"></div>
+    <div className="absolute bottom-2 right-2 w-3 h-3 md:w-4 md:h-4 border-b border-r border-green-300/50"></div>
+  </div>
+</a>
         </div>
       </div>
     </div>

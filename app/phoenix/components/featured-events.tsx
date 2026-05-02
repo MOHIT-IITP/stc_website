@@ -1,28 +1,24 @@
+import Image from "next/image";
 import PhoenixBg from "./phoenix-bg";
 import AppConfig from "@/config/appConfig";
 
 export default function FeaturedEvents() {
   const events = [
-    {
-      id: 1,
-      title: "AI Workshop",
-      image: "#",
-    },
-    {
-      id: 2,
-      title: "Web3 Summit",
-      image: "#",
-    },
-    {
-      id: 3,
-      title: "Hackathon",
-      image: "#",
-    },
-    {
-      id: 4,
-      title: "Tech Talk",
-      image: "#",
-    },
+    { id: 1, title: "Event 1", img: '/phoenix/events/event1.png' },
+    { id: 2, title: "Event 2", img: '/phoenix/events/event2.png' },
+    { id: 3, title: "Event 3", img: '/phoenix/events/event3.png' },
+    { id: 4, title: "Event 4", img: '/phoenix/events/event4.png' },
+    { id: 5, title: "Event 5", img: '/phoenix/events/event5.png' },
+    { id: 6, title: "Event 6", img: '/phoenix/events/event6.png' },
+    { id: 7, title: "Event 7", img: '/phoenix/events/event7.png' },
+    { id: 8, title: "Event 8", img: '/phoenix/events/event8.png' },
+    { id: 9, title: "Event 9", img: '/phoenix/events/event9.png' },
+    { id: 10, title: "Event 10", img: '/phoenix/events/event10.png' },
+    { id: 11, title: "Event 11", img: '/phoenix/events/event11.png' },
+    { id: 12, title: "Event 12", img: '/phoenix/events/event12.png' },
+    { id: 13, title: "Event 13", img: '/phoenix/events/event13.png' },
+    { id: 14, title: "Event 14", img: '/phoenix/events/event14.png' },
+    { id: 15, title: "Event 15", img: '/phoenix/events/event15.png' },
   ];
 
   return (
@@ -65,14 +61,16 @@ export default function FeaturedEvents() {
           {events.map((event) => (
             <div
               key={event.id}
-              className="relative w-full aspect-[9/13] group cursor-pointer"
-              style={{
-                backgroundImage: `url('${AppConfig.imageUrls.phoenix.eventcard}')`,
-                backgroundSize: "contain",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div>
+              className="w-full h-110 rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105"
+            >
+              <Image
+                src={event.img}
+                alt={event.title}
+                width={400}
+                height={620}
+                className="w-full h-full object-cover japanese-blur rounded-lg"  
+              />
+            </div>
           ))}
         </div>
       </div>
