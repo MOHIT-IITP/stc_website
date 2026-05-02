@@ -182,7 +182,7 @@ export function Navigation() {
                     (
                       item.href === "/"
                         ? pathname === "/"
-                        : pathname.startsWith(item.href)
+                        : pathname?.startsWith(item.href)
                     )
                       ? `${theme.navActive} font-semibold`
                       : `${theme.navText} ${theme.navHover}`
@@ -211,7 +211,7 @@ export function Navigation() {
             >
               <button
                 className={`relative px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
-                  moreItems.some((item) => pathname.startsWith(item.href))
+                  moreItems.some((item) => pathname?.startsWith(item.href))
                     ? `${theme.navActive} font-semibold`
                     : `${theme.navText} ${theme.navHover}`
                 }`}
@@ -240,7 +240,7 @@ export function Navigation() {
                       key={item.href}
                       href={item.href}
                       className={`block px-4 py-2 text-sm transition-colors ${
-                        pathname.startsWith(item.href)
+                        pathname?.startsWith(item.href)
                           ? `${theme.navActive}`
                           : `text-gray-700 hover:bg-gray-50`
                       }`}
@@ -300,7 +300,7 @@ export function Navigation() {
                 (
                   item.href === "/"
                     ? pathname === "/"
-                    : pathname.startsWith(item.href)
+                    : pathname?.startsWith(item.href)
                 )
                   ? `text-${theme.accent}-700 font-bold`
                   : `text-gray-600 hover:text-${theme.accent}-600`
@@ -321,7 +321,7 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 transform hover:translate-x-1 ${
-                  pathname.startsWith(item.href)
+                  pathname?.startsWith(item.href)
                     ? `text-${theme.accent}-700 font-bold`
                     : `text-gray-600 hover:text-${theme.accent}-600`
                 }`}

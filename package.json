@@ -8,7 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "seed:roles": "tsx scripts/seed-roles.ts",
-    "init:admin": "tsx scripts/init-admin.ts"
+    "init:admin": "tsx scripts/init-admin.ts",
+    "migrate:wings": "tsx scripts/migrate-wings.ts",
+    "migrate:clubs": "tsx scripts/migrate-clubs.ts",
+    "migrate:members": "tsx scripts/migrate-members.ts",
+    "migrate:core-team": "tsx scripts/migrate-core-team.ts",
+    "migrate:council": "tsx scripts/migrate-council-members.ts",
+    "migrate:all": "tsx scripts/migrate-all.ts",
+    "backup:db": "node scripts/backup-mongodb.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

@@ -18,7 +18,7 @@ function LoginForm() {
     const router = useRouter()
     const { data: session } = useSession()
     const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get("callbackUrl") || "/admin"
+    const callbackUrl = searchParams?.get("callbackUrl") || "/admin"
 
     useEffect(() => {
         if (session) {
