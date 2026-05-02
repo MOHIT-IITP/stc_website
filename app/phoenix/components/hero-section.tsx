@@ -24,7 +24,7 @@ src={AppConfig.imageUrls.phoenix.bg}
 src={AppConfig.imageUrls.phoenix.bg2}
         alt="Hero Blur Overlay"
         fill
-        className="absolute inset-0 z-5  object-cover object-center opacity-30 "
+        className="absolute inset-0 z-10 object-cover object-center opacity-30 "
       /> */}
 
       {/* Gradient Overlay */}

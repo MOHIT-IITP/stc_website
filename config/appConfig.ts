@@ -144,8 +144,7 @@ const AppConfig = {
     phoenix: {
       // Background Images
       bg: "/phoenix/bg.svg",
-      bg2: "/phoenix/bg2.svg",
-      bg2png: "/phoenix/bg2.png",
+      bg2: "/phoenix/bg2.png",
       
       // Logo and Branding
       logo: "/phoenix/logo.png",
@@ -153,8 +152,7 @@ const AppConfig = {
       aboutLogo: "/phoenix/aboutLogo.svg",
       
       // Background Elements
-      aboutGradient: "/phoenix/about-gradient.svg",
-      aboutStars: "/phoenix/about-stars.svg",
+
       stars: "/phoenix/stars.svg",
       
       // Section Images

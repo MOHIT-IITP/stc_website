@@ -25,10 +25,10 @@ export default function FeaturedEvents() {
     <section
       id="event"
       className="relative min-h-screen w-screen overflow-hidden text-white font-sans pt-20"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 50%, #0D261C 0%, #05100B 100%)",
-      }}
+      // style={{
+      //   background:
+      //     "radial-gradient(circle at 50% 50%, #0D261C 0%, #05100B 100%)",
+      // }}
     >
       <PhoenixBg />
 
@@ -68,7 +68,7 @@ export default function FeaturedEvents() {
                 alt={event.title}
                 width={400}
                 height={620}
-                className="w-full h-full object-cover japanese-blur rounded-lg"  
+                className="w-full h-full object-cover japanese-blur rounded-xl"  
               />
             </div>
           ))}
