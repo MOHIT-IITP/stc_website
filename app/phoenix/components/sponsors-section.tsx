@@ -14,7 +14,7 @@ export default function SponsorsSection() {
   return (
     <div
       className="min-h-screen w-full  relative overflow-hidden py-20"  //bg-gradient-to-b from-[#0D261C] to-[#05100B]
-      id="sponsor"
+      id="sponsors"
     >
       <PhoenixBg />
 

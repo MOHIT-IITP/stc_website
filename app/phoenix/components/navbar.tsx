@@ -7,6 +7,15 @@ import AppConfig from "@/config/appConfig";
 import { animate } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Events", href: "#events" },
+  { label: "Our Team", href: "#our-team" },
+  { label: "Sponsors", href: "#sponsors" },
+  { label: "Glimpses", href: "#glimpses" },
+  { label: "Contact", href: "#contact" },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,18 +30,81 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Events", href: "#events" },
-    { label: "Our Team", href: "#our-team" },
-    { label: "Sponsors", href: "#sponsors" },
-    { label: "Glimpses", href: "#glimpses" },
-    { label: "Contact", href: "#contact" },
-  ];
+  useEffect(() => {
+    const sections = navItems
+      .map((item, index) => {
+        const sectionId = item.href.startsWith("#") ? item.href.slice(1) : "";
+        const element = sectionId ? document.getElementById(sectionId) : null;
+        return element ? { index, element } : null;
+      })
+      .filter((section): section is { index: number; element: HTMLElement } => section !== null);
+
+    if (!sections.length) return;
+
+    const markerOffset = () => window.innerHeight * 0.35;
+
+    const syncActiveIndex = () => {
+      const markerY = markerOffset();
+      let nextActiveIndex = sections[0].index;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      for (const section of sections) {
+        const rect = section.element.getBoundingClientRect();
+
+        if (rect.top <= markerY && rect.bottom >= markerY) {
+          nextActiveIndex = section.index;
+          bestDistance = 0;
+          break;
+        }
+
+        if (rect.top <= markerY) {
+          const distance = markerY - rect.top;
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            nextActiveIndex = section.index;
+          }
+        }
+      }
+
+      const atPageBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+
+      if (atPageBottom) {
+        nextActiveIndex = sections[sections.length - 1].index;
+      }
+
+      setActiveIndex((currentIndex) =>
+        currentIndex === nextActiveIndex ? currentIndex : nextActiveIndex,
+      );
+    };
+
+    let rafId = 0;
+    const onViewportChange = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        syncActiveIndex();
+        rafId = 0;
+      });
+    };
+
+    syncActiveIndex();
+    window.addEventListener("scroll", onViewportChange, { passive: true });
+    window.addEventListener("resize", onViewportChange);
+
+    return () => {
+      window.removeEventListener("scroll", onViewportChange);
+      window.removeEventListener("resize", onViewportChange);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, []);
 
   // Spotlight Mouse Movement
   useEffect(() => {
@@ -123,7 +195,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link
-            href="/phoenix"
+            href="/phoenix#home"
             className="relative z-10 flex items-center group mr-2"
           >
             <Image

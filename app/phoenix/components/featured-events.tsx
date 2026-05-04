@@ -23,7 +23,7 @@ export default function FeaturedEvents() {
 
   return (
     <section
-      id="event"
+      id="events"
       className="relative min-h-screen w-screen overflow-hidden text-white"
       // style={{
       //   background:

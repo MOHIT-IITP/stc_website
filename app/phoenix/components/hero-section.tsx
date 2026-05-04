@@ -4,7 +4,7 @@ import AppConfig from "@/config/appConfig";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#020b09] pt-20">
+    <section className="relative min-h-screen w-full overflow-hidden bg-[#020b09] pt-20" id="home">
       {/* Background Image */}
       <Image
 src={AppConfig.imageUrls.phoenix.bg}
