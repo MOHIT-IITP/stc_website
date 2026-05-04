@@ -1,12 +1,12 @@
 import { LayoutWrapper } from "@/components/layout-wrapper";
 import { SessionWrapper } from "@/lib/SessionWrapper";
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import type React from "react";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stciitphybrid.in"),
@@ -283,7 +283,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html lang="en" className={cn("font-sans", outfit.variable)}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/images/stc-logo.jpg" type="image/jpeg" />
@@ -319,7 +319,7 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} font-sans antialiased overflow-x-hidden`}
+        className={`${outfit.variable} font-sans antialiased overflow-x-hidden`}
       >
         <SessionWrapper>
           <LayoutWrapper>{children}</LayoutWrapper>

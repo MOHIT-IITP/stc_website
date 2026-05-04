@@ -1,6 +1,5 @@
 const AppConfig = {
   imageUrls: {
-
     tatva: {
       //WebWiser
       abhishek: "/Wings/Tatva/WebWiser/abhishek.png",
@@ -132,7 +131,8 @@ const AppConfig = {
       img2025: "/Management/Session&Webinar/IMG_20250211_202048427.jpg.jpeg",
       ishaSession: "/Management/Session&Webinar/Isha.jpg",
       jayati: "/Management/Session&Webinar/Jayati.jpg",
-      whatsapp2026: "/Management/Session&Webinar/WhatsApp Image 2026-03-20 at 8.38.11 PM.jpeg",
+      whatsapp2026:
+        "/Management/Session&Webinar/WhatsApp Image 2026-03-20 at 8.38.11 PM.jpeg",
 
       //Sponsor
       anmol: "/Management/Sponsor/Anmol.jpg",
@@ -143,18 +143,19 @@ const AppConfig = {
 
     phoenix: {
       // Background Images
-      bg: "/phoenix/bg.svg",
+      bg: "/phoenix/hero-section-bg.png",
+      bgMobile: "/phoenix/hero-section-lg.png",
       bg2: "/phoenix/bg2.png",
-      
+
       // Logo and Branding
       logo: "/phoenix/logo.png",
       phoenix: "/phoenix/phoenix.svg",
       aboutLogo: "/phoenix/aboutLogo.svg",
-      
+
       // Background Elements
 
       stars: "/phoenix/stars.svg",
-      
+
       // Section Images
       eventcard: "/phoenix/Eventcard.svg",
       contactSection: "/phoenix/contact-section.svg",
@@ -166,8 +167,6 @@ const AppConfig = {
       heroBackground: "/07.jpg",
       stcLogo: "/images/stc-logo.jpg",
     },
-   
-
 
     // Domains Page Cards
     ArenaBox2: "/DomainCards/Arena.png",
@@ -191,7 +190,7 @@ const AppConfig = {
     // AnnouncementsIcon: "/images/Navbar/Announcements.svg",
     // ContactIcon: "/images/Navbar/Contact.svg",
     // TechClubIcon: "/images/Navbar/techClubLogo.svg",
-    
+
     // //background (Potentially Unused)
     // Layer1: "/images/Layer_1.svg",
     // HoverHomeIcon: "/images/Navbar/HoverHome.svg",
@@ -280,9 +279,6 @@ const AppConfig = {
     // Session13: "/images/Session&Webinar/Session13.jpeg",
     // Session14: "/images/Session&Webinar/Session14.jpeg",
     // Session15: "/images/Session&Webinar/Session15.jpeg",
-
-    
-
   },
 };
 export default AppConfig;
