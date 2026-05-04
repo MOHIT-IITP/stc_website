@@ -11,35 +11,35 @@ interface TeamMember {
 
 const MEMBER_DATA: { name: string; role: string; image?: string }[] = [
   { name: 'Arjun Sharma', role: 'President', image: '/phoenix/arunesh.png' },
-  { name: 'Priya Patel', role: 'Vice President', image: '/phoenix/STC.png' },
-  { name: 'Rahul Kumar', role: 'Tech Lead', image: '/phoenix/STC.png' },
-  { name: 'Ananya Singh', role: 'Design Lead', image: '/phoenix/STC.png' },
-  { name: 'Vikram Mehta', role: 'Frontend Dev', image: '/phoenix/STC.png' },
-  { name: 'Neha Gupta', role: 'Backend Dev', image: '/phoenix/STC.png' },
-  { name: 'Rohan Joshi', role: 'UI/UX Designer', image: '/phoenix/STC.png' },
-  { name: 'Kavya Nair', role: 'DevOps Engineer', image: '/phoenix/STC.png' },
-  { name: 'Aditya Reddy', role: 'Data Scientist', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Sneha Iyer', role: 'ML Engineer', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Manish Tiwari', role: 'Full Stack Dev', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Pooja Verma', role: 'Mobile Dev', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Karan Malhotra', role: 'Cloud Architect', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Riya Agarwal', role: 'Security Eng.', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Deepak Yadav', role: 'QA Engineer', image: '/phoenix/ankit.png' },
-  { name: 'Shreya Mishra', role: 'Product Manager', image: '/phoenix/ankit.png' },
-  { name: 'Nikhil Pandey', role: 'Content Writer', image: '/phoenix/ankit.png' },
+  { name: 'Ankit Kumar', role: 'Vice President', image: '/phoenix/ankit.png' },
+  { name: 'Abhishek Mohanty', role: 'Tech Lead', image: '/phoenix/abhishek.png' },
+  { name: 'Mandeep Nagar', role: 'Design Lead', image: '/phoenix/mandeep.png' },
+  { name: 'Vikram Mehta', role: 'Frontend Dev', image: '/phoenix/arunesh.png' },
+  { name: 'Ankit Kumar', role: 'Backend Dev', image: '/phoenix/ankit.png' },
+  { name: 'Abhijeet Kumar', role: 'Tech Lead', image: '/phoenix/abhijeet.png' },
+  { name: 'Kavya Nair', role: 'DevOps Engineer', image: '/phoenix/abhijeet.png' },
+  { name: 'Aditya Reddy', role: 'Data Scientist', image: '/phoenix/abhijeet.png' },
+  { name: 'Sneha Iyer', role: 'ML Engineer', image: '/phoenix/ankit.png' },
+  { name: 'Manish Tiwari', role: 'Full Stack Dev', image: '/phoenix/abhishek.png' },
+  { name: 'Pooja Verma', role: 'Mobile Dev', image: '/phoenix/mandeep.png' },
+  { name: 'Karan Malhotra', role: 'Cloud Architect', image: '/phoenix/arunesh.png' },
+  { name: 'Riya Agarwal', role: 'Security Eng.', image: '/phoenix/ankit.png' },
+  { name: 'Deepak Yadav', role: 'QA Engineer', image: '/phoenix/abhishek.png' },
+  { name: 'Shreya Mishra', role: 'Product Manager', image: '/phoenix/mandeep.png' },
+  { name: 'Nikhil Pandey', role: 'Content Writer', image: '/phoenix/arunesh.png' },
   { name: 'Anjali Saxena', role: 'Marketing Lead', image: '/phoenix/ankit.png' },
-  { name: 'Siddharth Roy', role: 'Outreach Manager', image: '/phoenix/ankit.png' },
-  { name: 'Meera Pillai', role: 'Event Manager', image: '/phoenix/ankit.png' },
-  { name: 'Aman Chaudhary', role: 'Frontend Dev', image: '/phoenix/ankit.png' },
-  { name: 'Divya Khanna', role: 'Backend Dev', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Tushar Bose', role: 'UI Designer', image: '/phoenix/ankit.png' },
-  { name: 'Sakshi Bansal', role: 'Data Analyst', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Varun Jain', role: 'Research Lead', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Ishita Sinha', role: 'Core Member', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Harsh Kapoor', role: 'Core Member', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Nisha Dubey', role: 'Core Member', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Yash Trivedi', role: 'Core Member', image: '/phoenix/mandeep.jpeg' },
-  { name: 'Tanvi Desai', role: 'Core Member', image: '/phoenix/mandeep.jpeg' },
+  { name: 'Siddharth Roy', role: 'Outreach Manager', image: '/phoenix/abhishek.png' },
+  { name: 'Meera Pillai', role: 'Event Manager', image: '/phoenix/mandeep.png' },
+  { name: 'Aman Chaudhary', role: 'Frontend Dev', image: '/phoenix/arunesh.png' },
+  { name: 'Divya Khanna', role: 'Backend Dev', image: '/phoenix/ankit.png' },
+  { name: 'Tushar Bose', role: 'UI Designer', image: '/phoenix/abhishek.png' },
+  { name: 'Sakshi Bansal', role: 'Data Analyst', image: '/phoenix/mandeep.png' },
+  { name: 'Varun Jain', role: 'Research Lead', image: '/phoenix/arunesh.png' },
+  { name: 'Ishita Sinha', role: 'Core Member', image: '/phoenix/ankit.png' },
+  { name: 'Harsh Kapoor', role: 'Core Member', image: '/phoenix/abhishek.png' },
+  { name: 'Nisha Dubey', role: 'Core Member', image: '/phoenix/mandeep.png' },
+  { name: 'Yash Trivedi', role: 'Core Member', image: '/phoenix/arunesh.png' },
+  { name: 'Tanvi Desai', role: 'Core Member', image: '/phoenix/ankit.png' },
 ]
 
 const TEAM_MEMBERS: TeamMember[] = MEMBER_DATA.map((member, i) => ({
@@ -66,13 +66,13 @@ export default function TeamSection() {
     const syncCardsPerSlide = () => {
       const width = window.innerWidth
       if (width < 768) {
-        setCardsPerSlide(2)        
+        setCardsPerSlide(2)
       } else if (width < 1024) {
-        setCardsPerSlide(3)        
+        setCardsPerSlide(3)
       } else if (width < 1380) {
-        setCardsPerSlide(4)        
+        setCardsPerSlide(4)
       } else {
-        setCardsPerSlide(6) 
+        setCardsPerSlide(6)
       }
     }
 
@@ -138,6 +138,8 @@ export default function TeamSection() {
   return (
     <div id="our-team" className="relative w-full min-h-screen z-10 flex flex-col py-8" aria-label="Our Team">
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
         @keyframes stc-exit-fwd   { to   { opacity:0; transform:translateX(-42px); } }
         @keyframes stc-exit-back  { to   { opacity:0; transform:translateX( 42px); } }
         @keyframes stc-enter-fwd  { from { opacity:0; transform:translateX( 42px); } to { opacity:1; transform:none; } }
@@ -146,24 +148,34 @@ export default function TeamSection() {
         .stc-exit-back  { animation: stc-exit-back .26s ease forwards; }
         .stc-enter-fwd  { animation: stc-enter-fwd .42s cubic-bezier(.22,1,.36,1) forwards; }
         .stc-enter-back { animation: stc-enter-back .42s cubic-bezier(.22,1,.36,1) forwards; }
+        
         .team-card {
-          background: rgba(2, 24, 20, 0.62);
-          transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+          transition: filter .22s ease;
+          background-image: 
+            radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.4), rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.3), rgba(0,0,0,0)),
+            radial-gradient(1.5px 1.5px at 50px 160px, rgba(255,255,255,0.5), rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.2), rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.4), rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 160px 120px, rgba(255,255,255,0.3), rgba(0,0,0,0));
+          background-size: 200px 200px;
         }
-        .team-card:hover {
-          transform: scale(1.03);
-          border-color: rgba(255,255,255,0.32);
-          box-shadow: 0 20px 44px rgba(0,0,0,0.52);
-        }
+        .team-card:nth-child(1) { background-color: #12241b; }
+        .team-card:nth-child(2) { background-color: #172d22; }
+        .team-card:nth-child(3) { background-color: #14281e; }
+        .team-card:nth-child(4) { background-color: #1a3225; }
+        .team-card:nth-child(5) { background-color: #13251c; }
+        .team-card:nth-child(6) { background-color: #182e23; }
+
         .vertical-meta {
           writing-mode: vertical-rl;
           transform: rotate(180deg);
           text-orientation: mixed;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.1em;
         }
       `}</style>
 
-      <header  className="mx-auto mb-6 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center">
+      <header className="mx-auto mb-6 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center">
         <h2 className="text-white font-bold leading-tight" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
           Our Team
         </h2>
@@ -172,75 +184,89 @@ export default function TeamSection() {
         </p>
       </header>
 
-      <div className={`w-full h-[34vh] md:h-[36vh] lg:h-[50vh] flex items-stretch gap-2 px-3 md:gap-3 md:px-8 ${rowAnimClass}`}>
-        {members.map((member, index) => (
-          <article
-            key={member.id}
-            className="team-card relative overflow-hidden rounded-xl flex flex-col flex-1 min-w-0 border border-white/15"
-          >
-            {index < 6 ? (
-              <span
-                className="hidden md:block absolute top-4 left-5 text-white/90 font-black leading-none pointer-events-none z-10"
-                style={{ fontSize: 'clamp(72px, 8vw, 140px)' }}
-              >
-                {['𝐒', '𝐓', '𝐂', '𝐈 𝐈', '𝐓', '𝐏'][index]} 
-              </span>
-            ) : null}
-            <div className="relative h-full w-full pr-[24%] flex items-end justify-start overflow-hidden">
-              <img
-                src={member.image}
-                alt={member.name}
-                className="h-[52%] w-[200%] -ml-1 object-cover object-center"
-                loading="lazy"
-              />
-            </div>
-            <div className="absolute inset-y-0 right-0 w-[24%] p-2 text-white bg-gradient-to-l from-black/85 via-black/45 to-transparent flex items-center justify-center gap-1.5">
-              <div className="vertical-meta  font-semibold uppercase leading-none text-center color-[#B2BEB5] align-left">
-                <p className="text-[#B2BEB5] text-[13px] text-left">
-                {member.role}
-              </p>
+      <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12">
+        <div className={`w-full h-[65vh] md:h-[75vh] lg:h-[85vh] flex items-stretch overflow-hidden border border-white/5 shadow-2xl ${rowAnimClass}`}>
+          {members.map((member, index) => (
+            <article
+              key={member.id}
+              className="team-card relative overflow-hidden flex flex-col flex-1 min-w-0 border-r border-white/5 last:border-r-0"
+            >
+              {/* STC background text */}
+              {index < 3 ? (
+                <span
+                  className="hidden md:block absolute top-0 -left-1 text-white font-extrabold leading-none pointer-events-none z-0 opacity-80"
+                  style={{ fontSize: 'clamp(100px, 14vw, 220px)', letterSpacing: '-0.05em', fontFamily: '"Outfit", sans-serif' }}
+                >
+                  {['S', 'T', 'C'][index]}
+                </span>
+              ) : null}
 
-            </div>
-              <div className="vertical-meta text-[18px] font-extrabold uppercase leading-none text-center">
-                <p>
-                  {member.name}
-                </p>
+              {/* Dark Gradient from Right (behind image) to help text legibility */}
+              <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/40 to-transparent pointer-events-none z-[5]" />
+
+              {/* Member Image */}
+              <div className="absolute inset-x-0 bottom-0 h-[75%] sm:h-[80%] pointer-events-none z-10 overflow-hidden flex items-end justify-start">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-[160%] max-w-none h-full object-cover object-left-bottom -ml-[45%]"
+                  loading="lazy"
+                />
               </div>
-            </div>
-          </article>
-        ))}
+
+              {/* Top Right Info */}
+              <div className="absolute top-12 sm:top-16 right-3 sm:right-5 z-20 flex flex-row-reverse gap-2 sm:gap-3 items-start">
+                <div
+                  className="vertical-meta text-[14px] sm:text-[18px] font-extrabold uppercase leading-none text-white tracking-widest drop-shadow-md"
+                  style={{ fontFamily: '"Roboto Slab", serif' }}
+                >
+                  {member.name}
+                </div>
+                <div
+                  className="vertical-meta text-[11px] sm:text-[13px] font-medium uppercase leading-none text-[#B2BEB5] tracking-widest drop-shadow-md"
+                  style={{ fontFamily: '"Roboto Slab", serif' }}
+                >
+                  {member.role}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
 
-      <nav className="mx-auto mt-6 flex items-center gap-4" aria-label="Team navigation">
+      <nav className="mx-auto mt-10 mb-4 flex items-center justify-center gap-6" aria-label="Team navigation">
         <button
           onClick={() => goTo(slide - 1)}
-          aria-label="Previous"
-          className="h-10 w-10 rounded-full border border-white/35 text-white"
+          aria-label="Previous slide"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 backdrop-blur-md transition-all hover:bg-white/15 hover:text-white hover:scale-105 active:scale-95"
         >
-          &#8249;
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              aria-label={`Slide ${i + 1}`}
-              className="h-2 rounded-full transition-all"
-              style={{
-                width: i === slide ? 24 : 8,
-                background: i === slide ? '#fff' : 'rgba(255,255,255,0.4)',
-              }}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`rounded-full transition-all duration-300 ease-out ${i === slide
+                ? 'h-1.5 w-8 bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]'
+                : 'h-1.5 w-1.5 bg-white/20 hover:bg-white/50 hover:scale-125'
+                }`}
             />
           ))}
         </div>
 
         <button
           onClick={() => goTo(slide + 1)}
-          aria-label="Next"
-          className="h-10 w-10 rounded-full border border-white/35 text-white"
+          aria-label="Next slide"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/80 backdrop-blur-md transition-all hover:bg-white/15 hover:text-white hover:scale-105 active:scale-95"
         >
-          &#8250;
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
         </button>
       </nav>
     </div>

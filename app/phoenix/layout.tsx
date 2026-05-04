@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import AppConfig from "@/config/appConfig";
+import Navbar from './components/navbar';
+import { Walter_Turncoat } from 'next/font/google';
+
+const walterTurncoat = Walter_Turncoat({ 
+  weight: '400',
+  subsets: ['latin'], 
+  display: 'swap' 
+});
 
 const DESCRIPTION = 'Phoenix - Event at IIT Patna by STC Hybrid. Explore innovation, technology, and creativity with workshops, competitions, and guest lectures. Join us to experience the future of tech!  ';
 
@@ -42,8 +50,9 @@ export const metadata: Metadata = {
 
 export default function PhoenixLayout({ children }: { children: React.ReactNode }) {
     return (
-        <>
+        <div className={walterTurncoat.className}>
+            <Navbar />
             {children}
-        </>
+        </div>
     );
 }

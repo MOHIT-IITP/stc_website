@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import PhoenixBg from "./phoenix-bg";
 import AppConfig from "@/config/appConfig";
 
@@ -110,14 +111,22 @@ export default function ContactSection() {
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit Button with Image */}
               <button
                 type="submit"
-                className="w-full py-3 px-6 bg-gradient-to-r from-[#1C3F35] to-[#0a7a60] text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-[#1C3F35]/50 transition-all duration-300 hover:scale-105"
+                className="w-full transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
               >
-                {submitted
-                  ? "✓ Message Sent!"
-                  : "Send it to the constellations"}
+                <div className="relative flex items-center justify-center">
+                  <div className="absolute bg-white p-1 shadow-lg w-64 h-10" />
+                  <Image
+                    src="/phoenix/contact-submit.png"
+                    alt="Submit"
+                    width={400}
+                    height={120}
+                    className="w-full h-auto max-w-md object-contain cursor-pointer relative z-10"
+                    priority
+                  />
+                </div>
               </button>
             </form>
           </div>
@@ -127,7 +136,7 @@ export default function ContactSection() {
             {/* Background image */}
             <div className="absolute inset-0">
               <img
-src={AppConfig.imageUrls.phoenix.contactSection}
+                src={AppConfig.imageUrls.phoenix.contactSection}
                 alt="Contact illustration"
                 className="w-full h-full object-cover"
               />

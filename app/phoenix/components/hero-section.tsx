@@ -3,13 +3,6 @@ import Link from "next/link";
 import AppConfig from "@/config/appConfig";
 
 export function HeroSection() {
-  const navItems = [
-    { label: "About", href: "#about" },
-    { label: "Event", href: "#event" },
-    { label: "Sponsor", href: "#sponsor" },
-    { label: "Contact", href: "#contact" },
-  ];
-
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#020b09] pt-20">
       {/* Background Image */}
@@ -39,28 +32,6 @@ src={AppConfig.imageUrls.phoenix.bg2}
 
       {/* Content */}
       <div className="relative z-30 mx-auto flex min-h-screen w-full max-w-[1188px] flex-col px-6 py-6 text-white sm:px-10 lg:px-12">
-        <nav className="fixed top-0 left-0 right-0 z-50 flex h-24 items-center justify-between px-6 sm:px-10 lg:px-12">
-          <Image
-    src={AppConfig.imageUrls.phoenix.logo}
-            alt="Phoenix"
-            width={124}
-            height={124}
-            className="h-24 w-24 object-contain sm:h-[110px] sm:w-[110px] lg:h-[124px] lg:w-[124px] "
-          />
-
-          <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-10 rounded-2xl bg-[#173b31]/78 px-10 py-3 text-[18px] font-light text-white/92 shadow-[0_14px_36px_rgba(0,0,0,0.18)] backdrop-blur-md sm:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="transition-colors hover:text-white"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </nav>
-
         <div className="flex flex-1 items-center justify-center pb-[12vh] pt-[10vh] sm:pb-[14vh] sm:pt-[10vh] lg:pb-[16vh] lg:pt-[12vh]">
           <Image
     src={AppConfig.imageUrls.phoenix.phoenix}

@@ -4,8 +4,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import type React from "react";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stciitphybrid.in"),
@@ -282,7 +283,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={cn("font-sans", inter.variable)}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/images/stc-logo.jpg" type="image/jpeg" />
