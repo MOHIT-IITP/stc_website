@@ -16,7 +16,7 @@ export default function Page() {
         <AboutSection />
         <Events />
         <SponsorsSection />
-        <TeamSection />
+        {/* <TeamSection /> */}
         <ContactSection />
       </div>
     </>
