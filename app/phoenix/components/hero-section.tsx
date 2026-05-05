@@ -29,13 +29,7 @@ src={AppConfig.imageUrls.phoenix.bg2}
       /> */}
 
       {/* Gradient Overlay */}
-      <div
-        className="absolute inset-0 z-20"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(9, 49, 40, 0.3) 0%, rgba(26, 141, 114, 0.3) 50%, rgba(9, 49, 40, 0.3) 100%)",
-        }}
-      />
+      <div className="absolute inset-x-0 bottom-0 z-20 h-[58%] bg-[linear-gradient(to_top,rgba(2,11,9,0.96)_0%,rgba(2,11,9,0.7)_24%,rgba(2,11,9,0.25)_56%,rgba(2,11,9,0)_100%)]" />
       <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,transparent_38%,rgba(0,0,0,0.45)_100%)]" />
 
       {/* Content */}

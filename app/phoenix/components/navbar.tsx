@@ -42,7 +42,10 @@ export default function Navbar() {
         const element = sectionId ? document.getElementById(sectionId) : null;
         return element ? { index, element } : null;
       })
-      .filter((section): section is { index: number; element: HTMLElement } => section !== null);
+      .filter(
+        (section): section is { index: number; element: HTMLElement } =>
+          section !== null,
+      );
 
     if (!sections.length) return;
 
@@ -182,16 +185,16 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-4 sm:top-6 left-0 right-0 z-[100] flex justify-center px-4 sm:px-6 pointer-events-none">
+    <div className="fixed top-4 left-0 right-0 z-100 flex justify-center px-4 sm:top-6 sm:px-6 pointer-events-none">
       <nav
-        className={`pointer-events-auto transition-all duration-500 rounded-full relative w-fit ${
+        className={`pointer-events-auto transition-all duration-500 relative w-full max-w-[540px] rounded-full sm:w-fit sm:max-w-none ${
           scrolled
-            ? "bg-white/[0.08] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/10"
-            : "bg-white/[0.04] backdrop-blur-lg shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-white/5"
+            ? "bg-white/8 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/10"
+            : "bg-white/4 backdrop-blur-lg shadow-[0_4px_24px_rgba(0,0,0,0.2)] border border-white/5"
         }`}
       >
         <div
-          className={`mx-auto pl-4 pr-6 sm:pl-6 sm:pr-8 flex items-center justify-center gap-2 sm:gap-6 md:gap-8 transition-all duration-500 ${scrolled ? "h-14 sm:h-16" : "h-16 sm:h-20"}`}
+          className={`mx-auto flex w-full items-center justify-between px-4 sm:px-6 sm:justify-center sm:gap-6 md:gap-8 transition-all duration-500 ${scrolled ? "h-14 sm:h-16" : "h-16 sm:h-20"}`}
         >
           {/* Logo */}
           <Link
@@ -224,7 +227,7 @@ export default function Navbar() {
             />
             {/* Premium Glowing Bottom Line (Active Item) */}
             <div
-              className="absolute bottom-1 h-[2px] w-[50px] -ml-[25px] pointer-events-none z-0 bg-gradient-to-r from-transparent via-[#22c55e] to-transparent drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]"
+              className="absolute bottom-1 h-0.5 w-[50px] -ml-[25px] pointer-events-none z-0 bg-linear-to-r from-transparent via-[#22c55e] to-transparent drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]"
               style={{
                 left: "var(--ambience-x, 0px)",
               }}

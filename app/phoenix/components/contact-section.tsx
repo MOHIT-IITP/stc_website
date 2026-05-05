@@ -24,38 +24,38 @@ export default function ContactSection() {
     });
   };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  try {
-    const res = await fetch("/api/event-contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      setSubmitted(true);
-      setFormData({
-        lastName: "",
-        firstName: "",
-        email: "",
-        message: "",
+    try {
+      const res = await fetch("/api/event-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
 
-      setTimeout(() => setSubmitted(false), 3000);
-    } else {
-      alert("Failed to send message");
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setFormData({
+          lastName: "",
+          firstName: "",
+          email: "",
+          message: "",
+        });
+
+        setTimeout(() => setSubmitted(false), 3000);
+      } else {
+        alert("Failed to send message");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
     }
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong");
-  }
-};
+  };
 
   return (
     <div
@@ -134,10 +134,47 @@ const handleSubmit = async (e: React.FormEvent) => {
                 />
               </div>
 
+              {/* Success Message */}
+              {submitted && (
+                <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 p-5 bg-gradient-to-r from-green-500/15 via-emerald-500/10 to-green-500/15 border border-green-500/40 rounded-xl shadow-lg shadow-green-500/10 backdrop-blur-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="shrink-0 mt-1">
+                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500/20 animate-pulse">
+                        <svg
+                          className="h-6 w-6 text-green-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex-1 py-1">
+                      <h3 className="text-base font-bold text-green-300">
+                        Message Sent Successfully!
+                      </h3>
+                      <p className="text-sm text-green-200/90 mt-2 leading-relaxed">
+                        Thank you for reaching out! Your message has been
+                        delivered to our team. We'll review it and get back to
+                        you as soon as possible.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Submit Button with Image */}
               <button
                 type="submit"
-                className="w-full transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center"
+                className={`w-full transition-all duration-500 hover:scale-105 active:scale-95 flex items-center justify-center ${
+                  submitted
+                    ? "opacity-0 pointer-events-none scale-95"
+                    : "opacity-100"
+                }`}
               >
                 <div className="relative flex items-center justify-center">
                   <div className="absolute bg-white p-1 shadow-lg w-64 h-10" />

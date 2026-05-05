@@ -20,6 +20,7 @@ interface RegistrationForm {
   slug: string;
   description: string;
   image?: string;
+  show: boolean;
   fields: { key: string; type: string }[];
   active: boolean;
   createdAt: string;
@@ -39,9 +40,9 @@ export default function RegistrationsPage() {
       const response = await fetch("/api/registration");
       if (response.ok) {
         const data = await response.json();
-        // Only show active forms
+        // Only show forms that are both active and set to show
         const activeForms = data.filter(
-          (form: RegistrationForm) => form.active
+          (form: RegistrationForm) => form.active && form.show,
         );
         setRegistrations(activeForms);
       }

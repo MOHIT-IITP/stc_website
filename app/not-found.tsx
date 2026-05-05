@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import Image from 'next/image';
+import Link from "next/link";
+import Image from "next/image";
 
 export default function NotFound() {
   return (
@@ -19,34 +19,39 @@ export default function NotFound() {
               </div>
             </Link>
           </div>
-          
-          <h1 className="text-6xl md:text-9xl font-bold text-blue-600 mb-4">404</h1>
-          <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-4">Page Not Found</h2>
+
+          <h1 className="text-6xl md:text-9xl font-bold text-blue-600 mb-4">
+            404
+          </h1>
+          <h2 className="text-2xl md:text-4xl font-semibold text-gray-800 mb-4">
+            Page Not Found
+          </h2>
           <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-            Oops! The page you're looking for doesn't exist or has been moved. Let's get you back on track.
+            Oops! The page you're looking for doesn't exist or has been moved.
+            Let's get you back on track.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300 transform hover:scale-105"
             >
               Return Home
             </Link>
-            <Link 
-              href="/wings" 
+            <Link
+              href="/wings"
               className="px-6 py-3 bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-medium rounded-lg transition-colors duration-300 transform hover:scale-105"
             >
               Explore Our Wings
             </Link>
           </div>
         </div>
-        
+
         <div className="bg-gray-50 p-6 text-center border-t border-gray-200">
           <p className="text-gray-500 text-sm">
-            Need help?{' '}
-            <a 
-              href="mailto:stc_iitp@iitp.ac.in" 
+            Need help?{" "}
+            <a
+              href="mailto:stc_iitp@iitp.ac.in"
               className="text-blue-600 hover:underline"
             >
               Contact Support

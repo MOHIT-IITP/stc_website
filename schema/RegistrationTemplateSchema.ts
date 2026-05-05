@@ -1,9 +1,21 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IField {
   key: string;
   label: string;
-  type: 'text' | 'email' | 'tel' | 'number' | 'date' | 'time' | 'url' | 'textarea' | 'select' | 'radio' | 'checkbox' | 'image';
+  type:
+    | "text"
+    | "email"
+    | "tel"
+    | "number"
+    | "date"
+    | "time"
+    | "url"
+    | "textarea"
+    | "select"
+    | "radio"
+    | "checkbox"
+    | "image";
   placeholder?: string;
   required: boolean;
   important: boolean;
@@ -19,11 +31,11 @@ export interface IField {
   };
   conditional?: {
     fieldKey: string;
-    operator: '==' | '!=' | 'in' | 'notin' | '>' | '<';
+    operator: "==" | "!=" | "in" | "notin" | ">" | "<";
     value: unknown;
   };
   // For email field
-  emailRestriction?: 'all' | 'iitp'; // 'all' = all emails, 'iitp' = only @iitp.ac.in
+  emailRestriction?: "all" | "iitp"; // 'all' = all emails, 'iitp' = only @iitp.ac.in
   // For image field
   imageFolder?: string;
   maxFileSize?: number; // in MB
@@ -37,6 +49,7 @@ export interface IRegistrationTemplate extends Document {
   imageFileId?: string;
   fields: IField[];
   active: boolean;
+  show: boolean;
   passwordProtected: boolean;
   password?: string;
   createdAt: Date;
@@ -46,18 +59,33 @@ export interface IRegistrationTemplate extends Document {
 const FieldSchema = new Schema({
   key: { type: String, required: true },
   label: { type: String, required: true },
-  type: { 
-    type: String, 
+  type: {
+    type: String,
     required: true,
-    enum: ['text', 'email', 'tel', 'number', 'date', 'time', 'url', 'textarea', 'select', 'radio', 'checkbox', 'image']
+    enum: [
+      "text",
+      "email",
+      "tel",
+      "number",
+      "date",
+      "time",
+      "url",
+      "textarea",
+      "select",
+      "radio",
+      "checkbox",
+      "image",
+    ],
   },
   placeholder: String,
   required: { type: Boolean, default: false },
   important: { type: Boolean, default: false },
-  options: [{
-    label: String,
-    value: String
-  }],
+  options: [
+    {
+      label: String,
+      value: String,
+    },
+  ],
   order: { type: Number, required: true },
   validation: {
     min: Number,
@@ -65,20 +93,20 @@ const FieldSchema = new Schema({
     pattern: String,
     maxLength: Number,
     minLength: Number,
-    customMessage: String
+    customMessage: String,
   },
   conditional: {
     fieldKey: String,
-    operator: { type: String, enum: ['==', '!=', 'in', 'notin', '>', '<'] },
-    value: Schema.Types.Mixed
+    operator: { type: String, enum: ["==", "!=", "in", "notin", ">", "<"] },
+    value: Schema.Types.Mixed,
   },
-  emailRestriction: { 
-    type: String, 
-    enum: ['all', 'iitp'],
-    default: 'all'
+  emailRestriction: {
+    type: String,
+    enum: ["all", "iitp"],
+    default: "all",
   },
-  imageFolder: { type: String, default: '/registrations' },
-  maxFileSize: { type: Number, default: 5 } // MB
+  imageFolder: { type: String, default: "/registrations" },
+  maxFileSize: { type: Number, default: 5 }, // MB
 });
 
 const RegistrationTemplateSchema = new Schema({
@@ -89,18 +117,23 @@ const RegistrationTemplateSchema = new Schema({
   imageFileId: String,
   fields: [FieldSchema],
   active: { type: Boolean, default: true },
+  show: { type: Boolean, default: true },
   passwordProtected: { type: Boolean, default: false },
   password: { type: String },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
-RegistrationTemplateSchema.pre('save', function(next) {
+RegistrationTemplateSchema.pre("save", function (next) {
   this.updatedAt = new Date();
   next();
 });
 
-const RegistrationTemplate = mongoose.models.RegistrationTemplate || 
-  mongoose.model<IRegistrationTemplate>('RegistrationTemplate', RegistrationTemplateSchema);
+const RegistrationTemplate =
+  mongoose.models.RegistrationTemplate ||
+  mongoose.model<IRegistrationTemplate>(
+    "RegistrationTemplate",
+    RegistrationTemplateSchema,
+  );
 
 export default RegistrationTemplate;
