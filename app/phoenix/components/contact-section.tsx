@@ -24,19 +24,42 @@ export default function ContactSection() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ lastName: "", firstName: "", email: "", message: "" });
-    }, 3000);
-  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/event-contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setSubmitted(true);
+      setFormData({
+        lastName: "",
+        firstName: "",
+        email: "",
+        message: "",
+      });
+
+      setTimeout(() => setSubmitted(false), 3000);
+    } else {
+      alert("Failed to send message");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
 
   return (
     <div
-      className="w-full bg-gradient-to-b from-[#05100B] to-[#0D261C] relative overflow-hidden py-12 flex items-center"
+      className="w-full  relative overflow-hidden py-12 flex items-center"
       id="contact"
     >
       <PhoenixBg />
