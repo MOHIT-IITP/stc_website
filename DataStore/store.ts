@@ -106,7 +106,7 @@ const developers = [
     department: "STC Development Team",
     image: AppConfig.imageUrls.tatva.ankit,
     email: "ankit_24a12res103@iitp.ac.in",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/ankitkumar1109/",
     description:
       "Led Frontend development and provided crucial Backend support, ensuring seamless integration and optimal performance across the website.",
   },
@@ -116,7 +116,7 @@ const developers = [
     department: "STC Development Team",
     image: AppConfig.imageUrls.tatva.mandeep,
     email: "mandeep_25s12res200@iitp.ac.in",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/mandeepnagar/",
     description:
       "Spearheaded Backend architecture while contributing to frontend components, focusing on creating a robust and scalable web application.",
   },
@@ -126,7 +126,7 @@ const developers = [
     department: "STC Development Team",
     image: AppConfig.imageUrls.tatva.mohit,
     email: "mohit_2312res394@iitp.ac.in",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/mohiitp/",
     description:
       "Provided expert guidance and technical insights throughout the development process, helping shape the website's architecture and features.",
   },
@@ -136,29 +136,19 @@ const developers = [
     department: "STC Development Team",
     image: AppConfig.imageUrls.tatva.abhishek,
     email: "abhishek_2312res891@iitp.ac.in",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/abhishekiitp891/",
     description:
       "Played a key role in development, providing technical direction and implementing critical features that elevated the website's capabilities.",
   },
   {
     name: "Abhijeet Kumar",
-    designation: "Codered Sub-Coordinator",
+    designation: "Codered Coordinator",
     department: "STC Development Team",
     image: AppConfig.imageUrls.tatva.abhijeetkumar,
     email: "abhijeet_2312res11@iitp.ac.in",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/abhijeetiitp",
     description:
       "Contributed valuable expertise in web development, offering solutions and optimizations that enhanced the website's functionality and user experience.",
-  },
-  {
-    name: "Vatsal Srivastava",
-    designation: "Webwiser Member",
-    department: "STC Development Team",
-    image: "",
-    email: "vatsal_2313res728@iitp.ac.in",
-    linkedin: "",
-    description:
-      "Delivered essential technical contributions and innovative solutions that were instrumental in the successful deployment of key website features.",
   },
 ];
 
@@ -194,7 +184,7 @@ const domains = {
           name: "Ankit",
           position: "Member",
           imgUrl: AppConfig.imageUrls.tatva.ankit,
-          email: "ankit_24a12res102@iitp.ac.in",
+          email: "ankit_24a12res103@iitp.ac.in",
           linkedin: "https://www.linkedin.com/in/ankitkumar1109/",
           github: "https://github.com/ankit9241",
         },

@@ -18,6 +18,14 @@ interface MemberSectionProps {
   members: Member[];
 }
 
+const normalizeExternalUrl = (url: string) => {
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  return `https://${url.replace(/^\/+/g, "")}`;
+};
+
 export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
   const getGridConfig = (count: number) => {
     // Base styles for all screen sizes
@@ -98,10 +106,10 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
         <div className={gridConfig.container}>
           <div className="text-center mb-8 sm:mb-12">
             <div className="relative inline-block group">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black bg-clip-text bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 mb-4 sm:mb-5 relative z-10 font-sans">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black bg-clip-text bg-linear-to-r from-gray-800 via-gray-700 to-gray-800 mb-4 sm:mb-5 relative z-10 font-sans">
                 <span className="relative">
                   Our Team
-                  <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></span>
+                  <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-gray-400 to-transparent"></span>
                 </span>
               </h2>
             </div>
@@ -149,10 +157,10 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
       <div className={gridConfig.container}>
         <div className="text-center mb-8 sm:mb-12">
           <div className="relative inline-block group">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black bg-clip-text bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 mb-4 sm:mb-5 relative z-10 font-sans">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-black bg-clip-text bg-linear-to-r from-gray-800 via-gray-700 to-gray-800 mb-4 sm:mb-5 relative z-10 font-sans">
               <span className="relative">
                 Our Team
-                <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-gray-400 to-transparent"></span>
+                <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-linear-to-r from-transparent via-gray-400 to-transparent"></span>
               </span>
             </h2>
           </div>
@@ -178,7 +186,7 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
 
 const ProfileCard: React.FC<{ member: Member }> = ({ member }) => {
   return (
-    <div className="w-full h-[300px] sm:h-[340px] md:h-[380px] rounded-2xl sm:rounded-3xl bg-gradient-to-b from-gray-300/60 to-gray-500/60 shadow-md sm:shadow-lg overflow-hidden relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="w-full h-[300px] sm:h-[340px] md:h-[380px] rounded-2xl sm:rounded-3xl bg-linear-to-b from-gray-300/60 to-gray-500/60 shadow-md sm:shadow-lg overflow-hidden relative group transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
       {/* Profile Image - Responsive container with fixed aspect ratio */}
       <div className="relative w-full h-full">
         <Image
@@ -190,7 +198,7 @@ const ProfileCard: React.FC<{ member: Member }> = ({ member }) => {
         />
 
         {/* Bottom Overlay Gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-black/80 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-linear-to-t from-black/80 to-transparent"></div>
 
         {/* Bottom Section */}
         <div className="absolute bottom-2 sm:bottom-4 left-0 w-full flex justify-center px-2">
@@ -207,28 +215,28 @@ const ProfileCard: React.FC<{ member: Member }> = ({ member }) => {
             {/* Social Icons */}
             <div className="flex items-center space-x-2">
               {member.linkedin && (
-                <a 
-                  href={member.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={normalizeExternalUrl(member.linkedin)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block hover:opacity-80 transition-all duration-200 hover:scale-125"
                 >
                   <Linkedin className="w-4 h-4 text-white" />
                 </a>
               )}
               {member.github && (
-                <a 
-                  href={member.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={normalizeExternalUrl(member.github)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block hover:opacity-80 transition-all duration-200 hover:scale-125"
                 >
                   <Github className="w-4 h-4 text-white" />
                 </a>
               )}
               {member.email && (
-                <a 
-                  href={`mailto:${member.email}`} 
+                <a
+                  href={`mailto:${member.email}`}
                   className="inline-block hover:opacity-80 transition-all duration-200 hover:scale-125"
                 >
                   <Mail className="w-4 h-4 text-white" />
