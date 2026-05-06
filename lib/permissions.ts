@@ -7,18 +7,22 @@ export type Permission =
   | 'notifications.read' | 'notifications.create' | 'notifications.update' | 'notifications.delete'
   // Certificates 
   | 'certificates.read' | 'certificates.create' | 'certificates.update' | 'certificates.delete'
-  // Registration 
-  | 'registrations.read' | 'registrations.create' | 'registrations.update' | 'registrations.delete'
   // Competition 
   | 'competitions.read' | 'competitions.create' | 'competitions.update' | 'competitions.delete'
+  // Registration 
+  | 'registrations.read' | 'registrations.create' | 'registrations.update' | 'registrations.delete'
   // User 
   | 'users.read' | 'users.create' | 'users.update' | 'users.delete'
   // Role 
   | 'roles.read' | 'roles.create' | 'roles.update' | 'roles.delete'
   // Resources
   | 'resources.read' | 'resources.create' | 'resources.update' | 'resources.delete'
+  // Wings
+  | 'wings.read' | 'wings.create' | 'wings.update' | 'wings.delete'
   // Clubs
   | 'clubs.read' | 'clubs.create' | 'clubs.update' | 'clubs.delete'
+  // Members
+  | 'members.read' | 'members.create' | 'members.update' | 'members.delete'
 
 export interface UserSession {
   user: {
@@ -115,7 +119,9 @@ export function getNavigationPermissions(session: UserSession | null) {
       users: false,
       roles: false,
       resources: false,
-      clubs: false
+      clubs: false,
+      wings: false,
+      members: false
     }
   }
 
@@ -129,7 +135,9 @@ export function getNavigationPermissions(session: UserSession | null) {
     users: hasAnyPermission(session, ['users.read', 'users.create', 'users.update', 'users.delete']),
     roles: hasAnyPermission(session, ['roles.read', 'roles.create', 'roles.update', 'roles.delete']),
     resources: hasAnyPermission(session, ['resources.read', 'resources.create', 'resources.update', 'resources.delete']),
-    clubs: hasAnyPermission(session, ['clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete'])
+    clubs: hasAnyPermission(session, ['clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete']),
+    wings: hasAnyPermission(session, ['wings.read', 'wings.create', 'wings.update', 'wings.delete']),
+    members: hasAnyPermission(session, ['members.read', 'members.create', 'members.update', 'members.delete'])
   }
 }
 

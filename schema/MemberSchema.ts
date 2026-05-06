@@ -1,45 +1,37 @@
 import mongoose, { Schema } from "mongoose";
 
-const ClubSchema = new Schema({
-  id: { 
+const MemberSchema = new Schema({
+  clubId: { 
     type: String, 
     required: true,
-    unique: true,
-    lowercase: true,
-    trim: true
-  },
-  wingId: { 
-    type: String, 
-    required: true,
-    ref: 'Wing',
+    ref: 'Club',
     index: true
   },
-  title: { 
+  name: { 
     type: String, 
     required: true,
     trim: true
   },
-  branch: { 
+  position: { 
     type: String, 
     required: true,
     trim: true
   },
-  description: { 
+  email: { 
     type: String, 
     required: true,
-    trim: true
+    trim: true,
+    lowercase: true
   },
-  message: { 
+  linkedin: { 
     type: String, 
-    required: true,
     trim: true
   },
-  whatsappLink: { 
+  github: { 
     type: String, 
-    required: true,
     trim: true
   },
-  cardUrl: { 
+  imgUrl: { 
     type: String, 
     required: true,
     trim: true
@@ -56,9 +48,10 @@ const ClubSchema = new Schema({
   timestamps: true
 });
 
-ClubSchema.index({ order: 1 });
-ClubSchema.index({ isActive: 1 });
-ClubSchema.index({ wingId: 1, isActive: 1 });
+MemberSchema.index({ order: 1 });
+MemberSchema.index({ isActive: 1 });
+MemberSchema.index({ clubId: 1, isActive: 1 });
+MemberSchema.index({ clubId: 1, order: 1 });
 
-const Club = mongoose.models.Club || mongoose.model("Club", ClubSchema);
-export default Club;
+const Member = mongoose.models.Member || mongoose.model("Member", MemberSchema);
+export default Member;

@@ -105,7 +105,7 @@ export default function VideoTransition({ children }: VideoTransitionProps) {
     setTimeout(() => setIsTransitioning(false), 200)
   }
 
-  const xenith = pathname.startsWith('/xenith')
+  const xenith = pathname?.startsWith('/xenith')
   if (xenith) {
     return <>{children}</>
   }

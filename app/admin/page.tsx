@@ -8,6 +8,7 @@ import {
   UserPlus,
   Trophy,
   FileText,
+  Building,
 } from "lucide-react"
 import AdminNav from "@/components/adminNav"
 
@@ -99,23 +100,27 @@ export default function AdminDashboard() {
       iconBg: "bg-yellow-100",
       textColor: "text-yellow-700"
     },
+    {
+      title: "Wings",
+      value: 4,
+      icon: <Building className="w-6 h-6 text-indigo-600" />,
+      description: "Manage wings & clubs",
+      href: "/admin/wings",
+      bgColor: "bg-indigo-50",
+      iconBg: "bg-indigo-100",
+      textColor: "text-indigo-700"
+    },
 
   ]
 
   return (
-    <>
+    <div className="min-h-screen bg-slate-50">
       <AdminNav />
-
-      {/* Adds responsive top padding for fixed navbar */}
-      <div className="min-h-screen bg-gray-50 pt-24 sm:pt-28 pb-12">
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Header */}
-          <div className="mb-10">
-            <h1 className="text-3xl font-semibold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600 mt-1">Overview of your system activity</p>
-          </div>
-
+      <div className="px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+        {/* Header */}
+        <div className="mb-10">
+          <h1 className="text-3xl font-semibold text-gray-900">Admin Dashboard</h1>
+          <p className="text-gray-600 mt-1">Overview of your system activity</p>
           {/* Stats Grid */}
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -156,6 +161,6 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
-    </>
+    </div>
   )
 }

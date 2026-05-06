@@ -37,7 +37,11 @@ const RoleSchema = new mongoose.Schema({
       // Resources
       'resources.read', 'resources.create', 'resources.update', 'resources.delete',
       // Clubs
-      'clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete'
+      'clubs.read', 'clubs.create', 'clubs.update', 'clubs.delete',
+      // Wings
+      'wings.read', 'wings.create', 'wings.update', 'wings.delete',
+      // Members
+      'members.read', 'members.create', 'members.update', 'members.delete'
     ]
   }],
   isActive: { 

@@ -128,7 +128,7 @@ const AppConfig = {
 
       //Session&Webinar
       honey: "/Management/Session&Webinar/Honey.webp",
-      img2025: "/Management/Session&Webinar/IMG_20250211_202048427.jpg.jpeg",
+      Shobhit: "/Management/Session&Webinar/Shobhit.jpeg",
       ishaSession: "/Management/Session&Webinar/Isha.jpg",
       jayati: "/Management/Session&Webinar/Jayati.jpg",
       whatsapp2026:
@@ -178,7 +178,7 @@ const AppConfig = {
     AppBox2: "/DomainCards/App.png",
     SessionBox2: "/DomainCards/Session.png",
     HackathonBox2: "/DomainCards/Hackathon.png",
-    NewsBox2: "/DomainCards/News.png",
+    TechHubBox2: "/DomainCards/TechHub.png",
     MechXBox2: "/DomainCards/mech-x.png",
 
     // //navbar

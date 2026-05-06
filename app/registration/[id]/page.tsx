@@ -24,7 +24,7 @@ interface RegistrationTemplate {
 
 export default function RegistrationFormPage() {
   const params = useParams();
-  const slug = params.id as string;
+  const slug = params?.id as string;
 
   const [template, setTemplate] = useState<RegistrationTemplate | null>(null);
   const [loading, setLoading] = useState(true);

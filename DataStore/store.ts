@@ -525,7 +525,7 @@ const domains = {
       title: "TECH HUB",
       branch: "TECHNICAL CLUB",
       whatsappLink: "https://chat.whatsapp.com/InjNSSAY1REKYgeAKOkF6u?mode=wwt",
-      cardUrl: AppConfig.imageUrls.NewsBox2,
+      cardUrl: AppConfig.imageUrls.TechHubBox2,
       description:
         "Welcome to Tech Hub, the central hub for all things tech at IIT Patna! 🚀 Whether you're interested in learning new technologies, working on innovative projects, or attending insightful sessions, Tech Hub is the place to be. Join us to expand your knowledge, collaborate with peers, and stay ahead in the fast-paced world of technology.",
       message: "Empowering innovation through technology and collaboration!",
@@ -632,9 +632,10 @@ const domains = {
         },
       ],
     },
+  },
 
-    // ============ DISHA CLUB ============
-    disha: {
+  // ============ DISHA CLUB ============
+  disha: {
       careerCatalyst: {
         title: "CAREER CATALYST",
         branch: "CAREER DEVELOPMENT CLUB",
@@ -745,10 +746,10 @@ const domains = {
           },
         ],
       },
-    },
+  },
 
-    // ============ ARTHNITI CLUB ============
-    arthniti: {
+  // ============ ARTHNITI CLUB ============
+  arthniti: {
       foundersForge: {
         title: "FOUNDERS FORGE",
         branch: "ENTREPRENEURSHIP CLUB",
@@ -843,10 +844,10 @@ const domains = {
           },
         ],
       },
-    },
+  },
 
-    // ============ MANAGEMENT CLUB ============
-    management: {
+  // ============ MANAGEMENT CLUB ============
+  management: {
       creative: {
         title: "CREATIVE",
         branch: "CREATIVE CLUB",
@@ -977,7 +978,7 @@ const domains = {
         title: "PR",
         branch: "PUBLIC RELATIONS CLUB",
         whatsappLink: "https://chat.whatsapp.com/example",
-        cardUrl: AppConfig.imageUrls.NewsBox2,
+        cardUrl: AppConfig.imageUrls.TechHubBox2,
         description:
           "Welcome to PR, the Public Relations Club! 📢 Whether you're into communications, branding, or public speaking, join us to build your PR skills and represent the organization.",
         message: "Building relationships, one connection at a time!",
@@ -1066,19 +1067,11 @@ const domains = {
             github: "",
           },
           {
-            name: "WhatsApp",
+            name: "Shobhit",
             position: "Member",
-            imgUrl: AppConfig.imageUrls.management.whatsapp2026,
-            email: "whatsapp@iitp.ac.in",
-            linkedin: "https://linkedin.com/in/whatsapp",
-            github: "",
-          },
-          {
-            name: "IMG2025",
-            position: "Member",
-            imgUrl: AppConfig.imageUrls.management.img2025,
-            email: "img2025@iitp.ac.in",
-            linkedin: "https://linkedin.com/in/img2025",
+            imgUrl: AppConfig.imageUrls.management.Shobhit,
+            email: "shobhit@iitp.ac.in",
+            linkedin: "#",
             github: "",
           },
         ],
@@ -1126,10 +1119,8 @@ const domains = {
           },
         ],
       },
-    },
   },
 };
-
 // Export all team data for use in components
 export { coreTeam, councilMembers, developers };
 export default domains;
