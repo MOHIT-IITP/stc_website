@@ -157,7 +157,6 @@ const AppConfig = {
       stars: "/phoenix/stars.svg",
 
       // Section Images
-      eventcard: "/phoenix/Eventcard.svg",
       contactSection: "/phoenix/contact-section.svg",
     },
 

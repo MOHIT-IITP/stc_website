@@ -11,8 +11,8 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Events", href: "#events" },
   { label: "Our Team", href: "#our-team" },
-  { label: "Sponsors", href: "#sponsors" },
-  { label: "Glimpses", href: "#glimpses" },
+  // { label: "Sponsors", href: "#sponsors" },
+  // { label: "Glimpses", href: "#glimpses" },
   { label: "Contact", href: "#contact" },
 ];
 

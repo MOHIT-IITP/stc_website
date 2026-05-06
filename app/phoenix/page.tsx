@@ -5,7 +5,7 @@ import ContactSection from "./components/contact-section";
 import SponsorsSection from "./components/sponsors-section";
 import TeamSection from "./components/TeamSection";
 import MarqueeSection from "./components/marquee-section";
-
+import Footer from "./components/footer";
 
 export default function Page() {
   return (
@@ -16,8 +16,9 @@ export default function Page() {
         <AboutSection />
         <Events />
         <SponsorsSection />
-        {/* <TeamSection /> */}
+        <TeamSection />
         <ContactSection />
+        <Footer />
       </div>
     </>
   );
