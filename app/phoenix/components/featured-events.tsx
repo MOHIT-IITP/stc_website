@@ -94,6 +94,12 @@ export default function FeaturedEvents() {
     //   img: "/phoenix/events/volleyball.png",
     //   registerLink: "/registration/event15",
     // },
+    // {
+    //   id: 16,
+    //   title: "Pixel Pulse",
+    //   img: "/phoenix/events/Pixelerate.svg",
+    //   registerLink: "/404-not-found",
+    // },
   ];
 
   return (
@@ -126,18 +132,18 @@ export default function FeaturedEvents() {
             return (
               <div
                 key={event.id}
-                className="group relative w-full h-110 overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105"
+                className="group relative w-full lg:w-[105%] xl:w-[108%] h-130 overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105"
               >
                 <Image
                   src={event.img}
                   alt={event.title}
                   width={400}
-                  height={620}
-                  className="w-full h-full object-cover  rounded-xl"
+                  height={60}
+                  className="w-full h-full object-contain rounded-xl"
                 />
 
                 {/* Register Button */}
-                 <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pb-8 sm:pb-10 lg:pb-14">
+                <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pb-18 sm:pb-10 lg:pb-25">
                   <Link
                     href={event.registerLink}
                     {...(isExternal
@@ -147,7 +153,7 @@ export default function FeaturedEvents() {
                   >
                     Register Now
                   </Link>
-                </div> 
+                </div>
               </div>
             );
           })}
