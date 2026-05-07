@@ -1,43 +1,27 @@
 import nodemailer, { Transporter } from 'nodemailer';
 
-// Validate required environment variables
-const emailUser = process.env.EMAIL_USER;
-const emailPass = process.env.EMAIL_PASS;
+let transporter: Transporter | null = null;
 
-if (!emailUser || !emailPass) {
-  console.error('❌ Email configuration error:');
-  if (!emailUser) console.error('   - EMAIL_USER is not set in environment variables');
-  if (!emailPass) console.error('   - EMAIL_PASS is not set in environment variables');
-  console.error('Please set these variables in your .env.local file');
-  throw new Error('Email configuration is incomplete');
-}
+function getTransporter(): Transporter {
+  if (!transporter) {
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
 
-const transporter: Transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER || '',
-    pass: process.env.EMAIL_PASS || '',
-  },
-});
+    if (!emailUser || !emailPass) {
+      throw new Error('Email configuration is incomplete');
+    }
 
-// Verify connection configuration
-const verifyTransporter = async (): Promise<boolean> => {
-  return new Promise((resolve, reject) => {
-    // Use the callback-based verify method which is available on the SMTP transport
-    transporter.verify((error: Error | null) => {
-      if (error) {
-        console.error('❌ Error with email configuration:', error);
-        reject(new Error(`Failed to verify email configuration: ${error.message}`));
-      } else {
-        console.log('✅ Email server is ready to send messages');
-        resolve(true);
-      }
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: emailUser,
+        pass: emailPass,
+      },
     });
-  });
-};
+  }
 
-// Run verification (but don't block the application)
-verifyTransporter().catch(console.error);
+  return transporter;
+}
 
 interface SendOTPEmailParams {
   email: string;
@@ -46,6 +30,8 @@ interface SendOTPEmailParams {
 }
 
 export async function sendOTPEmail({ email, otp, event }: SendOTPEmailParams) {
+  const transporter = getTransporter();
+
   const mailOptions = {
     from: {
       name: 'STC IITP Hybrid Programs',
@@ -193,6 +179,8 @@ interface SendConfirmationEmailParams {
 }
 
 export async function sendConfirmationEmail({ email, name, eventTitle, eventDate }: SendConfirmationEmailParams) {
+  const transporter = getTransporter();
+
   const mailOptions = {
     from: {
       name: 'STC IITP Hybrid Programs',
@@ -352,6 +340,8 @@ This is an official confirmation email. Please do not reply.
 }
 
 export async function sendXenithOTP({ email, otp, level }: { email: string; otp: string; level: number }) {
+  const transporter = getTransporter();
+
   const mailOptions = {
     from: {
       name: 'Xenith - STC IITP',

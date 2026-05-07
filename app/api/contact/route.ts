@@ -4,17 +4,6 @@ import ContactFormEmail from '@/app/emails/contact-form-template';
 import { render } from '@react-email/render';
 import React from 'react';
 
-if (!process.env.RESEND_API_KEY) {
-  throw new Error('Resend API key is required');
-}
-
-const resendApiKey = process.env.RESEND_API_KEY.trim();
-if (!resendApiKey.startsWith('re_')) {
-  throw new Error('Invalid Resend API key format');
-}
-
-const resend = new Resend(resendApiKey);
-
 interface ContactFormData {
   name: string;
   email: string;
@@ -25,9 +14,29 @@ interface ContactFormData {
 
 export async function POST(request: Request) {
   try {
+
+    const resendApiKey = process.env.RESEND_API_KEY?.trim();
+
+    if (!resendApiKey) {
+      return NextResponse.json(
+        { error: 'RESEND_API_KEY is missing' },
+        { status: 500 }
+      );
+    }
+
+    if (!resendApiKey.startsWith('re_')) {
+      return NextResponse.json(
+        { error: 'Invalid Resend API key format' },
+        { status: 500 }
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
+
     const requestBody = await request.text();
-    
+
     let jsonBody;
+
     try {
       jsonBody = JSON.parse(requestBody);
     } catch {
@@ -36,8 +45,10 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    
-    const { name, email, company, subject, message } = jsonBody as ContactFormData;
+
+    const { name, email, company, subject, message } =
+      jsonBody as ContactFormData;
+
     
     if (!name || !email || !message) {
       const errorMsg = 'Name, email, and message are required';

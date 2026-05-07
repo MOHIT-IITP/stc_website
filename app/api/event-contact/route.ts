@@ -3,10 +3,18 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
-
 export async function POST(req: Request) {
   try {
+    const resendApiKey = process.env.RESEND_API_KEY?.trim();
+    if (!resendApiKey) {
+      return NextResponse.json(
+        { success: false, error: "Email sending is currently unavailable." },
+        { status: 503 },
+      );
+    }
+
+    const resend = new Resend(resendApiKey);
+
     const { firstName, lastName, email, message } = await req.json();
 
     // Validate required fields

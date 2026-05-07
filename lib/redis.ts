@@ -37,5 +37,3 @@ export async function deleteOTP(email: string) {
   const key = `otp:${email.toLowerCase().trim()}`;
   await redis.del(key);
 }
-
-export const redis = getRedisClient();

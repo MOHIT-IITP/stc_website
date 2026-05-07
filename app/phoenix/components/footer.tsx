@@ -149,7 +149,7 @@ export default function Footer() {
             <span className="text-emerald-400 animate-pulse">&hearts;</span>
             by{" "}
             <Link
-              href="/"
+              href="/wings/tatva/subclubs/webwiser"
               className="text-emerald-400/60 hover:text-emerald-300 transition-colors"
             >
               WebWiser
