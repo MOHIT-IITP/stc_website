@@ -68,14 +68,14 @@ export default function ContactSection() {
       id="contact"
     >
       <PhoenixBg />
-      {/* Centered decorative contact SVG (non-interactive) */}
-      {/* <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <img
           src="/phoenix/contact%20svg.svg"
           alt="contact decorative background"
           className="w-3/4 max-w-[560px] opacity-20 dark:opacity-10 object-contain"
         />
-      </div> */}
+      </div>
       <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left side - Form */}
