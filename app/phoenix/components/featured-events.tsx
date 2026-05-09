@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Download } from "lucide-react";
 import PhoenixBg from "./phoenix-bg";
 import { motion } from "framer-motion";
 
@@ -88,8 +89,9 @@ export default function FeaturedEvents() {
     {
       id: 14,
       title: "Treasure Hunt",
-      img: "/phoenix/events/treasure-hunt.png",
+      img: "/phoenix/events/treasure-hunt.svg",
       registerLink: "/404-not-found",
+      rulebook: "https://drive.google.com/file/d/1Ro5kQvGSgEyWqY0DNPWIraUWB4-uTBgI/view?usp=drivesdk",
     },
     // {
     //   id: 15,
@@ -101,8 +103,15 @@ export default function FeaturedEvents() {
     //   id: 16,
     //   title: "Pixel Pulse",
     //   img: "/phoenix/events/Pixelerate.svg",
-    //   registerLink: "/404-not-found",
+    //   registerLink: "/registration/#",
+    //   rulebook: "https://drive.google.com/file/d/pixel-pulse-rules/view?usp=sharing",
     // },
+    // {
+    //   id: 17,
+    //   title: "Tea and Talk",
+    //   img: "/phoenix/events/tea-and-talk.png",
+    //   registerLink: "/registration/#",
+    // }
   ];
 
   return (
@@ -157,18 +166,27 @@ export default function FeaturedEvents() {
                 />
 
                 {/* Register Button */}
-                <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pb-18 sm:pb-10 lg:pb-25">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center gap-2 pb-18 sm:pb-10 lg:pb-25">
+                  <Link
+                    href={event.registerLink}
+                    {...(isExternal
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
+                  >
+                    Register Now
+                  </Link>
+                  {event.rulebook && (
                     <Link
-                      href={event.registerLink}
-                      {...(isExternal
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
+                      href={event.rulebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#059669] hover:bg-[#047857]"
                     >
-                      Register Now
+                      <Download className="mr-1 h-3 w-3" />
+                      <span className="font-bold">Rulebook</span>
                     </Link>
-                  </motion.div>
+                  )}
                 </div>
               </motion.div>
             );

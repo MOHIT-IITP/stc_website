@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Events", href: "#events" },
+  { label: "Sponsors", href: "#sponsors" },
   { label: "Our Team", href: "#our-team" },
-  // { label: "Sponsors", href: "#sponsors" },
   // { label: "Glimpses", href: "#glimpses" },
   { label: "Contact", href: "#contact" },
 ];
@@ -22,8 +22,9 @@ export default function Navbar() {
 
   // Spotlight Logic
   const navRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [hoverX, setHoverX] = useState<number | null>(null);
+  const isHeroActive = activeIndex === null;
 
   const spotlightX = useRef(0);
   const ambienceX = useRef(0);
@@ -49,11 +50,13 @@ export default function Navbar() {
 
     if (!sections.length) return;
 
-    const markerOffset = () => window.innerHeight * 0.35;
+    // Keep the marker near the top so section highlight switches as soon as
+    // a new section reaches the navbar area (instead of one section late).
+    const markerOffset = () => Math.max(88, window.innerHeight * 0.12);
 
     const syncActiveIndex = () => {
       const markerY = markerOffset();
-      let nextActiveIndex = sections[0].index;
+      let nextActiveIndex: number | null = null;
       let bestDistance = Number.POSITIVE_INFINITY;
 
       for (const section of sections) {
@@ -153,6 +156,7 @@ export default function Navbar() {
 
   // Handle the "Ambience" (Active Item) Movement
   useEffect(() => {
+    if (activeIndex === null) return;
     if (!navRef.current) return;
     const nav = navRef.current;
     const activeItem = nav.querySelector(`[data-index="${activeIndex}"]`);
@@ -201,12 +205,25 @@ export default function Navbar() {
             href="/phoenix#home"
             className="relative z-10 flex items-center group mr-2"
           >
+            <span
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500",
+                isHeroActive
+                  ? "h-10 w-10 sm:h-12 sm:w-12 bg-emerald-400/45 blur-[14px] shadow-[0_0_26px_rgba(34,197,94,0.95)]"
+                  : "h-0 w-0 opacity-0",
+              )}
+            />
             <Image
               src={AppConfig.imageUrls.phoenix.logo}
               alt="Phoenix Logo"
               width={56}
               height={56}
-              className="h-16 w-16 sm:h-18 sm:w-18 object-contain transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+              className={cn(
+                "h-16 w-16 sm:h-18 sm:w-18 object-contain transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]",
+                isHeroActive &&
+                  "drop-shadow-[0_0_24px_rgba(34,197,94,1)] [filter:drop-shadow(0_0_20px_rgba(34,197,94,0.95))_drop-shadow(0_0_40px_rgba(34,197,94,0.8))]",
+              )}
             />
           </Link>
 
@@ -230,6 +247,7 @@ export default function Navbar() {
               className="absolute bottom-1 h-0.5 w-[50px] -ml-[25px] pointer-events-none z-0 bg-linear-to-r from-transparent via-[#22c55e] to-transparent drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]"
               style={{
                 left: "var(--ambience-x, 0px)",
+                opacity: activeIndex === null ? 0 : 1,
               }}
             />
 
