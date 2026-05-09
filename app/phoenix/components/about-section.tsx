@@ -1,7 +1,33 @@
+"use client";
+
 import PhoenixBg from "./phoenix-bg";
 import AppConfig from "@/config/appConfig";
+import { motion } from "framer-motion";
 
 export default function AboutSection() {
+  const stats = [
+    {
+      value: "300k+",
+      label: (
+        <>
+          Social media <br /> reach
+        </>
+      ),
+    },
+    {
+      value: "2500+",
+      label: <>Footfall</>,
+    },
+    {
+      value: "20+",
+      label: (
+        <>
+          workshops and <br /> competitions
+        </>
+      ),
+    },
+  ];
+
   return (
     <section
       id="about"
@@ -40,18 +66,29 @@ src={AppConfig.imageUrls.phoenix.stars}
         {/* Main Grid: Text and Logo */}
         <div className="max-w-6xl w-full grid md:grid-cols-[6fr_4fr] gap-8 lg:gap-12 items-center">
           {/* CONTENT IMAGE (Left) */}
-          <div className="flex justify-center items-center w-full h-full relative">
+          <motion.div
+            className="flex justify-center items-center w-full h-full relative"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             <img
               src="/phoenix/about-section.png"
               alt="About Phoenix"
               className="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
             />
-          </div>
+          </motion.div>
 
           {/* LOGO GRAPHIC (Right) */}
-          <div
+          <motion.div
             className="group flex justify-center items-center relative scale-90 md:scale-100"
             style={{ animation: "stcLogoFloat 8s ease-in-out infinite" }}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ scale: 1.03 }}
           >
             <div
               className="absolute inset-4 rounded-full bg-[#B8FFE1]/22 blur-3xl pointer-events-none"
@@ -62,37 +99,29 @@ src={AppConfig.imageUrls.phoenix.stars}
               alt="Phoenix Logo"
               className="logo-inner-spin relative w-full max-w-[400px] h-auto object-contain drop-shadow-[0_0_20px_rgba(189,248,216,0.4)]"
             />
-          </div>
+          </motion.div>
         </div>
 
         {/*Bottom Stats */}
         <div className="mt-20 w-full max-w-5xl grid grid-cols-3 gap-3 sm:gap-6 text-center pb-8">
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#D1E8E0] mb-2">
-              300k+
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A3C7B6] font-medium leading-tight max-w-[140px]">
-              Social media <br /> reach
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#D1E8E0] mb-2">
-              2500+
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A3C7B6] font-medium leading-tight mt-2">
-              Footfall
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#D1E8E0] mb-2">
-              20+
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A3C7B6] font-medium leading-tight max-w-40">
-              workshops and <br /> competitions
-            </p>
-          </div>
+          {stats.map((item, index) => (
+            <motion.div
+              key={item.value}
+              className="flex flex-col items-center justify-center rounded-xl border border-white/5 bg-white/[0.02] px-2 py-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.55, delay: index * 0.08 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+            >
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#D1E8E0] mb-2">
+                {item.value}
+              </h2>
+              <p className="text-xs sm:text-sm text-[#A3C7B6] font-medium leading-tight max-w-[140px]">
+                {item.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

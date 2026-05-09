@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function MarqueeSection() {
   return (
     <section className="relative w-full py-8 overflow-hidden">
@@ -15,14 +17,22 @@ export default function MarqueeSection() {
 
       {/* Content */}
       <div className="relative z-10 w-full overflow-hidden">
-
-        <h2 className="whitespace-nowrap text-[clamp(1.2rem,5vw,4rem)] font-extrabold uppercase tracking-normal sm:tracking-widest md:tracking-[0.2em] 
-        bg-gradient-to-r from-[#48645D] via-white to-[#48645D] bg-clip-text text-transparent opacity-80 text-center px-2 sm:px-4">
-
+        <motion.h2
+          className="whitespace-nowrap text-[clamp(1.2rem,5vw,4rem)] font-extrabold uppercase tracking-normal sm:tracking-widest md:tracking-[0.2em] 
+        bg-gradient-to-r from-[#48645D] via-white to-[#48645D] bg-clip-text text-transparent opacity-80 text-center px-2 sm:px-4"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 0.8, y: 0 }}
+          viewport={{ once: true, amount: 0.7 }}
+          animate={{ letterSpacing: ["0.06em", "0.12em", "0.06em"] }}
+          style={{ letterSpacing: "0.06em" }}
+          transition={{
+            opacity: { duration: 0.6 },
+            y: { duration: 0.6 },
+            letterSpacing: { duration: 4.5, repeat: Infinity, ease: "easeInOut" },
+          }}
+        >
           ENCHANTING INNOVATION
-
-        </h2>
-
+        </motion.h2>
       </div>
 
       {/* Side fade (important for seamless blend) */}

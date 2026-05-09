@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import PhoenixBg from "./phoenix-bg";
+import { motion } from "framer-motion";
 
 export default function FeaturedEvents() {
   const events = [
@@ -116,23 +119,34 @@ export default function FeaturedEvents() {
       {/* Foreground Content */}
       <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-6 py-12 tracking-tight">
         {/* Section Title */}
-        <div className="max-w-5xl w-full mb-16 text-center">
+        <motion.div
+          className="max-w-5xl w-full mb-16 text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.65 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Featured Events
           </h2>
           <p className="text-lg text-[#D1D5DC]">
             Explore the exciting events happening at Phoenix
           </p>
-        </div>
+        </motion.div>
 
         {/* Events Grid */}
         <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
           {events.map((event) => {
             const isExternal = String(event.registerLink).startsWith("http");
             return (
-              <div
+              <motion.div
                 key={event.id}
                 className="group relative w-full lg:w-[105%] xl:w-[108%] h-130 overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.55, delay: (event.id % 4) * 0.05 }}
+                whileHover={{ y: -8, scale: 1.02 }}
               >
                 <Image
                   src={event.img}
@@ -144,17 +158,19 @@ export default function FeaturedEvents() {
 
                 {/* Register Button */}
                 <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center pb-18 sm:pb-10 lg:pb-25">
-                  <Link
-                    href={event.registerLink}
-                    {...(isExternal
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
-                  >
-                    Register Now
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                    <Link
+                      href={event.registerLink}
+                      {...(isExternal
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
+                    >
+                      Register Now
+                    </Link>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
