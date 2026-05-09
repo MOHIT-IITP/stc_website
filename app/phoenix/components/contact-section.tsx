@@ -71,7 +71,7 @@ export default function ContactSection() {
 
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         <img
-          src="/phoenix/contact%20svg.svg"
+          src="/phoenix/Union.svg"
           alt="contact decorative background"
           className="w-3/4 max-w-[560px] opacity-20 dark:opacity-10 object-contain"
         />
