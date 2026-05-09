@@ -88,7 +88,7 @@ export default function FeaturedEvents() {
       title: "Treasure Hunt",
       img: "/phoenix/events/treasure-hunt.svg",
       registerLink: "/404-not-found",
-      rulebook: "https://drive.google.com/file/d/1abc123/view?usp=sharing",
+      rulebook: "https://drive.google.com/file/d/1Ro5kQvGSgEyWqY0DNPWIraUWB4-uTBgI/view?usp=drivesdk",
     },
     // {
     //   id: 15,
