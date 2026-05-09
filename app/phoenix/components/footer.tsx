@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AppConfig from "@/config/appConfig";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   const quickLinks = [
@@ -30,32 +31,40 @@ export default function Footer() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      <motion.div
+        className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.65 }}
+      >
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-16">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link
-              href="/phoenix"
-              className="flex items-center gap-3 mb-6 group"
-            >
-              <Image
-                src={AppConfig.imageUrls.phoenix.logo}
-                alt="Phoenix Logo"
-                width={64}
-                height={64}
-                className="h-16 w-16 object-contain transition-transform duration-500 group-hover:scale-110"
-              />
-              <div>
-                <Image
-                  src={AppConfig.imageUrls.phoenix.phoenix}
-                  alt="Phoenix Logo Text"
-                  width={160}
-                  height={44}
-                  className="h-11 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-            </Link>
+              <motion.div whileHover={{ y: -4 }}>
+                <Link
+                  href="/phoenix"
+                  className="flex items-center gap-3 mb-6 group"
+                >
+                  <Image
+                    src={AppConfig.imageUrls.phoenix.logo}
+                    alt="Phoenix Logo"
+                    width={64}
+                    height={64}
+                    className="h-16 w-16 object-contain transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div>
+                    <Image
+                      src={AppConfig.imageUrls.phoenix.phoenix}
+                      alt="Phoenix Logo Text"
+                      width={160}
+                      height={44}
+                      className="h-11 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                </Link>
+              </motion.div>
             <p className="text-sm text-white/40 leading-relaxed max-w-[260px]">
               IIT Patna&apos;s premier tech fest — where technology meets magic
               and innovation knows no bounds.
@@ -75,13 +84,15 @@ export default function Footer() {
                   href: "https://www.linkedin.com/company/stc-iitp-hybrid-programs",
                 },
               ].map((social) => (
-                <a
+                <motion.a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9  flex items-center justify-center text-emerald-400/50 hover:text-emerald-300 transition-all duration-500"
                   aria-label={social.name}
+                  whileHover={{ y: -3, scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <svg
                     className="w-6 h-6"
@@ -90,7 +101,7 @@ export default function Footer() {
                   >
                     <path d={social.icon} />
                   </svg>
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
@@ -102,7 +113,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.label}>
+                <motion.li key={link.label} whileHover={{ x: 4 }}>
                   <Link
                     href={link.href}
                     className="text-sm text-white/40 hover:text-emerald-300 transition-colors duration-300 flex items-center gap-2 group"
@@ -110,7 +121,7 @@ export default function Footer() {
                     <span className="w-0 h-px bg-emerald-400 transition-all duration-300 group-hover:w-3" />
                     {link.label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -122,7 +133,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {wings.map((wing) => (
-                <li key={wing.label}>
+                <motion.li key={wing.label} whileHover={{ x: 4 }}>
                   <Link
                     href={wing.href}
                     className="text-sm text-white/40 hover:text-emerald-300 transition-colors duration-300 flex items-center gap-2 group"
@@ -130,7 +141,7 @@ export default function Footer() {
                     <span className="w-0 h-px bg-emerald-400 transition-all duration-300 group-hover:w-3" />
                     {wing.label}
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
@@ -156,7 +167,7 @@ export default function Footer() {
             </Link>
           </p>
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 }

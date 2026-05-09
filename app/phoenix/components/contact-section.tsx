@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import PhoenixBg from "./phoenix-bg";
+import { AnimatePresence, motion } from "framer-motion";
+
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     lastName: "",
@@ -79,7 +81,13 @@ export default function ContactSection() {
       <div className="container mx-auto px-4 md:px-12 lg:px-20 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Left side - Form */}
-          <div className="relative z-10 flex flex-col justify-center">
+          <motion.div
+            className="relative z-10 flex flex-col justify-center"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="mb-6">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
                 Let's connect
@@ -148,44 +156,62 @@ export default function ContactSection() {
               </div>
 
               {/* Success Message */}
-              {submitted && (
-                <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 p-5 bg-linear-to-r from-green-500/15 via-emerald-500/10 to-green-500/15 border border-green-500/40 rounded-xl shadow-lg shadow-green-500/10 backdrop-blur-sm">
-                  <div className="flex items-start gap-4">
-                    <div className="shrink-0 mt-1">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500/20 animate-pulse">
-                        <svg
-                          className="h-6 w-6 text-green-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+              <AnimatePresence mode="wait">
+                {submitted && (
+                  <motion.div
+                    key="submitted"
+                    initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.35 }}
+                    className="p-5 bg-linear-to-r from-green-500/15 via-emerald-500/10 to-green-500/15 border border-green-500/40 rounded-xl shadow-lg shadow-green-500/10 backdrop-blur-sm"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="shrink-0 mt-1">
+                        <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500/20 animate-pulse">
+                          <svg
+                            className="h-6 w-6 text-green-400"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="flex-1 py-1">
+                        <h3 className="text-base font-bold text-green-300">
+                          Message Sent Successfully!
+                        </h3>
+                        <p className="text-sm text-green-200/90 mt-2 leading-relaxed">
+                          Thank you for reaching out! Your message has been
+                          delivered to our team. We'll review it and get back to
+                          you as soon as possible.
+                        </p>
                       </div>
                     </div>
-                    <div className="flex-1 py-1">
-                      <h3 className="text-base font-bold text-green-300">
-                        Message Sent Successfully!
-                      </h3>
-                      <p className="text-sm text-green-200/90 mt-2 leading-relaxed">
-                        Thank you for reaching out! Your message has been
-                        delivered to our team. We'll review it and get back to
-                        you as soon as possible.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Error Message */}
-              {submitError && (
-                <div className="animate-in fade-in slide-in-from-bottom-2 duration-500 p-4 bg-red-500/10 border border-red-500/40 rounded-xl shadow-lg shadow-red-500/10 backdrop-blur-sm">
-                  <p className="text-sm text-red-200">{submitError}</p>
-                </div>
-              )}
+              <AnimatePresence>
+                {submitError && (
+                  <motion.div
+                    key="submit-error"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.25 }}
+                    className="p-4 bg-red-500/10 border border-red-500/40 rounded-xl shadow-lg shadow-red-500/10 backdrop-blur-sm"
+                  >
+                    <p className="text-sm text-red-200">{submitError}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Loading State */}
               {isSubmitting && (
@@ -198,13 +224,15 @@ export default function ContactSection() {
               )}
 
               {/* Submit Button */}
-              <button
+              <motion.button
                 type="submit"
                 className={`w-full transition-all duration-500 hover:scale-105 active:scale-95 flex items-center justify-center ${
                   isSubmitting || submitted
                     ? "opacity-0 pointer-events-none scale-95"
                     : "opacity-100"
                 }`}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
               >
                 <div className="relative flex items-center justify-center">
                   <div className="absolute bg-white p-1 shadow-lg w-64 h-10" />
@@ -217,24 +245,39 @@ export default function ContactSection() {
                     priority
                   />
                 </div>
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
 
           {/* Right side - Owl image */}
-          <div className="relative z-10 hidden min-h-[420px] lg:flex lg:min-h-full items-start justify-center lg:justify-end lg:pt-2 lg:pr-2">
+          <motion.div
+            className="relative z-10 hidden min-h-[420px] lg:flex lg:min-h-full items-start justify-center lg:justify-end lg:pt-2 lg:pr-2"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            whileHover={{ y: -8 }}
+          >
             <img
               src="/phoenix/contact-section.png"
               alt="Phoenix owl illustration"
               className="w-[115%] max-w-none h-auto max-h-[540px] object-contain translate-x-3 -translate-y-3 lg:w-[125%] lg:translate-x-6 lg:-translate-y-6"
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Decorative background elements */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-[#00C984]/5 rounded-full blur-3xl -translate-x-1/2 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#33D9A0]/5 rounded-full blur-3xl translate-x-1/3 pointer-events-none"></div>
+      <motion.div
+        className="absolute top-20 left-0 w-72 h-72 bg-[#00C984]/5 rounded-full blur-3xl -translate-x-1/2 pointer-events-none"
+        animate={{ scale: [1, 1.06, 1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-96 h-96 bg-[#33D9A0]/5 rounded-full blur-3xl translate-x-1/3 pointer-events-none"
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+      />
     </div>
   );
 }
