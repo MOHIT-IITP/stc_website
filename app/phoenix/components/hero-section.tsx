@@ -23,17 +23,20 @@ export function HeroSection() {
     >
       {/* Background Image */}
       <picture className="absolute inset-0 z-10 block h-full w-full">
-        <source
-          media="(min-width: 1024px)"
-          srcSet={AppConfig.imageUrls.phoenix.bg}
-        />
         <Image
+          height={1200}
+          width={1600}
+          className="h-full w-full object-cover object-center"
+          src={AppConfig.imageUrls.phoenix.bg}
+          alt="Hero Background"
+        />
+        {/* <Image
           src={AppConfig.imageUrls.phoenix.bgMobile}
           alt="Hero Background"
           height={600}
           width={500}
           className="h-full w-full object-cover object-center"
-        />
+        /> */}
       </picture>
       {/* <Image
 src={AppConfig.imageUrls.phoenix.bg2}
@@ -53,18 +56,18 @@ src={AppConfig.imageUrls.phoenix.bg2}
             style={{ y: heroTextY }}
             initial={{ opacity: 0, y: 28, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              animate={{ y: [0, -8, 0] }}
+              animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
               <Image
                 src={AppConfig.imageUrls.phoenix.phoenix}
                 alt="Hero Text"
-                width={900}
-                height={400}
-                className="h-[45vh] w-[min(70vw,800px)] min-w-[300px] -ml-10 drop-shadow-[0_16px_32px_rgba(0,0,0,0.3)] sm:w-[min(60vw,800px)] lg:w-[min(40vw)]"
+                width={800}
+                height={350}
+                className="h-[40vh] w-[min(70vw,800px)] min-w-[300px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.3)] sm:w-[min(60vw,800px)] lg:w-[min(40vw)]"
               />
             </motion.div>
           </motion.div>

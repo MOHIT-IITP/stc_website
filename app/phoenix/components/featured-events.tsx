@@ -5,114 +5,171 @@ import Link from "next/link";
 import { Download } from "lucide-react";
 import PhoenixBg from "./phoenix-bg";
 import { motion } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+
+interface Event {
+  _id: string;
+  title: string;
+  imageUrl?: string;
+  club?: string;
+  phoenixTitle?: string;
+  rulebook?: string;
+  registerLink?: string;
+  redirectLink?: string;
+  redirectLabel?: string;
+  resourcesLink?: string;
+  resourcesLabel?: string;
+}
+
+interface FeaturedEvent {
+  title: string;
+  img: string;
+  phoenixTitle: string;
+}
+
+type PhoenixEvent = Event & {
+  img: string;
+  phoenixTitle: string;
+};
+
+const FEATURED_EVENTS: FeaturedEvent[] = [
+  {
+    title: "Hack N Tech",
+    img: "/phoenix/events/hack-n-tech.png",
+    phoenixTitle: "Hack & Tech",
+  },
+  {
+    title: "BGMI Tournament",
+    img: "/phoenix/events/bgmi.png",
+    phoenixTitle: "BGMI",
+  },
+  {
+    title: "Free Fire Tournament",
+    img: "/phoenix/events/freefire.png",
+    phoenixTitle: "FREE FIRE",
+  },
+  {
+    title: "Idea Station",
+    img: "/phoenix/events/idea-station.png",
+    phoenixTitle: "IDEA",
+  },
+  {
+    title: "Code Kshetra",
+    img: "/phoenix/events/code-kshetra.png",
+    phoenixTitle: "CODE",
+  },
+  {
+    title: "Girs Badminton Tournament",
+    img: "/phoenix/events/badminton.png",
+    phoenixTitle: "BADMINTON",
+  },
+  {
+    title: "Capture The Flag",
+    img: "/phoenix/events/capture-the-flag.png",
+    phoenixTitle: "CAPTURE THE FLAG",
+  },
+  {
+    title: "Chess Tournament",
+    img: "/phoenix/events/chess.png",
+    phoenixTitle: "CHESS",
+  },
+  {
+    title: "Cricket Tournament",
+    img: "/phoenix/events/cricket.png",
+    phoenixTitle: "CRICKET",
+  },
+  {
+    title: "Football Tournament",
+    img: "/phoenix/events/football.png",
+    phoenixTitle: "FOOTBALL",
+  },
+  {
+    title: "Founder Session",
+    img: "/phoenix/events/founder-session.png",
+    phoenixTitle: "FOUNDER SESSION",
+  },
+  {
+    title: "Guest Session",
+    img: "/phoenix/events/guest-session.png",
+    phoenixTitle: "GUEST SESSION",
+  },
+  {
+    title: "Startup Showcase",
+    img: "/phoenix/events/startup-showcase.png",
+    phoenixTitle: "STARTUP SHOWCASE",
+  },
+  {
+    title: "Treasure Hunt",
+    img: "/phoenix/events/treasure-hunt.svg",
+    phoenixTitle: "TREASURE HUNT",
+  },
+  {
+    title: "Volleyball Tournament",
+    img: "/phoenix/events/volleyball.png",
+    phoenixTitle: "VOLLEYBALL TOURNAMENT",
+  },
+  {
+    title: "Pixel Pulse",
+    img: "/phoenix/events/Pixelerate.svg",
+    phoenixTitle: "PIXEL PULSE",
+  },
+  {
+    title: "Tea and Talk",
+    img: "/phoenix/events/tea-and-talk.png",
+    phoenixTitle: "TEA & TALK",
+  },
+];
 
 export default function FeaturedEvents() {
-  const events = [
-    // {
-    //   id: 11,
-    //   title: "Hack N Tech",
-    //   img: "/phoenix/events/hack-n-tech.png",
-    //   registerLink: "/registration/event11",
-    // },
-    // {
-    //   id: 2,
-    //   title: "BGMI Tournament",
-    //   img: "/phoenix/events/bgmi.png",
-    //   registerLink: "/registration/event2",
-    // },
-    // {
-    //   id: 9,
-    //   title: "Free Fire Tournament",
-    //   img: "/phoenix/events/freefire.png",
-    //   registerLink: "/registration/event9",
-    // },
-    // {
-    //   id: 12,
-    //   title: "Idea Station",
-    //   img: "/phoenix/events/idea-station.png",
-    //   registerLink: "/registration/event12",
-    // },
-    // {
-    //   id: 5,
-    //   title: "Code Kshetra",
-    //   img: "/phoenix/events/code-kshetra.png",
-    //   registerLink: "/registration/event5",
-    // },
-    // {
-    //   id: 1,
-    //   title: "Girs Badminton Tournament",
-    //   img: "/phoenix/events/badminton.png",
-    //   registerLink: "/registration/event1",
-    // },
-    // {
-    //   id: 3,
-    //   title: "Capture The Flag",
-    //   img: "/phoenix/events/capture-the-flag.png",
-    //   registerLink: "/registration/event3",
-    // },
-    // {
-    //   id: 4,
-    //   title: "Chess Tournament",
-    //   img: "/phoenix/events/chess.png",
-    //   registerLink: "/registration/event4",
-    // },
-    // {
-    //   id: 6,
-    //   title: "Cricket Tournament",
-    //   img: "/phoenix/events/cricket.png",
-    //   registerLink: "/registration/event6",
-    // },
-    // {
-    //   id: 7,
-    //   title: "Football Tournament",
-    //   img: "/phoenix/events/football.png",
-    //   registerLink: "/registration/event7",
-    // },
-    // {
-    //   id: 8,
-    //   title: "Founder Session",
-    //   img: "/phoenix/events/founder-session.png",
-    //   registerLink: "/registration/event8",
-    // },
-    // {
-    //   id: 10,
-    //   title: "Guest Session",
-    //   img: "/phoenix/events/guest-session.png",
-    //   registerLink: "/registration/event10",
-    // },
-    // {
-    //   id: 13,
-    //   title: "Startup Showcase",
-    //   img: "/phoenix/events/startup-showcase.png",
-    //   registerLink: "/registration/event13",
-    // },
-    {
-      id: 14,
-      title: "Treasure Hunt",
-      img: "/phoenix/events/treasure-hunt.svg",
-      registerLink: "/404-not-found",
-      rulebook: "https://drive.google.com/file/d/1Ro5kQvGSgEyWqY0DNPWIraUWB4-uTBgI/view?usp=drivesdk",
-    },
-    // {
-    //   id: 15,
-    //   title: "Volleyball Tournament",
-    //   img: "/phoenix/events/volleyball.png",
-    //   registerLink: "/registration/event15",
-    // },
-    // {
-    //   id: 16,
-    //   title: "Pixel Pulse",
-    //   img: "/phoenix/events/Pixelerate.svg",
-    //   registerLink: "/registration/#",
-    //   rulebook: "https://drive.google.com/file/d/pixel-pulse-rules/view?usp=sharing",
-    // },
-    // {
-    //   id: 17,
-    //   title: "Tea and Talk",
-    //   img: "/phoenix/events/tea-and-talk.png",
-    //   registerLink: "/registration/#",
-    // }
-  ];
+  const [events, setEvents] = useState([] as Event[]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("/api/events");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+
+        const data = await response.json();
+        setEvents(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const featuredEvents = useMemo(
+    () =>
+      events
+        .filter(
+          (event) =>
+            event.club?.trim().toLowerCase() === "phoenix" &&
+            Boolean(event.phoenixTitle?.trim())
+        )
+        .map((event) => {
+          const featuredEvent = FEATURED_EVENTS.find(
+            (item) =>
+              item.phoenixTitle.toLowerCase() ===
+              event.phoenixTitle?.trim().toLowerCase()
+          );
+
+          return {
+            ...event,
+            title: featuredEvent?.title ?? event.title,
+            img: featuredEvent?.img ?? event.imageUrl ?? "",
+            phoenixTitle: event.phoenixTitle?.trim() ?? "",
+          };
+        })
+        .filter(
+          (event): event is PhoenixEvent =>
+            event.img !== "" && event.phoenixTitle !== ""
+        ),
+    [events]
+  );
 
   return (
     <section
@@ -145,16 +202,15 @@ export default function FeaturedEvents() {
 
         {/* Events Grid */}
         <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-          {events.map((event) => {
-            const isExternal = String(event.registerLink).startsWith("http");
+          {featuredEvents.map((event, id) => {
             return (
               <motion.div
-                key={event.id}
+                key={event._id}
                 className="group relative w-full lg:w-[105%] xl:w-[108%] h-130 overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: (event.id % 4) * 0.05 }}
+                transition={{ duration: 0.55, delay: (id % 4) * 0.05 }}
                 whileHover={{ y: -8, scale: 1.02 }}
               >
                 <Image
@@ -167,24 +223,26 @@ export default function FeaturedEvents() {
 
                 {/* Register Button */}
                 <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center gap-2 pb-18 sm:pb-10 lg:pb-25">
-                  <Link
-                    href={event.registerLink}
-                    {...(isExternal
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
-                  >
-                    Register Now
-                  </Link>
-                  {event.rulebook && (
+                  {event.redirectLink && event.redirectLabel && event.redirectLabel !== "" && (
                     <Link
-                      href={event.rulebook}
+                      href={event.redirectLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
+                    >
+                      {event.redirectLabel}
+                    </Link>
+                  )}
+
+                  {event.resourcesLink && event.resourcesLabel && event.resourcesLabel !== "" && (
+                    <Link
+                      href={event.resourcesLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#059669] hover:bg-[#047857]"
                     >
                       <Download className="mr-1 h-3 w-3" />
-                      <span className="font-bold">Rulebook</span>
+                      <span className="font-bold">{event.resourcesLabel}</span>
                     </Link>
                   )}
                 </div>

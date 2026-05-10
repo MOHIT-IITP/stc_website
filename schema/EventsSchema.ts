@@ -11,6 +11,10 @@ const EventsSchema = new Schema({
   isImportant: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   status: { type: String },
+  phoenixTitle: {
+    type: String,
+    required: true
+  },
   redirectLink: String,
   redirectLabel: String,
   resourcesLink: String,

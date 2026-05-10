@@ -27,6 +27,7 @@ import { uploadToImageKit, deleteFromImageKit } from "@/lib/imagekit";
 import Image from "next/image";
 import { toIndianDateString } from "@/lib/formatDate";
 import { useToast } from "@/hooks/use-toast";
+import { Select } from "react-day-picker";
 
 interface Event {
   _id: string;
@@ -40,6 +41,7 @@ interface Event {
   isImportant: boolean;
   createdAt: string;
   expireAt?: string;
+  phoenixTitle: string;
   redirectLink?: string;
   redirectLabel?: string;
   resourcesLink?: string;
@@ -71,6 +73,7 @@ export default function AdminEventsPage() {
     redirectLabel: "",
     resourcesLink: "",
     resourcesLabel: "",
+    phoenixTitle: "",
     showNotification: false,
   });
 
@@ -232,6 +235,7 @@ export default function AdminEventsPage() {
       resourcesLink: event.resourcesLink || "",
       resourcesLabel: event.resourcesLabel || "",
       showNotification: event.showNotification || false,
+      phoenixTitle: event.phoenixTitle || "",
     });
     setImagePreview(event.imageUrl || "");
     setDialogOpen(true);
@@ -253,6 +257,7 @@ export default function AdminEventsPage() {
       resourcesLink: "",
       resourcesLabel: "",
       showNotification: false,
+      phoenixTitle: "",
     });
     setEditingEvent(null);
     setImageFile(null);
@@ -529,6 +534,38 @@ export default function AdminEventsPage() {
                     setFormData({ ...formData, resourcesLabel: e.target.value })
                   }
                 />
+              </div>
+              <div>
+                <Label htmlFor="phoenixTitle">Phoenix Title *</Label>
+
+                <select
+                  id="phoenixTitle"
+                  value={formData.phoenixTitle}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phoenixTitle: e.target.value })
+                  }
+                  required
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                >
+                  <option value="">Select Phoenix Title</option>
+                  <option value="Hack & Tech">Hack N Tech</option>
+                  <option value="BGMI">BGMI Tournament</option>
+                  <option value="FREE FIRE">Free Fire Tournament</option>
+                  <option value="IDEA">Idea Station</option>
+                  <option value="CODE">Code Kshetra</option>
+                  <option value="BADMINTON">Girs Badminton Tournament</option>
+                  <option value="CAPTURE THE FLAG">Capture The Flag</option>
+                  <option value="CHESS">Chess Tournament</option>
+                  <option value="CRICKET">Cricket Tournament</option>
+                  <option value="FOOTBALL">Football Tournament</option>
+                  <option value="FOUNDER SESSION">Founder Session</option>
+                  <option value="GUEST SESSION">Guest Session</option>
+                  <option value="STARTUP SHOWCASE">Startup Showcase</option>
+                  <option value="TREASURE HUNT">Treasure Hunt</option>
+                  <option value="VOLLEYBALL TOURNAMENT">Volleyball Tournament</option>
+                  <option value="PIXEL PULSE">Pixel Pulse</option>
+                  <option value="TEA & TALK">Tea and Talk</option>
+                </select>
               </div>
 
               <div>

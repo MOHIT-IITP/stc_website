@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 interface TeamMember {
@@ -296,7 +297,9 @@ export default function TeamSection() {
 
               {/* Member Image */}
               <div className="absolute inset-x-0 bottom-0 h-[75%] sm:h-[80%] pointer-events-none z-10 overflow-hidden flex items-end justify-start">
-                <img
+                <Image
+                  height={400}
+                  width={300}
                   src={member.image}
                   alt={member.name}
                   className="w-[160%] max-w-none h-full object-cover object-bottom-left -ml-[45%]"
