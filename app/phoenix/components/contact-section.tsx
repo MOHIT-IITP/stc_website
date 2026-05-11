@@ -72,9 +72,11 @@ export default function ContactSection() {
       <PhoenixBg />
 
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <img
+        <Image
           src="/phoenix/Union.svg"
           alt="contact decorative background"
+          width={560}
+          height={560}
           className="w-3/4 max-w-[560px] opacity-20 dark:opacity-10 object-contain"
         />
       </div>
@@ -258,9 +260,11 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             whileHover={{ y: -8 }}
           >
-            <img
+            <Image
               src="/phoenix/contact-section.png"
               alt="Phoenix owl illustration"
+              width={800}
+              height={540}
               className="w-[115%] max-w-none h-auto max-h-[540px] object-contain translate-x-3 -translate-y-3 lg:w-[125%] lg:translate-x-6 lg:-translate-y-6"
             />
           </motion.div>

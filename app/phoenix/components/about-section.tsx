@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import PhoenixBg from "./phoenix-bg";
 import AppConfig from "@/config/appConfig";
 import { motion } from "framer-motion";
@@ -73,9 +74,11 @@ src={AppConfig.imageUrls.phoenix.stars}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <img
+            <Image
               src="/phoenix/about-section.png"
               alt="About Phoenix"
+              width={800}
+              height={600}
               className="w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
             />
           </motion.div>
@@ -94,9 +97,11 @@ src={AppConfig.imageUrls.phoenix.stars}
               className="absolute inset-4 rounded-full bg-[#B8FFE1]/22 blur-3xl pointer-events-none"
               style={{ animation: "stcLogoGlow 4.5s ease-in-out infinite" }}
             />
-            <img
+            <Image
               src={AppConfig.imageUrls.phoenix.aboutLogo}
               alt="Phoenix Logo"
+              width={400}
+              height={400}
               className="logo-inner-spin relative h-auto w-full max-w-[400px] object-contain drop-shadow-[0_0_20px_rgba(189,248,216,0.4)] md:max-w-[320px] xl:max-w-[400px]"
             />
           </motion.div>
