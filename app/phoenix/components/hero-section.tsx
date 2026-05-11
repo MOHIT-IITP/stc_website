@@ -18,7 +18,7 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen w-full overflow-hidden bg-[#020b09] pt-20"
+      className="relative min-h-screen w-full overflow-hidden bg-[#020b09]"
       id="home"
     >
       {/* Background Image */}

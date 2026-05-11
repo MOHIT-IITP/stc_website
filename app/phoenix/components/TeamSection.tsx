@@ -87,25 +87,29 @@ const MEMBER_DATA: { name: string; role: string; image?: string }[] = [
   { name: "Shourya", role: "Sponsors Crew", image: "shorya.png" },
 
   { name: "Raunak Singh", role: "E-Cell Lead", image: "raunak.png" },
-  { name: "Shivam Kumar", role: "E-Cell Team", image: "shivam kumar.png" },
   { name: "Yuv Raj", role: "E-Cell Lead", image: "yuvraj.png" },
+  { name: "Shivam Kumar", role: "E-Cell Team", image: "shivam kumar.png" },
   { name: "Shambhavi", role: "E-Cell Team", image: "shambhavi.png" },
   { name: "Faridjot", role: "E-Cell Team", image: "faridjot.png" },
 
   { name: "Ramandeep", role: "RSVP Lead", image: "ramandeep.png" },
   { name: "Md Huzaifa", role: "RSVP Team", image: "md huzaifa.png" },
   { name: "Priyanshu", role: "RSVP Team", image: "priynashu.png" },
-  { name: "Suman Kumar", role: "HackShield Team", image: "suman.png" },
   { name: "Raushan", role: "RSVP Team", image: "raushan.png" },
-
-  { name: "Arunesh", role: "Tech Co-Lead", image: "ARUNESH.png" },
-
+  { name: "Suyash", role: "RSVP Crew", image: "suyash.png" },
+  { name: "Goongoon", role: "RSVP Crew", image: "goongoon.png" },
+  { name: "Arunesh", role: "Pixelerate Co-Lead", image: "ARUNESH.png" },
+  
+  
   { name: "Aayush Babu", role: "HackShield Lead", image: "ayush babu.png" },
   { name: "Ripunjay", role: "HackShield Team", image: "ripunjay.png" },
+  { name: "Suman Kumar", role: "HackShield Team", image: "suman.png" },
 
-  { name: "Vikash Garg", role: "TNP Lead", image: "vikash garg.png" },
   { name: "Ankit Kumar", role: "TNP Lead", image: "ankit.png" },
+  { name: "Vikash Garg", role: "TNP Lead", image: "vikash garg.png" },
   { name: "Mahak", role: "TNP Team", image: "mahak.png" },
+
+
 ];
 
 const TEAM_MEMBERS: TeamMember[] = MEMBER_DATA.map((member, i) => ({
