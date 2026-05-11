@@ -235,7 +235,7 @@ export default function ContactSection() {
                 whileTap={{ scale: 0.96 }}
               >
                 <div className="relative flex items-center justify-center">
-                  <div className="absolute bg-white p-1 shadow-lg w-64 h-10" />
+                  <div className="absolute  p-1 shadow-lg w-64 h-10" />
                   <Image
                     src="/phoenix/contact-submit.png"
                     alt="Submit"

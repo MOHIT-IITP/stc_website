@@ -45,6 +45,9 @@ export interface IRegistrationTemplate extends Document {
   name: string;
   slug: string;
   description?: string;
+  paymentMode?: boolean;
+  registrationFee?: number;
+  registrationFeeScope?: "per-person" | "per-team";
   image?: string;
   imageFileId?: string;
   fields: IField[];
@@ -113,6 +116,12 @@ const RegistrationTemplateSchema = new Schema({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
   description: String,
+  paymentMode: { type: Boolean, default: false },
+  registrationFee: { type: Number, min: 0 },
+  registrationFeeScope: {
+    type: String,
+    enum: ["per-person", "per-team"],
+  },
   image: String,
   imageFileId: String,
   fields: [FieldSchema],

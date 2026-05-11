@@ -15,6 +15,9 @@ interface RegistrationTemplate {
   name: string;
   slug: string;
   description: string;
+  paymentMode: boolean;
+  registrationFee?: number;
+  registrationFeeScope?: "per-person" | "per-team";
   image?: string;
   fields: { key: string; type: string; label: string }[];
   active: boolean;
@@ -37,6 +40,7 @@ export default function RegistrationFormPage() {
         if (response.ok) {
           const data = await response.json();
           setTemplate(data);
+          console.log("Fetched template:", data);
         } else {
           setError(true);
         }
@@ -82,7 +86,7 @@ export default function RegistrationFormPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-blue-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -115,9 +119,9 @@ export default function RegistrationFormPage() {
                   <h1 className="text-3xl font-bold text-[#0f2a4d] mb-3">
                     {template.name}
                   </h1>
-                  <p className="text-gray-600 leading-relaxed">
+                  <span className="block whitespace-pre-wrap text-gray-600 leading-relaxed">
                     {template.description}
-                  </p>
+                  </span>
                 </div>
 
                 <div className="flex items-center text-sm text-gray-600">
@@ -125,7 +129,7 @@ export default function RegistrationFormPage() {
                   <span>Created {toIndianDateString(template.createdAt)}</span>
                 </div>
 
-                <div className="pt-4 border-t border-gray-200">
+                {/* <div className="pt-4 border-t border-gray-200">
                   <div className="bg-blue-50 rounded-lg p-4">
                     <h3 className="font-semibold text-[#0f2a4d] mb-2 text-sm">
                       📋 Instructions
@@ -136,7 +140,7 @@ export default function RegistrationFormPage() {
                       <li>• Review before submitting</li>
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
             </Card>
           </div>

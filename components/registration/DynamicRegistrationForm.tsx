@@ -10,6 +10,12 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { uploadToImageKit } from '@/lib/imagekit';
+import {
+  PAYMENT_QR_CODE_URL,
+  PAYMENT_UPI_ID,
+  formatRegistrationFee,
+  type RegistrationFeeScope,
+} from '@/lib/payment';
 import Link from 'next/link';
 
 interface FieldOption {
@@ -49,6 +55,9 @@ interface Template {
   name: string;
   slug: string;
   description?: string;
+  paymentMode?: boolean;
+  registrationFee?: number;
+  registrationFeeScope?: RegistrationFeeScope;
   fields: Field[];
   passwordProtected?: boolean;
   password?: string;
@@ -571,7 +580,9 @@ export default function DynamicRegistrationForm({ slug }: DynamicRegistrationFor
         <CardHeader>
           <CardTitle>{template.name}</CardTitle>
           {template.description && (
-            <CardDescription>{template.description}</CardDescription>
+            <CardDescription className="whitespace-pre-wrap">
+              {template.description}
+            </CardDescription>
           )}
         </CardHeader>
         <CardContent>
@@ -619,6 +630,45 @@ export default function DynamicRegistrationForm({ slug }: DynamicRegistrationFor
 
               return renderedFields;
             })()}
+
+            {template.paymentMode && (
+              <div className="border-t pt-6">
+                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+                  <h4 className="font-semibold text-blue-900 mb-3">
+                    Payment Details
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4">
+                    <div className="space-y-3 text-sm text-blue-900">
+                      <div>
+                        <Label className="text-blue-800">
+                          Registration Fee
+                        </Label>
+                        <div className="mt-1 text-lg font-semibold">
+                          {formatRegistrationFee(
+                            template.registrationFee,
+                            template.registrationFeeScope,
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-blue-800">UPI ID</Label>
+                        <div className="mt-1 rounded border border-blue-200 bg-white px-3 py-2 font-mono text-sm">
+                          {PAYMENT_UPI_ID}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2 text-center">
+                      <Label className="text-blue-800">QR Code</Label>
+                      <img
+                        src={PAYMENT_QR_CODE_URL}
+                        alt="UPI payment QR code"
+                        className="mx-auto h-36 w-36 rounded border border-blue-200 bg-white p-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Password Protection Field */}
             {template.passwordProtected && (

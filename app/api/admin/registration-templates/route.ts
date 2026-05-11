@@ -5,6 +5,36 @@ import { checkPermission, permissionDeniedResponse, UserSession } from '@/lib/pe
 import connectDB from '@/lib/connectdb';
 import RegistrationTemplate from '@/schema/RegistrationTemplateSchema';
 
+type PaymentPayload = {
+  paymentMode?: unknown;
+  registrationFee?: unknown;
+  registrationFeeScope?: unknown;
+};
+
+function normalizePaymentFields(payload: PaymentPayload) {
+  const paymentMode = Boolean(payload.paymentMode);
+  const registrationFee = Number(payload.registrationFee);
+  const registrationFeeScope =
+    payload.registrationFeeScope === 'per-team' ||
+    payload.registrationFeeScope === 'per-person'
+      ? payload.registrationFeeScope
+      : undefined;
+
+  if (paymentMode && (!Number.isFinite(registrationFee) || registrationFee <= 0)) {
+    return 'Registration fee is required when payment is enabled';
+  }
+
+  if (paymentMode && !registrationFeeScope) {
+    return 'Registration fee scope is required when payment is enabled';
+  }
+
+  payload.paymentMode = paymentMode;
+  payload.registrationFee = paymentMode ? registrationFee : 0;
+  payload.registrationFeeScope = paymentMode ? registrationFeeScope : undefined;
+
+  return null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions) as UserSession | null;
@@ -49,6 +79,11 @@ export async function POST(request: NextRequest) {
 
     await connectDB();
     const body = await request.json();
+    const paymentError = normalizePaymentFields(body);
+
+    if (paymentError) {
+      return NextResponse.json({ success: false, error: paymentError }, { status: 400 });
+    }
     
     const mandatoryFields = ['name', 'email', 'phone', 'semester'];
     const fieldKeys = body.fields?.map((f: { key: string }) => f.key) || [];
@@ -90,6 +125,14 @@ export async function PUT(request: NextRequest) {
 
     if (!id) {
       return NextResponse.json({ success: false, error: 'Template ID required' }, { status: 400 });
+    }
+
+    if ('paymentMode' in updateData || 'registrationFee' in updateData || 'registrationFeeScope' in updateData) {
+      const paymentError = normalizePaymentFields(updateData);
+
+      if (paymentError) {
+        return NextResponse.json({ success: false, error: paymentError }, { status: 400 });
+      }
     }
 
     if (updateData.fields) {

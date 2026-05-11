@@ -115,7 +115,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
   },
   {
     title: "Tea and Talk",
-    img: "/phoenix/events/tea-and-talk.png",
+    img: "/phoenix/events/tea-and-talk.svg",
     phoenixTitle: "TEA & TALK",
   },
 ];
@@ -174,7 +174,7 @@ export default function FeaturedEvents() {
   return (
     <section
       id="events"
-      className="relative min-h-screen w-screen overflow-hidden text-white"
+      className="relative w-full overflow-x-clip overflow-y-hidden text-white xl:min-h-screen"
       // style={{
       //   background:
       //     "radial-gradient(circle at 50% 50%, #0D261C 0%, #05100B 100%)",
@@ -183,30 +183,30 @@ export default function FeaturedEvents() {
       <PhoenixBg />
 
       {/* Foreground Content */}
-      <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-6 py-12 tracking-tight">
+      <div className="relative z-10 flex w-full flex-col items-center justify-start px-4 py-8 tracking-tight sm:px-6 sm:py-10 md:py-8 lg:px-8 xl:min-h-screen xl:justify-center xl:py-16">
         {/* Section Title */}
         <motion.div
-          className="max-w-5xl w-full mb-16 text-center"
+          className="mb-8 w-full max-w-5xl text-center sm:mb-10 md:mb-8 xl:mb-16"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.65 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Featured Events
           </h2>
-          <p className="text-lg text-[#D1D5DC]">
+          <p className="mx-auto max-w-2xl text-base text-[#D1D5DC] sm:text-lg">
             Explore the exciting events happening at Phoenix
           </p>
         </motion.div>
 
         {/* Events Grid */}
-        <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+        <div className="grid w-full max-w-[92rem] grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] justify-items-center gap-5 sm:gap-8 md:gap-6 xl:gap-10">
           {featuredEvents.map((event, id) => {
             return (
               <motion.div
                 key={event._id}
-                className="group relative w-full lg:w-[105%] xl:w-[108%] h-130 overflow-hidden rounded-lg transform transition-transform duration-300 hover:scale-105"
+                className="group relative aspect-300/443 w-full max-w-[20rem] overflow-hidden rounded-lg transition-transform duration-300 sm:max-w-84 xl:max-w-88"
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
@@ -216,35 +216,44 @@ export default function FeaturedEvents() {
                 <Image
                   src={event.img}
                   alt={event.title}
-                  width={400}
-                  height={60}
-                  className="w-full h-full object-contain rounded-xl"
+                  fill
+                  sizes="(min-width: 1280px) 22rem, (min-width: 640px) 21rem, min(100vw - 2rem, 20rem)"
+                  className="object-contain"
                 />
 
                 {/* Register Button */}
-                <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center gap-2 pb-18 sm:pb-10 lg:pb-25">
-                  {event.redirectLink && event.redirectLabel && event.redirectLabel !== "" && (
-                    <Link
-                      href={event.redirectLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-5 py-2 text-sm font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#d2b56d] "
-                    >
-                      {event.redirectLabel}
-                    </Link>
-                  )}
+                <div
+                  className="absolute inset-x-3 z-10 flex flex-wrap items-center justify-center gap-2 sm:inset-x-4"
+                  style={{ bottom: "clamp(3rem, 16%, 6.25rem)" }}
+                >
+                  {event.redirectLink &&
+                    event.redirectLabel &&
+                    event.redirectLabel !== "" && (
+                      <Link
+                        href={event.redirectLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-9 max-w-full items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.7rem,2.6vw,0.875rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-5"
+                      >
+                        <span className="truncate">{event.redirectLabel}</span>
+                      </Link>
+                    )}
 
-                  {event.resourcesLink && event.resourcesLabel && event.resourcesLabel !== "" && (
-                    <Link
-                      href={event.resourcesLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-black backdrop-blur-md transition-all duration-300 bg-[#059669] hover:bg-[#047857]"
-                    >
-                      <Download className="mr-1 h-3 w-3" />
-                      <span className="font-bold">{event.resourcesLabel}</span>
-                    </Link>
-                  )}
+                  {event.resourcesLink &&
+                    event.resourcesLabel &&
+                    event.resourcesLabel !== "" && (
+                      <Link
+                        href={event.resourcesLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-9 max-w-full items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#059669] px-3 py-2 text-[clamp(0.68rem,2.4vw,0.75rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 hover:bg-[#047857] sm:px-4"
+                      >
+                        <Download className="mr-1 h-3.5 w-3.5 shrink-0" />
+                        <span className="truncate font-bold">
+                          {event.resourcesLabel}
+                        </span>
+                      </Link>
+                    )}
                 </div>
               </motion.div>
             );

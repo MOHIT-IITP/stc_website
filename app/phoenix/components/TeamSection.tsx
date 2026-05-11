@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  type TouchEvent,
+} from "react";
 
 interface TeamMember {
   id: number;
@@ -118,6 +124,7 @@ export default function TeamSection() {
   const [phase, setPhase] = useState<Phase>("idle");
   const [dir, setDir] = useState<"fwd" | "back">("fwd");
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const totalSlides = Math.ceil(TEAM_MEMBERS.length / cardsPerSlide);
 
   useEffect(() => {
@@ -190,6 +197,35 @@ export default function TeamSection() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [goTo, slide]);
 
+  const handleTouchStart = useCallback((event: TouchEvent<HTMLDivElement>) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    touchStartRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+    };
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (event: TouchEvent<HTMLDivElement>) => {
+      const start = touchStartRef.current;
+      const touch = event.changedTouches[0];
+      touchStartRef.current = null;
+
+      if (!start || !touch) return;
+
+      const deltaX = touch.clientX - start.x;
+      const deltaY = touch.clientY - start.y;
+      const isHorizontalSwipe = Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
+
+      if (!isHorizontalSwipe || Math.abs(deltaX) < 48) return;
+
+      goTo(deltaX < 0 ? slide + 1 : slide - 1);
+    },
+    [goTo, slide],
+  );
+
   const members = TEAM_MEMBERS.slice(
     shown * cardsPerSlide,
     (shown + 1) * cardsPerSlide,
@@ -209,7 +245,7 @@ export default function TeamSection() {
   return (
     <div
       id="our-team"
-      className="relative w-full min-h-screen z-10 flex flex-col py-8"
+      className="relative z-10 flex w-full flex-col py-6 sm:py-8 md:py-6 xl:min-h-screen xl:py-8"
       aria-label="Our Team"
     >
       <style>{`
@@ -250,7 +286,7 @@ export default function TeamSection() {
         }
       `}</style>
 
-      <header className="mx-auto mb-6 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center">
+      <header className="mx-auto mb-4 flex w-full max-w-4xl flex-col items-center justify-center px-4 text-center sm:mb-5 xl:mb-6">
         <h2
           className="text-white font-bold leading-tight"
           style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
@@ -270,7 +306,12 @@ export default function TeamSection() {
         className="w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12"
       >
         <div
-          className={`w-full h-[65vh] md:h-[75vh] lg:h-[85vh] flex items-stretch overflow-hidden border border-white/5 shadow-2xl ${rowAnimClass}`}
+          className={`flex h-[56vh] min-h-[360px] w-full touch-pan-y select-none items-stretch overflow-hidden border border-white/5 shadow-2xl sm:h-[60vh] sm:min-h-[420px] md:h-[56vh] md:min-h-[440px] lg:h-[64vh] xl:h-[85vh] xl:min-h-0 ${rowAnimClass}`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={() => {
+            touchStartRef.current = null;
+          }}
         >
           {members.map((member, index) => (
             <article
@@ -353,7 +394,7 @@ export default function TeamSection() {
       </div>
 
       <nav
-        className="mx-auto mt-10 mb-4 flex w-full max-w-full items-center justify-center gap-2 px-2 sm:gap-6"
+        className="mx-auto mb-2 mt-6 flex w-full max-w-full items-center justify-center gap-2 px-2 sm:mt-8 sm:gap-6 xl:mb-4 xl:mt-10"
         aria-label="Team navigation"
       >
         <button

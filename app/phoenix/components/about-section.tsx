@@ -31,7 +31,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-screen overflow-hidden text-white pt-20"
+      className="relative w-full overflow-hidden pt-8 text-white sm:pt-10 md:pt-12 xl:min-h-screen xl:pt-20"
       // style={{
       //   background:
       //     "radial-gradient(circle at 50% 50%, #0D261C 0%, #05100B 100%)",
@@ -53,7 +53,7 @@ export default function AboutSection() {
       <PhoenixBg />
 
       {/* Foreground Content */}
-      <div className="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-6 py-12 tracking-tight">
+      <div className="relative z-10 flex w-full flex-col items-center justify-start px-4 py-8 tracking-tight sm:px-6 sm:py-10 md:py-8 xl:min-h-screen xl:justify-center xl:py-12">
         {/* Stars Image - Left Top Corner */}
         {/* <div className="absolute left-0 top-0 hidden lg:flex">
           <img
@@ -64,7 +64,7 @@ src={AppConfig.imageUrls.phoenix.stars}
         </div> */}
 
         {/* Main Grid: Text and Logo */}
-        <div className="max-w-6xl w-full grid md:grid-cols-[6fr_4fr] gap-8 lg:gap-12 items-center">
+        <div className="grid w-full max-w-6xl items-center gap-6 md:grid-cols-[6fr_4fr] md:gap-6 xl:gap-12">
           {/* CONTENT IMAGE (Left) */}
           <motion.div
             className="flex justify-center items-center w-full h-full relative"
@@ -97,13 +97,13 @@ src={AppConfig.imageUrls.phoenix.stars}
             <img
               src={AppConfig.imageUrls.phoenix.aboutLogo}
               alt="Phoenix Logo"
-              className="logo-inner-spin relative w-full max-w-[400px] h-auto object-contain drop-shadow-[0_0_20px_rgba(189,248,216,0.4)]"
+              className="logo-inner-spin relative h-auto w-full max-w-[400px] object-contain drop-shadow-[0_0_20px_rgba(189,248,216,0.4)] md:max-w-[320px] xl:max-w-[400px]"
             />
           </motion.div>
         </div>
 
         {/*Bottom Stats */}
-        <div className="mt-20 w-full max-w-5xl grid grid-cols-3 gap-3 sm:gap-6 text-center pb-8">
+        <div className="mt-8 grid w-full max-w-5xl grid-cols-3 gap-3 pb-6 text-center sm:mt-10 sm:gap-6 md:mt-8 md:pb-4 xl:mt-20 xl:pb-8">
           {stats.map((item, index) => (
             <motion.div
               key={item.value}

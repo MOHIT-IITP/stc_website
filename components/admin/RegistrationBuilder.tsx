@@ -38,6 +38,13 @@ import {
   Save,
   X,
 } from "lucide-react";
+import {
+  PAYMENT_QR_CODE_URL,
+  PAYMENT_UPI_ID,
+  REGISTRATION_FEE_SCOPE_LABELS,
+  formatRegistrationFee,
+  type RegistrationFeeScope,
+} from "@/lib/payment";
 
 interface FieldOption {
   label: string;
@@ -76,6 +83,9 @@ interface Template {
   name: string;
   slug: string;
   description?: string;
+  paymentMode?: boolean;
+  registrationFee?: number;
+  registrationFeeScope?: RegistrationFeeScope;
   image?: string;
   imageFileId?: string;
   fields: Field[];
@@ -186,11 +196,15 @@ export default function RegistrationBuilder() {
       ],
       active: true,
       show: true,
+      paymentMode: false,
+      registrationFee: undefined,
+      registrationFeeScope: "per-person",
     };
     setCurrentTemplate(newTemplate);
     setImageFile(null);
     setImagePreview("");
   };
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -255,6 +269,26 @@ export default function RegistrationBuilder() {
       return;
     }
 
+    if (
+      currentTemplate.paymentMode &&
+      (!currentTemplate.registrationFee || currentTemplate.registrationFee <= 0)
+    ) {
+      alert("Please enter a valid registration fee");
+      return;
+    }
+    const registrationFeeScope =
+      currentTemplate.registrationFeeScope || "per-person";
+
+    const templateToSave: Template = {
+      ...currentTemplate,
+      registrationFee: currentTemplate.paymentMode
+        ? currentTemplate.registrationFee
+        : undefined,
+      registrationFeeScope: currentTemplate.paymentMode
+        ? registrationFeeScope
+        : undefined,
+    };
+
     setLoading(true);
     try {
       // Upload new image if selected
@@ -266,16 +300,16 @@ export default function RegistrationBuilder() {
           if (currentTemplate._id && currentTemplate.imageFileId) {
             await deleteImage(currentTemplate.imageFileId);
           }
-          currentTemplate.image = imageData.url;
-          currentTemplate.imageFileId = imageData.fileId;
+          templateToSave.image = imageData.url;
+          templateToSave.imageFileId = imageData.fileId;
         }
       }
 
       const url = "/api/admin/registration-templates";
-      const method = currentTemplate._id ? "PUT" : "POST";
-      const body = currentTemplate._id
-        ? { id: currentTemplate._id, ...currentTemplate }
-        : currentTemplate;
+      const method = templateToSave._id ? "PUT" : "POST";
+      const body = templateToSave._id
+        ? { id: templateToSave._id, ...templateToSave }
+        : templateToSave;
 
       const response = await fetch(url, {
         method,
@@ -534,6 +568,8 @@ export default function RegistrationBuilder() {
               />
             </div>
 
+            
+
             <div>
               <Label htmlFor="image">Form Image (Optional)</Label>
               <div className="mt-2 space-y-4">
@@ -608,45 +644,133 @@ export default function RegistrationBuilder() {
               </div>
             </div>
 
-            {/* Password Protection */}
-            <div className="border-t pt-4">
-              <div className="flex items-center space-x-2 mb-3">
-                <Switch
-                  id="passwordProtected"
-                  checked={currentTemplate.passwordProtected || false}
-                  onCheckedChange={(checked) =>
-                    setCurrentTemplate({
-                      ...currentTemplate,
-                      passwordProtected: checked,
-                      password: checked ? currentTemplate.password : undefined,
-                    })
-                  }
-                />
-                <Label htmlFor="passwordProtected">
-                  Password Protected Form
-                </Label>
-              </div>
-              {currentTemplate.passwordProtected && (
-                <div className="pl-8">
-                  <Label htmlFor="formPassword">Form Password</Label>
-                  <Input
-                    id="formPassword"
-                    type="text"
-                    value={currentTemplate.password || ""}
-                    onChange={(e) =>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Password Protection */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="passwordProtected"
+                    checked={currentTemplate.passwordProtected || false}
+                    onCheckedChange={(checked) =>
                       setCurrentTemplate({
                         ...currentTemplate,
-                        password: e.target.value,
+                        passwordProtected: checked,
+                        password: checked ? currentTemplate.password : undefined,
                       })
                     }
-                    placeholder="Enter password for form submission"
-                    className="max-w-md"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Users will need to enter this password to submit the form
-                  </p>
+                  <Label htmlFor="passwordProtected">
+                    Password Protected Form
+                  </Label>
                 </div>
-              )}
+                {currentTemplate.passwordProtected && (
+                  <div className="pl-8">
+                    <Label htmlFor="formPassword">Form Password</Label>
+                    <Input
+                      id="formPassword"
+                      type="text"
+                      value={currentTemplate.password || ""}
+                      onChange={(e) =>
+                        setCurrentTemplate({
+                          ...currentTemplate,
+                          password: e.target.value,
+                        })
+                      }
+                      placeholder="Enter password for form submission"
+                      className="max-w-md"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Users will need to enter this password to submit the form
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="paymentMode"
+                    checked={currentTemplate.paymentMode || false}
+                    onCheckedChange={(checked) =>
+                      setCurrentTemplate((previousTemplate) =>
+                        previousTemplate
+                          ? {
+                              ...previousTemplate,
+                              paymentMode: checked,
+                              registrationFee: checked
+                                ? previousTemplate.registrationFee
+                                : undefined,
+                              registrationFeeScope: checked
+                                ? previousTemplate.registrationFeeScope ||
+                                  "per-person"
+                                : undefined,
+                            }
+                          : previousTemplate,
+                      )
+                    }
+                  />
+                  <Label htmlFor="paymentMode">Payment Required</Label>
+                </div>
+                {currentTemplate.paymentMode && (
+                  <div className="pl-8 max-w-xs">
+                    <Label htmlFor="registrationFee">
+                      Registration Fee (Rs.)
+                    </Label>
+                    <Input
+                      id="registrationFee"
+                      type="number"
+                      min={1}
+                      step={1}
+                      value={currentTemplate.registrationFee ?? ""}
+                      onChange={(e) => {
+                        const fee = e.target.valueAsNumber;
+                        setCurrentTemplate({
+                          ...currentTemplate,
+                          registrationFee:
+                            e.target.value === "" || Number.isNaN(fee)
+                              ? undefined
+                              : fee,
+                        });
+                      }}
+                      placeholder="250"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      This amount will be shown on the public form payment
+                      section.
+                    </p>
+                    <div className="mt-4">
+                      <Label htmlFor="registrationFeeScope">
+                        Fee Applies To
+                      </Label>
+                      <Select
+                        value={
+                          currentTemplate.registrationFeeScope || "per-person"
+                        }
+                        onValueChange={(value: RegistrationFeeScope) =>
+                          setCurrentTemplate((previousTemplate) =>
+                            previousTemplate
+                              ? {
+                                  ...previousTemplate,
+                                  registrationFeeScope: value,
+                                }
+                              : previousTemplate,
+                          )
+                        }
+                      >
+                        <SelectTrigger id="registrationFeeScope">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="per-person">
+                            Per Person
+                          </SelectItem>
+                          <SelectItem value="per-team">Per Team</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="flex gap-2">
@@ -760,9 +884,49 @@ export default function RegistrationBuilder() {
                     {currentTemplate.name}
                   </h3>
                   {currentTemplate.description && (
-                    <p className="text-gray-600 mb-6">
+                    <p className="whitespace-pre-wrap text-gray-600 mb-6">
                       {currentTemplate.description}
                     </p>
+                  )}
+                  {currentTemplate.paymentMode && (
+                    <div className="mb-6 rounded border bg-white p-4">
+                      <h4 className="font-semibold text-[#0f2a4d] mb-3">
+                        Payment Details
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4">
+                        <div className="space-y-2 text-sm">
+                          <div>
+                            <span className="font-medium">
+                              Registration Fee:
+                            </span>{" "}
+                            {formatRegistrationFee(
+                              currentTemplate.registrationFee,
+                              currentTemplate.registrationFeeScope,
+                            )}
+                          </div>
+                          <div>
+                            <span className="font-medium">UPI ID:</span>{" "}
+                            {PAYMENT_UPI_ID}
+                          </div>
+                          <div>
+                            <span className="font-medium">
+                              Fee Applies To:
+                            </span>{" "}
+                            {
+                              REGISTRATION_FEE_SCOPE_LABELS[
+                                currentTemplate.registrationFeeScope ||
+                                  "per-person"
+                              ]
+                            }
+                          </div>
+                        </div>
+                        <img
+                          src={PAYMENT_QR_CODE_URL}
+                          alt="UPI payment QR code"
+                          className="h-32 w-32 rounded border bg-white p-2"
+                        />
+                      </div>
+                    </div>
                   )}
                   <div className="space-y-4">
                     {currentTemplate.fields
