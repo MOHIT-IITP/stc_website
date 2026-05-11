@@ -151,17 +151,14 @@ export default function Footer() {
         <div className="h-px w-full bg-linear-to-r from-transparent via-emerald-500/20 to-transparent" />
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between py-6 gap-4">
-          <p className="text-xs text-white/30">
-            © 2026 Phoenix — STC IIT Patna Hybrid. All rights reserved.
-          </p>
-          <p className="text-sm text-white/30 flex items-center gap-1">
+        <div className="flex items-center justify-center py-8">
+          <p className="text-sm text-white/50 flex items-center gap-2 hover:text-white/70 transition-colors duration-300">
             Crafted with
-            <span className="text-emerald-400 animate-pulse">&hearts;</span>
+            <span className="text-emerald-400 animate-pulse text-lg">&hearts;</span>
             by{" "}
             <Link
               href="/wings/tatva/subclubs/webwiser"
-              className="text-emerald-400/60 hover:text-emerald-300 transition-colors"
+              className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors duration-300"
             >
               WebWiser
             </Link>
