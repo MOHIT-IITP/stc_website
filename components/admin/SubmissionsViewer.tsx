@@ -50,7 +50,7 @@ export default function RegistrationSubmissionsViewer() {
   const [loading, setLoading] = useState(true);
   const [filterForm, setFilterForm] = useState<string>("all");
   const [viewingSubmission, setViewingSubmission] = useState<Submission | null>(
-    null
+    null,
   );
   const [formSlugs, setFormSlugs] = useState<string[]>([]);
   const [templates, setTemplates] = useState<RegistrationTemplate[]>([]);
@@ -101,7 +101,7 @@ export default function RegistrationSubmissionsViewer() {
         `/api/admin/registration-submissions?id=${id}`,
         {
           method: "DELETE",
-        }
+        },
       );
 
       if (response.ok) {
@@ -224,6 +224,7 @@ export default function RegistrationSubmissionsViewer() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>S. No.</TableHead>
                     <TableHead>Form</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
@@ -233,14 +234,21 @@ export default function RegistrationSubmissionsViewer() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filtered.map((submission) => (
+                  {filtered.map((submission, index) => (
                     <TableRow key={submission._id}>
+                      <TableCell>{index + 1}</TableCell>
                       <TableCell className="font-medium">
                         {submission.registrationSlug}
                       </TableCell>
-                      <TableCell>{String(submission.data.name ?? "-")}</TableCell>
-                      <TableCell>{String(submission.data.email ?? "-")}</TableCell>
-                      <TableCell>{String(submission.data.phone ?? "-")}</TableCell>
+                      <TableCell>
+                        {String(submission.data.name ?? "-")}
+                      </TableCell>
+                      <TableCell>
+                        {String(submission.data.email ?? "-")}
+                      </TableCell>
+                      <TableCell>
+                        {String(submission.data.phone ?? "-")}
+                      </TableCell>
                       <TableCell>
                         {toIndianDateString(submission.submittedAt)}
                       </TableCell>
@@ -323,7 +331,7 @@ export default function RegistrationSubmissionsViewer() {
                             : String(value)}
                         </p>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </div>

@@ -100,7 +100,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
   },
   {
     title: "Treasure Hunt",
-    img: "/phoenix/events/treasure-hunt.svg",
+    img: "/phoenix/events/treasure-hunt.png",
     phoenixTitle: "TREASURE HUNT",
   },
   {
@@ -110,12 +110,12 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
   },
   {
     title: "Pixel Pulse",
-    img: "/phoenix/events/Pixelerate.svg",
+    img: "/phoenix/events/Pixel-Pulse.png",
     phoenixTitle: "PIXEL PULSE",
   },
   {
     title: "Tea and Talk",
-    img: "/phoenix/events/tea-and-talk.svg",
+    img: "/phoenix/events/tea-and-talk.png",
     phoenixTitle: "TEA & TALK",
   },
 ];
@@ -148,13 +148,13 @@ export default function FeaturedEvents() {
         .filter(
           (event) =>
             event.club?.trim().toLowerCase() === "phoenix" &&
-            Boolean(event.phoenixTitle?.trim())
+            Boolean(event.phoenixTitle?.trim()),
         )
         .map((event) => {
           const featuredEvent = FEATURED_EVENTS.find(
             (item) =>
               item.phoenixTitle.toLowerCase() ===
-              event.phoenixTitle?.trim().toLowerCase()
+              event.phoenixTitle?.trim().toLowerCase(),
           );
 
           return {
@@ -166,9 +166,9 @@ export default function FeaturedEvents() {
         })
         .filter(
           (event): event is PhoenixEvent =>
-            event.img !== "" && event.phoenixTitle !== ""
+            event.img !== "" && event.phoenixTitle !== "",
         ),
-    [events]
+    [events],
   );
 
   return (
