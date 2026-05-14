@@ -104,6 +104,11 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
 
   const handleStatusChange = async (teamId: string, status: string) => {
     try {
+      const confirmMsg =
+        status === "disqualified"
+          ? "Are you sure you want to disqualify this team?"
+          : "Mark this team as having completed all levels?";
+      if (!confirm(confirmMsg)) return;
       await updateTeamStatus(teamId, status);
       toast.success("Team status updated.");
       startTransition(() => {
@@ -136,6 +141,11 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
       toast.error("Action failed.");
     }
   };
+
+  const handleConsoleLog = () => {
+    console.log("Team Details:");
+    toast("Team details logged to console.");
+  }
 
   // Predict next destination
   const getNextDestination = (team: any) => {
@@ -323,7 +333,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                   <TableHead>Status</TableHead>
                   <TableHead>Level / Next Dest</TableHead>
                   <TableHead>Cooldown</TableHead>
-                  {/* <TableHead className="text-right">Actions</TableHead> */}
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -443,7 +453,8 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                       >
                         <ArrowDown className="w-4 h-4" />
                       </Button>
-                      {/* <Button
+                      {team.status !== "disqualified" && (
+                        <Button
                         variant="destructive"
                         size="icon"
                         title="Disqualify"
@@ -454,8 +465,23 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         }}
                       >
                         <ShieldAlert className="w-4 h-4" />
-                      </Button> */}
-                      {/* <Button
+                      </Button> 
+                      )}
+                      {team.status == "disqualified" && (
+                        <Button
+                        variant="outline"
+                        size="icon"
+                        title="galti sudharo"
+                        disabled={isPending}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleStatusChange(team._id, "active");
+                        }}
+                      >
+                        <ShieldAlert className="w-4 h-4" />
+                      </Button> 
+                      )}
+                      <Button
                         variant="default"
                         size="sm"
                         title="Mark Completed"
@@ -466,7 +492,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         }}
                       >
                         Finish
-                      </Button> */}
+                      </Button> 
                     </TableCell>
                   </TableRow>
                 ))}
