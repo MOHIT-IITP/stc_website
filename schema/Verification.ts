@@ -64,6 +64,7 @@ const VerificationSchema = new Schema<IVerification>(
 
 VerificationSchema.index(
   {
+    teamId: 1,
     memberEmail: 1,
     level: 1,
   },
@@ -71,6 +72,8 @@ VerificationSchema.index(
     unique: true,
   },
 );
+
+VerificationSchema.index({ teamId: 1, level: 1, verifiedAt: 1 });
 
 export default mongoose.models.Verification ||
   mongoose.model<IVerification>("Verification", VerificationSchema);

@@ -9,6 +9,7 @@ import AdminNav from "./adminNav";
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isPhoenixPage = pathname === "/phoenix";
+  const isTechHuntPage = pathname === "/tech-hunt";
 
   if (isPhoenixPage) {
     return <>{children}</>;
@@ -16,10 +17,10 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <VideoTransition>
-      <Navigation />
-      <AdminNav />
+      {!isTechHuntPage ? <Navigation /> : null}
+      {!isTechHuntPage ? <AdminNav /> : null}
       <main className="min-h-screen">{children}</main>
-      <FooterWrapper />
+      {!isTechHuntPage ? <FooterWrapper /> : null}
     </VideoTransition>
   );
 }
