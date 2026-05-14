@@ -323,7 +323,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                   <TableHead>Status</TableHead>
                   <TableHead>Level / Next Dest</TableHead>
                   <TableHead>Cooldown</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  {/* <TableHead className="text-right">Actions</TableHead> */}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -443,7 +443,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                       >
                         <ArrowDown className="w-4 h-4" />
                       </Button>
-                      <Button
+                      {/* <Button
                         variant="destructive"
                         size="icon"
                         title="Disqualify"
@@ -454,8 +454,8 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         }}
                       >
                         <ShieldAlert className="w-4 h-4" />
-                      </Button>
-                      <Button
+                      </Button> */}
+                      {/* <Button
                         variant="default"
                         size="sm"
                         title="Mark Completed"
@@ -466,7 +466,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         }}
                       >
                         Finish
-                      </Button>
+                      </Button> */}
                     </TableCell>
                   </TableRow>
                 ))}

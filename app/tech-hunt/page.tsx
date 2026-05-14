@@ -4,7 +4,7 @@ import Route from "@/schema/TechHuntRoute";
 import TechHuntExperience from "@/app/tech-hunt/TechHuntExperience";
 
 export const metadata: Metadata = {
-  title: "Phoenix Tech Hunt | STC IIT Patna",
+  title: "Phoenix Treasure Hunt | STC IIT Patna",
   description:
     "Mysterious mobile-first treasure hunt experience for participants scanning campus QR checkpoints.",
 };

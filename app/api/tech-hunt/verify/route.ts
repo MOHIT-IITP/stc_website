@@ -240,7 +240,7 @@ export async function GET(request: NextRequest) {
       members: await getMembersStatus(team, requestedLevel),
     });
   } catch (error) {
-    console.error("Tech Hunt progress sync failed:", error);
+    console.error("Treasure Hunt progress sync failed:", error);
     return NextResponse.json(
       {
         success: false,
@@ -595,7 +595,7 @@ export async function POST(request: NextRequest) {
       clue: nextLevel?.clue,
     });
   } catch (error) {
-    console.error("Tech Hunt verification failed:", error);
+    console.error("Treasure Hunt verification failed:", error);
     return NextResponse.json(
       {
         success: false,

@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 // Add Sora font import for this page only
 if (typeof document !== "undefined") {
@@ -99,9 +100,14 @@ function TechHuntNavbar({
     <header className="sticky top-0 z-40 border-b border-emerald-300/15 bg-[#03110d]/80 backdrop-blur">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-emerald-200" />
+          <Image
+            src="/phoenix/logo.png"
+            alt="Phoenix Treasure Hunt"
+            width={72}
+            height={72}
+          />
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-100/90 sm:text-sm">
-            Phoenix Tech Hunt
+            Phoenix Treasure Hunt
           </p>
         </div>
 
@@ -111,10 +117,10 @@ function TechHuntNavbar({
               {checkpointLabel}
             </Badge>
           ) : (
-            <Button
+              <Button
               asChild
               variant="outline"
-              className="h-8 border-emerald-300/25 bg-transparent px-3 text-xs text-emerald-100 hover:bg-emerald-300/10 sm:h-9"
+              className="h-8 w-20 border-emerald-300/25 bg-transparent px-3 text-xs text-emerald-100  transition-colors duration-150 ease-in-out sm:h-9"
             >
               <Link href="#rules">Rules</Link>
             </Button>
@@ -122,9 +128,9 @@ function TechHuntNavbar({
 
           <Button
             asChild
-            className="h-8 bg-[#B8FFE1] px-3 text-xs text-[#052015] hover:bg-[#D2FFE9] sm:h-9"
+            className="h-8 w-20 bg-[#B8FFE1] px-3 text-xs text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out sm:h-9"
           >
-            <Link href={isCheckpointMode ? "/tech-hunt" : "/registration"}>
+            <Link href={isCheckpointMode ? "/tech-hunt" : "/registration/404-not-found"}>
               {isCheckpointMode ? "Landing" : "Register"}
             </Link>
           </Button>
@@ -303,7 +309,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                 </span>
 
                 <span className="text-[11px] font-bold tracking-[0.15em]">
-                  PHOENIX-HUNT-2024
+                  PHOENIX-HUNT-2026
                 </span>
               </div>
 
@@ -327,7 +333,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
               <div className="mt-10 flex flex-wrap gap-4">
                 <Button
                   asChild
-                  className="h-14 rounded-none border border-[#2a2a2a] bg-[#131313] px-10 uppercase tracking-[0.25em] hover:bg-[#50c878] hover:text-[#03110d]"
+                  className="h-14 rounded-lg border border-[#2a2a2a] bg-[#131313] px-10 uppercase tracking-[0.25em] hover:bg-[#50c878] hover:text-[#03110d] transition-colors duration-150 ease-in-out"
                 >
                   <Link href="#how-it-works">
                     Enter The Hunt
@@ -338,14 +344,14 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-14 rounded-none border border-[#2a2a2a] bg-transparent px-10 uppercase tracking-[0.25em] text-white hover:bg-[#131313]"
+                  className="h-14  border border-[#2a2a2a] bg-transparent rounded-lg px-10 uppercase tracking-[0.25em] text-white"
                 >
                   <Link href="#rules">Read Rules</Link>
                 </Button>
               </div>
             </div>
 
-            <div className="border border-[#2a2a2a] bg-[#131313] p-10">
+            <div className="border rounded-2xl border-[#2a2a2a] bg-[#131313] p-10">
               <div className="mb-6 flex items-center gap-2 text-[#50c878]">
                 <Terminal className="h-4 w-4" />
 
@@ -390,7 +396,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                 {revealRegistration ? (
                   <Button
                     asChild
-                    className="mt-6 w-full rounded-none bg-[#50c878] text-[#03110d] hover:bg-[#72d993]"
+                    className="mt-6 w-full rounded-none bg-[#50c878] text-[#03110d] hover:bg-[#72d993] transition-colors duration-150 ease-in-out"
                   >
                     <Link href="/registration">
                       Open Hidden Registration Portal
@@ -484,7 +490,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                 </p>
 
                 <p className="mt-2 text-xs uppercase tracking-[0.25em] text-[#50c878]">
-                  Support: stc@iitp.ac.in
+                  Support: stchybridiitp@gmail.com
                 </p>
               </div>
 
@@ -513,7 +519,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
       />
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-2xl flex-col justify-center">
         <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-emerald-200/90">
-          <span>Phoenix Tech Hunt</span>
+          <span >Phoenix Treasure Hunt</span>
           <span>{checkpointLabel}</span>
         </div>
 
@@ -526,8 +532,8 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                 Checkpoint detected
               </span>
             </div>
-            <CardTitle className="text-3xl font-black uppercase tracking-tight sm:text-4xl">
-              PHOENIX TECH HUNT
+            <CardTitle className="text-3xl text-white uppercase tracking-tight sm:text-4xl">
+              PHOENIX TREASURE HUNT
             </CardTitle>
             <p className="max-w-lg text-sm leading-6 text-slate-400 sm:text-base">
               Enter your registered email to verify at this checkpoint. The
@@ -562,7 +568,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                     !email.trim() ||
                     (locked && email.trim().toLowerCase() !== rememberedEmail)
                   }
-                  className="h-12 bg-[#B8FFE1] px-6 text-[#052015] hover:bg-[#D2FFE9]"
+                  className="h-12 bg-[#B8FFE1] px-6 text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out"
                 >
                   {loading ? "Verifying..." : "Verify"}
                 </Button>
@@ -630,7 +636,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                         </span>
                       </div>
                       {m.verified ? (
-                        <Badge className="bg-emerald-500/20 text-[10px] text-emerald-400 hover:bg-emerald-500/20">
+                        <Badge className="bg-emerald-500/20 text-[10px] text-emerald-400 hover:bg-emerald-500/20 transition-colors duration-150 ease-in-out">
                           Verified
                         </Badge>
                       ) : (
@@ -810,7 +816,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
         <div className="mt-4 flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
           <Link
             href="/tech-hunt"
-            className="inline-flex items-center gap-2 hover:text-emerald-200"
+            className="inline-flex items-center gap-2 hover:text-emerald-200 transition-colors duration-150 ease-in-out"
           >
             <ChevronRight className="h-3.5 w-3.5 rotate-180" /> Landing page
           </Link>

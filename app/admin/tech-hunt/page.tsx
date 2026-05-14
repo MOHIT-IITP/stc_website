@@ -36,7 +36,7 @@ export default async function TechHuntAdminPage() {
     <div className="container mx-auto p-6 max-w-[1600px]">
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">
-          Tech Hunt Command Center
+          Treasure Hunt Command Center
         </h1>
         <p className="text-muted-foreground mt-2">
           Monitor teams, manage event status, and analyze gameplay metrics.

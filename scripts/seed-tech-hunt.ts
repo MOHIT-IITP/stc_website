@@ -44,10 +44,10 @@ async function seedTechHunt() {
     );
 
     console.log(
-      `Seeded ${TECH_HUNT_SEED_DATA.length} tech hunt teams and routes.`,
+      `Seeded ${TECH_HUNT_SEED_DATA.length} Treasure Hunt teams and routes.`,
     );
   } catch (error) {
-    console.error("Tech Hunt seed failed:", error);
+    console.error("Treasure Hunt seed failed:", error);
     process.exitCode = 1;
   } finally {
     await mongoose.disconnect();
@@ -56,7 +56,7 @@ async function seedTechHunt() {
 
 seedTechHunt().then(() => {
   if (!process.exitCode) {
-    console.log("Tech Hunt seed completed successfully");
+    console.log("Treasure Hunt seed completed successfully");
   }
   process.exit(process.exitCode ?? 0);
 });
