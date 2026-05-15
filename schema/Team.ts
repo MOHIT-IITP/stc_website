@@ -12,6 +12,7 @@ export interface ITeam extends Document {
 
   members: IMember[];
   routeId: Types.ObjectId;
+  routeCode: string;
   currentLevel: number;
   status: "pending" | "active" | "completed" | "disqualified";
   cooldownUntil?: Date;
@@ -86,6 +87,14 @@ const TeamSchema = new Schema<ITeam>(
       type: Schema.Types.ObjectId,
       ref: "Route",
       required: true,
+    },
+
+    routeCode: {
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true,
+      index: true,
     },
 
     currentLevel: {

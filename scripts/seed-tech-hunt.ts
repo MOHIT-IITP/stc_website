@@ -37,6 +37,7 @@ async function seedTechHunt() {
         leaderEmail: entry.leaderEmail,
         members: entry.members,
         routeId: routeByCode.get(entry.route.routeCode)?._id,
+        routeCode: entry.route.routeCode,
         currentLevel: 1,
         status: "pending" as const,
         completed: false,

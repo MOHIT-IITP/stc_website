@@ -63,6 +63,29 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
     return String(value);
   };
 
+  const getVerificationDerivedLevel = (team: any) => {
+    const teamId = normalizeId(team._id);
+    const latestVerifiedLevel = verifications
+      .filter(
+        (verification: any) =>
+          normalizeId(verification.teamId) === teamId && verification.isValid,
+      )
+      .reduce((maxLevel: number, verification: any) => {
+        const level = Number(verification.level);
+        return Number.isFinite(level) && level > maxLevel ? level : maxLevel;
+      }, 0);
+
+    const totalLevels = Number(
+      team.routeId?.totalLevels || team.routeId?.levels?.length || 0,
+    );
+
+    if (team.completed && totalLevels > 0) {
+      return totalLevels;
+    }
+
+    return latestVerifiedLevel;
+  };
+
   const rankedTeams = [...teams]
     .sort((a: any, b: any) => {
       if (a.completed !== b.completed) return a.completed ? -1 : 1;
@@ -71,7 +94,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
           new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime()
         );
       }
-      return b.currentLevel - a.currentLevel;
+      return getVerificationDerivedLevel(b) - getVerificationDerivedLevel(a);
     })
     .map((team: any, index: number) => ({
       ...team,
@@ -145,16 +168,61 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
   const handleConsoleLog = () => {
     console.log("Team Details:");
     toast("Team details logged to console.");
-  }
+  };
 
-  // Predict next destination
-  const getNextDestination = (team: any) => {
-    if (team.completed) return "Finished all levels";
-    if (!team.routeId || !team.routeId.levels) return "Unknown";
+  const getTeamProgressDisplay = (team: any) => {
+    if (!team.routeId || !team.routeId.levels) {
+      return {
+        levelText: "Unknown",
+        destination: "Unknown",
+        progressValue: 0,
+      };
+    }
+
+    const teamId = normalizeId(team._id);
+    const validVerifications = verifications.filter(
+      (verification: any) =>
+        normalizeId(verification.teamId) === teamId && verification.isValid,
+    );
+
+    const verifiedLevels = Array.from<number>(
+      new Set(
+        validVerifications
+          .map((verification: any) => Number(verification.level))
+          .filter((level: number) => Number.isFinite(level) && level > 0),
+      ),
+    ).sort((a: number, b: number) => a - b);
+
+    const latestVerifiedLevel = verifiedLevels[verifiedLevels.length - 1] || 0;
     const levels = team.routeId.levels;
-    if (team.currentLevel > levels.length) return "Finished Route";
-    const nextLevel = levels.find((l: any) => l.level === team.currentLevel);
-    return nextLevel ? nextLevel.route.toUpperCase() : "Finished Route";
+    const totalLevels = Number(team.routeId?.totalLevels || levels.length || 0);
+    const currentCheckpoint = levels.find(
+      (level: any) => level.level === latestVerifiedLevel,
+    );
+
+    if (team.completed || latestVerifiedLevel >= totalLevels) {
+      return {
+        levelText: `Lvl ${totalLevels}`,
+        destination: "Finished Route",
+        progressValue: 100,
+      };
+    }
+
+    if (!latestVerifiedLevel) {
+      return {
+        levelText: "Not Started",
+        destination: "Not Started",
+        progressValue: 0,
+      };
+    }
+
+    return {
+      levelText: `Lvl ${latestVerifiedLevel}`,
+      destination: currentCheckpoint
+        ? currentCheckpoint.route.toUpperCase()
+        : "Unknown",
+      progressValue: (latestVerifiedLevel / totalLevels) * 100,
+    };
   };
 
   // Determine Leaderboard
@@ -302,7 +370,8 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
               {rankedTeams[0]?.teamName || "TBD"}
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              Lvl: {rankedTeams[0]?.currentLevel || 0}
+              Lvl:{" "}
+              {rankedTeams[0] ? getVerificationDerivedLevel(rankedTeams[0]) : 0}
             </p>
           </CardContent>
         </Card>
@@ -383,31 +452,29 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Badge variant="outline">Lvl {team.currentLevel}</Badge>
+                        <Badge variant="outline">
+                          {getTeamProgressDisplay(team).levelText}
+                        </Badge>
                         <span className="text-sm text-primary font-medium">
-                          {getNextDestination(team)}
+                          {getTeamProgressDisplay(team).destination}
                         </span>
                       </div>
                       <div className="w-32 mt-2">
                         <Progress
-                          value={
-                            (team.currentLevel /
-                              (team.routeId?.totalLevels || 10)) *
-                            100
-                          }
+                          value={getTeamProgressDisplay(team).progressValue}
                           className="h-1"
                         />
                       </div>
                     </TableCell>
                     <TableCell>
                       {team.cooldownUntil &&
-                        new Date(team.cooldownUntil) > new Date() ? (
+                      new Date(team.cooldownUntil) > new Date() ? (
                         <div className="text-sm text-destructive flex items-center">
                           <AlertTriangle className="h-3 w-3 mr-1" /> Check in{" "}
                           {Math.round(
                             (new Date(team.cooldownUntil).getTime() -
                               Date.now()) /
-                            60000,
+                              60000,
                           )}
                           m
                           <Button
@@ -455,31 +522,31 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                       </Button>
                       {team.status !== "disqualified" && (
                         <Button
-                        variant="destructive"
-                        size="icon"
-                        title="Disqualify"
-                        disabled={isPending}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleStatusChange(team._id, "disqualified");
-                        }}
-                      >
-                        <ShieldAlert className="w-4 h-4" />
-                      </Button> 
+                          variant="destructive"
+                          size="icon"
+                          title="Disqualify"
+                          disabled={isPending}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleStatusChange(team._id, "disqualified");
+                          }}
+                        >
+                          <ShieldAlert className="w-4 h-4" />
+                        </Button>
                       )}
                       {team.status == "disqualified" && (
                         <Button
-                        variant="outline"
-                        size="icon"
-                        title="galti sudharo"
-                        disabled={isPending}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          handleStatusChange(team._id, "active");
-                        }}
-                      >
-                        <ShieldAlert className="w-4 h-4" />
-                      </Button> 
+                          variant="outline"
+                          size="icon"
+                          title="galti sudharo"
+                          disabled={isPending}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleStatusChange(team._id, "active");
+                          }}
+                        >
+                          <ShieldAlert className="w-4 h-4" />
+                        </Button>
                       )}
                       <Button
                         variant="default"
@@ -492,7 +559,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         }}
                       >
                         Finish
-                      </Button> 
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -505,8 +572,9 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
               <CardHeader>
                 <CardTitle>Team Member Progress</CardTitle>
                 <CardDescription>
-                  {selectedTeam.teamName} • Level {selectedTeam.currentLevel} •
-                  Next: {getNextDestination(selectedTeam)}
+                  {selectedTeam.teamName} •{" "}
+                  {getTeamProgressDisplay(selectedTeam).levelText} • Next:{" "}
+                  {getTeamProgressDisplay(selectedTeam).destination}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -587,7 +655,9 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                     <TableCell>
                       {team.completed
                         ? `Cleared all ${team.routeId?.totalLevels || "??"} levels`
-                        : `Level ${team.currentLevel} / ${team.routeId?.totalLevels || "??"}`}
+                        : getVerificationDerivedLevel(team) > 0
+                          ? `Level ${getVerificationDerivedLevel(team)} / ${team.routeId?.totalLevels || "??"}`
+                          : `Not Started / ${team.routeId?.totalLevels || "??"}`}
                     </TableCell>
                     <TableCell>
                       <Badge>

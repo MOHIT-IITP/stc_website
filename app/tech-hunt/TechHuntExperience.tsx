@@ -98,29 +98,30 @@ function TechHuntNavbar({
 }) {
   return (
     <header className="sticky top-0 z-40 border-b border-emerald-300/15 bg-[#03110d]/80 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2">
+      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-2 px-3 sm:h-16 sm:px-6 lg:px-8">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <Image
             src="/phoenix/logo.png"
             alt="Phoenix Treasure Hunt"
-            width={72}
-            height={72}
+            width={44}
+            height={44}
+            className="h-9 w-9 shrink-0 sm:h-12 sm:w-12"
           />
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-100/90 sm:text-sm">
+          <p className="truncate text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-100/90 sm:text-sm sm:tracking-[0.28em]">
             Phoenix Treasure Hunt
           </p>
         </div>
 
-        <nav className="flex items-center gap-2 sm:gap-3">
+        <nav className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           {isCheckpointMode ? (
             <Badge className="hidden border-emerald-300/20 bg-emerald-300/10 text-emerald-100 sm:inline-flex">
               {checkpointLabel}
             </Badge>
           ) : (
-              <Button
+            <Button
               asChild
               variant="outline"
-              className="h-8 w-20 border-emerald-300/25 bg-transparent px-3 text-xs text-emerald-100  transition-colors duration-150 ease-in-out sm:h-9"
+              className="h-8 min-w-[68px] border-emerald-300/25 bg-transparent px-2.5 text-[11px] text-emerald-100 transition-colors duration-150 ease-in-out sm:h-9 sm:px-3 sm:text-xs"
             >
               <Link href="#rules">Rules</Link>
             </Button>
@@ -128,15 +129,19 @@ function TechHuntNavbar({
 
           <Button
             asChild
-            className="h-8 w-20 bg-[#B8FFE1] px-3 text-xs text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out sm:h-9"
+            className="h-8 min-w-[78px] bg-[#B8FFE1] px-2.5 text-[11px] text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out sm:h-9 sm:px-3 sm:text-xs"
           >
-            <Link href={isCheckpointMode ? "/tech-hunt" : "/registration/404-not-found"}>
+            <Link
+              href={
+                isCheckpointMode ? "/tech-hunt" : "/registration/404-not-found"
+              }
+            >
               {isCheckpointMode ? "Landing" : "Register"}
             </Link>
           </Button>
 
           {isSyncing && (
-            <Badge className="ml-2 border-emerald-500/30 bg-emerald-500/10 text-[10px] tracking-widest text-emerald-400">
+            <Badge className="ml-2 hidden border-emerald-500/30 bg-emerald-500/10 text-[10px] tracking-widest text-emerald-400 md:inline-flex">
               SYNC: ACTIVE
             </Badge>
           )}
@@ -511,16 +516,16 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
     totalMembers > 0 ? (verifiedCount / totalMembers) * 100 : 0;
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(184,255,225,0.12),transparent_42%),linear-gradient(180deg,#020b09_0%,#04120d_55%,#020805_100%)] px-4 py-4 text-slate-100 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(184,255,225,0.12),transparent_42%),linear-gradient(180deg,#020b09_0%,#04120d_55%,#020805_100%)] text-slate-100">
       <TechHuntNavbar
         isCheckpointMode={isCheckpointMode}
         checkpointLabel={checkpointLabel}
         isSyncing={!!rememberedEmail}
       />
-      <div className="mx-auto flex min-h-[calc(100vh-2rem)] max-w-2xl flex-col justify-center">
-        <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-[0.35em] text-emerald-200/90">
-          <span >Phoenix Treasure Hunt</span>
-          <span>{checkpointLabel}</span>
+      <div className="mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-2xl flex-col justify-center px-4 py-4 sm:min-h-[calc(100vh-4rem)] sm:px-6 lg:px-8">
+        <div className="mb-4 flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.22em] text-emerald-200/90 sm:text-xs sm:tracking-[0.35em]">
+          <span className="truncate pr-2">Phoenix Treasure Hunt</span>
+          <span className="shrink-0">{checkpointLabel}</span>
         </div>
 
         <Card className="relative overflow-hidden border-emerald-300/20 bg-[#061711]/85 shadow-2xl shadow-emerald-950/20 backdrop-blur">
@@ -630,9 +635,6 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                       <div className="flex flex-col">
                         <span className="font-medium text-slate-200">
                           {m.name}
-                        </span>
-                        <span className="text-[10px] text-slate-500">
-                          {m.email}
                         </span>
                       </div>
                       {m.verified ? (
