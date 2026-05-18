@@ -61,6 +61,7 @@ const MEMBER_DATA: { name: string; role: string; image?: string }[] = [
     image: "sumit saurav.png",
   },
   { name: "Harsh", role: "PR Crew", image: "harsh.png" },
+  { name: "Aryan Kumar", role: "PR Crew", image: "aryan-kumar.png" },
   { name: "Ananya Manah", role: "PR Crew", image: "ananya.png" },
   { name: "Soni Priya", role: "PR Crew", image: "soni priya.png" },
 
