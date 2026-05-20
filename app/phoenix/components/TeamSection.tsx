@@ -50,6 +50,7 @@ const MEMBER_DATA: { name: string; role: string; image?: string }[] = [
     role: "Creative Crew",
     image: "anshika awasti.png",
   },
+  { name: "Aryan Kumar", role: "Creative Crew", image: "aryan-kumar.png" },
   { name: "Vinayak", role: "Creative Crew", image: "Vinayak.png" },
   { name: "Aparna Singh", role: "Creative Crew", image: "aparna singh.png" },
   { name: "Jayati", role: "Creative Crew", image: "jayati.png" },
@@ -61,7 +62,6 @@ const MEMBER_DATA: { name: string; role: string; image?: string }[] = [
     image: "sumit saurav.png",
   },
   { name: "Harsh", role: "PR Crew", image: "harsh.png" },
-  { name: "Aryan Kumar", role: "PR Crew", image: "aryan-kumar.png" },
   { name: "Ananya Manah", role: "PR Crew", image: "ananya.png" },
   { name: "Soni Priya", role: "PR Crew", image: "soni priya.png" },
 
