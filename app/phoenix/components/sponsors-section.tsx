@@ -26,7 +26,7 @@ export default function SponsorsSection() {
     {
       name: "Meta Mask",
       logo: "/phoenix/sponsors/meta-mask.png",
-      tag: "Merch Partner",
+      tag: "Event Partner",
     },
     {
       name: "Miro",

@@ -95,7 +95,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
   },
   {
     title: "Startup Showcase",
-    img: "/phoenix/events/startup-showcase",
+    img: "/phoenix/events/startup-showcase.png",
     phoenixTitle: "STARTUP SHOWCASE",
   },
   {
