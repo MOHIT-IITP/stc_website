@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import AdminNav from "@/components/adminNav";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,23 +41,45 @@ interface Notification {
 }
 
 export default function AdminNotificationsPage() {
+  const router = useRouter();
+  const pathname = usePathname();
   const { data: session } = useSession() as { data: UserSession | null };
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingNotification, setEditingNotification] =
     useState<Notification | null>(null);
+  const [tab, setTab] = useState("active");
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
- 
+
   const [imagePreview, setImagePreview] = useState<string>("");
   const { toast } = useToast();
 
+  useEffect(() => {
+    const tabFromUrl = new URLSearchParams(window.location.search).get("tab");
+
+    if (tabFromUrl === "active" || tabFromUrl === "expired") {
+      setTab(tabFromUrl);
+      return;
+    }
+
+    setTab("active");
+  }, []);
+
+  function handleTabChange(nextTab: string) {
+    setTab(nextTab);
+
+    const params = new URLSearchParams(window.location.search);
+    params.set("tab", nextTab);
+    router.replace(`${pathname}?${params.toString()}`);
+  }
+
   // Permission checks
-  const canRead = hasPermission(session, 'notifications.read');
-  const canCreate = hasPermission(session, 'notifications.create');
-  const canUpdate = hasPermission(session, 'notifications.update');
-  const canDelete = hasPermission(session, 'notifications.delete');
+  const canRead = hasPermission(session, "notifications.read");
+  const canCreate = hasPermission(session, "notifications.create");
+  const canUpdate = hasPermission(session, "notifications.update");
+  const canDelete = hasPermission(session, "notifications.delete");
 
   const [formData, setFormData] = useState({
     title: "",
@@ -178,7 +201,8 @@ export default function AdminNotificationsPage() {
         const data = await response.json();
         toast({
           title: "Access Denied",
-          description: data.message || "You do not have permission to perform this action",
+          description:
+            data.message || "You do not have permission to perform this action",
           variant: "destructive",
         });
       } else {
@@ -213,7 +237,7 @@ export default function AdminNotificationsPage() {
         `/api/admin/notifications?id=${notification._id}`,
         {
           method: "DELETE",
-        }
+        },
       );
 
       if (response.ok) {
@@ -226,7 +250,9 @@ export default function AdminNotificationsPage() {
         const data = await response.json();
         toast({
           title: "Access Denied",
-          description: data.message || "You do not have permission to delete notifications",
+          description:
+            data.message ||
+            "You do not have permission to delete notifications",
           variant: "destructive",
         });
       } else {
@@ -367,7 +393,7 @@ export default function AdminNotificationsPage() {
   return (
     <>
       <AdminNav />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-32 pb-12">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-blue-50 pt-32 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
@@ -401,7 +427,8 @@ export default function AdminNotificationsPage() {
                 Access Restricted
               </h2>
               <p className="text-amber-600">
-                You do not have permission to view notifications. Please contact your administrator.
+                You do not have permission to view notifications. Please contact
+                your administrator.
               </p>
             </div>
           )}
@@ -414,7 +441,11 @@ export default function AdminNotificationsPage() {
                   <Loader2 className="w-8 h-8 animate-spin text-[#1a4b8c]" />
                 </div>
               ) : (
-                <Tabs defaultValue="active" className="w-full">
+                <Tabs
+                  value={tab}
+                  onValueChange={handleTabChange}
+                  className="w-full"
+                >
                   <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
                     <TabsTrigger value="active">
                       Active Notifications ({activeNotifications.length})
@@ -427,39 +458,39 @@ export default function AdminNotificationsPage() {
                   <TabsContent value="active">
                     {activeNotifications.length === 0 ? (
                       <p className="text-center text-gray-500 py-12">
-                      No active notifications
-                    </p>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {activeNotifications.map((notification) => (
-                        <NotificationCard
-                          key={notification._id}
-                          notification={notification}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </TabsContent>
+                        No active notifications
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {activeNotifications.map((notification) => (
+                          <NotificationCard
+                            key={notification._id}
+                            notification={notification}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </TabsContent>
 
-                <TabsContent value="expired">
-                  {expiredNotifications.length === 0 ? (
-                    <p className="text-center text-gray-500 py-12">
-                      No expired notifications
-                    </p>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {expiredNotifications.map((notification) => (
-                        <NotificationCard
-                          key={notification._id}
-                          notification={notification}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </TabsContent>
-              </Tabs>
-            )}
-          </div>
+                  <TabsContent value="expired">
+                    {expiredNotifications.length === 0 ? (
+                      <p className="text-center text-gray-500 py-12">
+                        No expired notifications
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {expiredNotifications.map((notification) => (
+                          <NotificationCard
+                            key={notification._id}
+                            notification={notification}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </TabsContent>
+                </Tabs>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -562,7 +593,9 @@ export default function AdminNotificationsPage() {
             </div>
 
             <div>
-              <Label htmlFor="redirectLabel2">Redirect Label 2 (Optional)</Label>
+              <Label htmlFor="redirectLabel2">
+                Redirect Label 2 (Optional)
+              </Label>
               <Input
                 id="redirectLabel2"
                 type="text"

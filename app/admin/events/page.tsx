@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AdminNav from "@/components/adminNav";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,14 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Plus,
-  Trash2,
-  Edit,
-  Calendar,
-  Upload,
-  Loader2,
-} from "lucide-react";
+import { Plus, Trash2, Edit, Calendar, Upload, Loader2 } from "lucide-react";
 import { uploadToImageKit, deleteFromImageKit } from "@/lib/imagekit";
 import Image from "next/image";
 import { toIndianDateString } from "@/lib/formatDate";
@@ -50,14 +44,36 @@ interface Event {
 }
 
 export default function AdminEventsPage() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [tab, setTab] = useState("upcoming");
   const [uploading, setUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
   const { toast } = useToast();
+
+  useEffect(() => {
+    const tabFromUrl = new URLSearchParams(window.location.search).get("tab");
+
+    if (tabFromUrl === "upcoming" || tabFromUrl === "expired") {
+      setTab(tabFromUrl);
+      return;
+    }
+
+    setTab("upcoming");
+  }, []);
+
+  function handleTabChange(nextTab: string) {
+    setTab(nextTab);
+
+    const params = new URLSearchParams(window.location.search);
+    params.set("tab", nextTab);
+    router.replace(`${pathname}?${params.toString()}`);
+  }
 
   const [formData, setFormData] = useState({
     title: "",
@@ -335,7 +351,7 @@ export default function AdminEventsPage() {
   return (
     <>
       <AdminNav />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-32 pb-12">
+      <div className="min-h-screen bg-linear-to-br from-slate-50 to-blue-50 pt-32 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
@@ -366,7 +382,11 @@ export default function AdminEventsPage() {
                 <Loader2 className="w-8 h-8 animate-spin text-[#1a4b8c]" />
               </div>
             ) : (
-              <Tabs defaultValue="upcoming" className="w-full">
+              <Tabs
+                value={tab}
+                onValueChange={handleTabChange}
+                className="w-full"
+              >
                 <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
                   <TabsTrigger value="upcoming">
                     Upcoming Events ({upcomingEvents.length})
@@ -562,7 +582,9 @@ export default function AdminEventsPage() {
                   <option value="GUEST SESSION">Guest Session</option>
                   <option value="STARTUP SHOWCASE">Startup Showcase</option>
                   <option value="TREASURE HUNT">Treasure Hunt</option>
-                  <option value="VOLLEYBALL TOURNAMENT">Volleyball Tournament</option>
+                  <option value="VOLLEYBALL TOURNAMENT">
+                    Volleyball Tournament
+                  </option>
                   <option value="PIXEL PULSE">Pixel Pulse</option>
                   <option value="TEA & TALK">Tea and Talk</option>
                 </select>
@@ -624,7 +646,10 @@ export default function AdminEventsPage() {
                 type="checkbox"
                 checked={formData.showNotification}
                 onChange={(e) =>
-                  setFormData({ ...formData, showNotification: e.target.checked })
+                  setFormData({
+                    ...formData,
+                    showNotification: e.target.checked,
+                  })
                 }
                 className="w-4 h-4"
               />

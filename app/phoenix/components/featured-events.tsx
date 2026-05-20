@@ -201,7 +201,7 @@ export default function FeaturedEvents() {
         </motion.div>
 
         {/* Events Grid */}
-        <div className="grid w-full max-w-[92rem] grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] justify-items-center gap-5 sm:gap-8 md:gap-6 xl:gap-10">
+        <div className="grid w-full max-w-368 grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4 sm:gap-8 md:gap-6 xl:gap-10">
           {featuredEvents.map((event, id) => {
             return (
               <motion.div
@@ -223,7 +223,7 @@ export default function FeaturedEvents() {
 
                 {/* Register Button */}
                 <div
-                  className="absolute inset-x-3 z-10 flex flex-wrap items-center justify-center gap-2 sm:inset-x-4"
+                  className="absolute left-1/2 z-10 flex w-fit max-w-[calc(100%-1rem)] -translate-x-1/2 flex-row items-center justify-center gap-1.5 whitespace-nowrap sm:max-w-[calc(100%-1.5rem)] sm:gap-2"
                   style={{ bottom: "clamp(3rem, 16%, 6.25rem)" }}
                 >
                   {event.redirectLink &&
@@ -233,7 +233,7 @@ export default function FeaturedEvents() {
                         href={event.redirectLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-9 max-w-full items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.7rem,2.6vw,0.875rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-5"
+                        className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.6rem,1.8vw,0.78rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-4"
                       >
                         <span className="truncate">{event.redirectLabel}</span>
                       </Link>
@@ -246,7 +246,7 @@ export default function FeaturedEvents() {
                         href={event.resourcesLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-9 max-w-full items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#059669] px-3 py-2 text-[clamp(0.68rem,2.4vw,0.75rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 hover:bg-[#047857] sm:px-4"
+                        className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#059669] px-3 py-2 text-[clamp(0.58rem,1.7vw,0.7rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 hover:bg-[#047857] sm:px-4"
                       >
                         <Download className="mr-1 h-3.5 w-3.5 shrink-0" />
                         <span className="truncate font-bold">
