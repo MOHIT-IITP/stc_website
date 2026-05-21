@@ -445,11 +445,13 @@ export default function DynamicRegistrationForm({ slug }: DynamicRegistrationFor
               <SelectValue placeholder={field.placeholder || 'Select...'} />
             </SelectTrigger>
             <SelectContent>
-              {field.options?.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
+              {(field.options || [])
+                .filter((option) => String(option.value ?? '').trim() !== '')
+                .map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         )}

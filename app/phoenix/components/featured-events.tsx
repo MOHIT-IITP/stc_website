@@ -60,7 +60,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
   },
   {
     title: "Girs Badminton Tournament",
-    img: "/phoenix/events/badminton.png",
+    img: "/phoenix/events/girls-badminton.png",
     phoenixTitle: "BADMINTON",
   },
   {
