@@ -199,12 +199,26 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
     const currentCheckpoint = levels.find(
       (level: any) => level.level === latestVerifiedLevel,
     );
+    const questionPending = Boolean(
+      team.questionLevel &&
+      team.questionUnlockedFor &&
+      Number(team.questionLevel) === Number(team.currentLevel) &&
+      !team.completed,
+    );
 
     if (team.completed || latestVerifiedLevel >= totalLevels) {
       return {
         levelText: `Lvl ${totalLevels}`,
         destination: "Finished Route",
         progressValue: 100,
+      };
+    }
+
+    if (questionPending) {
+      return {
+        levelText: `Lvl ${latestVerifiedLevel}`,
+        destination: "Question challenge live",
+        progressValue: (latestVerifiedLevel / totalLevels) * 100,
       };
     }
 
@@ -420,6 +434,15 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         <Badge variant="outline">
                           Rank #{team.displayRank}
                         </Badge>
+                        {team.questionLevel &&
+                        team.questionUnlockedFor &&
+                        Number(team.questionLevel) ===
+                          Number(team.currentLevel) &&
+                        !team.completed ? (
+                          <Badge className="bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/10">
+                            Question pending
+                          </Badge>
+                        ) : null}
                         {team.completed ? (
                           <Badge className="bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/10">
                             Cleared all levels
@@ -447,7 +470,15 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                               : "secondary"
                         }
                       >
-                        {team.completed ? "completed all levels" : team.status}
+                        {team.completed
+                          ? "completed all levels"
+                          : team.questionLevel &&
+                              team.questionUnlockedFor &&
+                              Number(team.questionLevel) ===
+                                Number(team.currentLevel) &&
+                              !team.completed
+                            ? "question pending"
+                            : team.status}
                       </Badge>
                     </TableCell>
                     <TableCell>

@@ -1,19 +1,12 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-const ALLOWED_ROUTES = [
-  "clh",
-  "library",
-  "airplane",
-  "food-court",
-  "senate-hall",
-  "ashima-hostel",
-  "incubation-center",
-];
-
 export interface ILevel {
   level: number;
   route: string;
   clue: string;
+  question: string;
+  answer: string;
+  imageUrl?: string | null;
 }
 
 export interface IRoute extends Document {
@@ -37,13 +30,30 @@ const LevelSchema = new Schema<ILevel>(
       required: true,
       lowercase: true,
       trim: true,
-      enum: ALLOWED_ROUTES,
     },
 
     clue: {
       type: String,
       required: true,
       trim: true,
+    },
+
+    question: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    answer: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    imageUrl: {
+      type: String,
+      required: false,
+      trim: true,
+      default: null,
     },
   },
   { _id: false },

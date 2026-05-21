@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -42,6 +42,7 @@ type VerifyResponse = {
   success: boolean;
   status?:
     | "waiting"
+    | "question_unlocked"
     | "level_completed"
     | "completed"
     | "cooldown"
@@ -57,6 +58,10 @@ type VerifyResponse = {
   verifiedCount?: number;
   totalMembers?: number;
   clue?: string;
+  nextClue?: string;
+  questionUnlocked?: boolean;
+  question?: string;
+  imageUrl?: string | null;
   cooldownUntil?: string;
   retryAfterSeconds?: number;
   completedAt?: string;
@@ -81,8 +86,9 @@ const EVENT_FLOW = [
   "Find location",
   "Find hidden QR",
   "All teammates verify",
-  "Unlock next clue",
-  "Reach final checkpoint",
+  "Final verifier unlocks challenge",
+  "Solve question",
+  "Correct answer unlocks next clue",
 ];
 
 const SECRET_COPY = "Access signal hidden. Tap the emblem.";
@@ -166,23 +172,29 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
   const [locked, setLocked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<VerifyResponse | null>(null);
+  const [challengeAnswer, setChallengeAnswer] = useState("");
+  const [answerLoading, setAnswerLoading] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
 
-  const syncProgress = async (syncEmail: string) => {
-    if (!route || !syncEmail) return;
+  const syncProgress = useCallback(
+    async (syncEmail: string) => {
+      if (!route || !syncEmail) return;
 
-    try {
-      const res = await fetch(
-        `/api/tech-hunt/verify?route=${encodeURIComponent(route)}&email=${encodeURIComponent(syncEmail)}`,
-      );
-      const data = (await res.json()) as VerifyResponse;
-      if (res.ok) {
-        setResponse(data);
+      try {
+        const res = await fetch(
+          `/api/tech-hunt/verify?route=${encodeURIComponent(route)}&email=${encodeURIComponent(syncEmail)}&t=${Date.now()}`,
+          { cache: "no-store" },
+        );
+        const data = (await res.json()) as VerifyResponse;
+        if (res.ok) {
+          setResponse(data);
+        }
+      } catch {
+        // ignore background sync failures; user can still verify manually
       }
-    } catch {
-      // ignore background sync failures; user can still verify manually
-    }
-  };
+    },
+    [route],
+  );
 
   useEffect(() => {
     if (!isCheckpointMode) return;
@@ -211,12 +223,31 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
   useEffect(() => {
     if (!isCheckpointMode || !rememberedEmail) return;
 
-    const interval = setInterval(() => {
+    const refreshNow = () => {
       void syncProgress(rememberedEmail);
-    }, 10000); // sync every 10 seconds
+    };
 
-    return () => clearInterval(interval);
-  }, [isCheckpointMode, rememberedEmail]);
+    const interval = setInterval(refreshNow, 3000); // sync every 3 seconds
+    const onVisibilityChange = () => {
+      if (!document.hidden) {
+        refreshNow();
+      }
+    };
+    const onFocus = () => {
+      refreshNow();
+    };
+
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    refreshNow();
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [isCheckpointMode, rememberedEmail, syncProgress]);
 
   useEffect(() => {
     if (!response?.cooldownUntil) {
@@ -284,6 +315,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
         window.localStorage.setItem(emailLockedStorageKey, "true");
         setRememberedEmail(normalized);
         setLocked(true);
+        void syncProgress(normalized);
       }
     } catch (error) {
       setResponse({
@@ -293,6 +325,46 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSubmitAnswer = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
+    event.preventDefault();
+    if (!route || !challengeAnswer.trim()) return;
+
+    const answerEmail = rememberedEmail || email.trim();
+    if (!answerEmail) return;
+
+    setAnswerLoading(true);
+
+    try {
+      const res = await fetch("/api/tech-hunt/submit-answer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          route,
+          email: answerEmail,
+          answer: challengeAnswer.trim(),
+        }),
+      });
+
+      const data = (await res.json()) as VerifyResponse;
+      setResponse(data);
+
+      if (res.ok && data.success) {
+        setChallengeAnswer("");
+        void syncProgress(answerEmail);
+      }
+    } catch {
+      setResponse({
+        success: false,
+        status: "error",
+        message: "Unable to submit answer. Try again in a moment.",
+      });
+    } finally {
+      setAnswerLoading(false);
     }
   };
 
@@ -655,6 +727,84 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
               </div>
             ) : null}
 
+            {response?.questionUnlocked ? (
+              <div className="relative overflow-hidden rounded-2xl border border-emerald-300/20 bg-linear-to-br from-slate-950 via-emerald-950/30 to-slate-900 p-5 text-emerald-50 shadow-[0_0_40px_rgba(16,185,129,0.16)]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,255,225,0.24),transparent_34%)]" />
+                <div className="relative space-y-4">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-emerald-200">
+                    <Sparkles className="h-4 w-4" />
+                    Mission challenge unlocked
+                  </div>
+                  <div>
+                    <p className="text-2xl font-semibold text-white">
+                      Solve to claim the next clue
+                    </p>
+                    <p className="mt-2 text-sm text-emerald-50/80">
+                      The answer stays server-side. Only the final verifier can
+                      move this checkpoint forward.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-emerald-300/15 bg-black/25 p-4">
+                    <p className="text-xs uppercase tracking-[0.3em] text-emerald-200/70">
+                      Challenge prompt
+                    </p>
+                    {/* normalize image path (strip leading public/ if present) */}
+                    {(() => {
+                      const raw = response?.imageUrl || null;
+                      const imageSrc = raw
+                        ? raw.startsWith("http")
+                          ? raw
+                          : raw.replace(/^\/?public\//, "/")
+                        : null;
+
+                      return (
+                        <>
+                          {imageSrc ? (
+                            <div className="mt-3">
+                              <img
+                                src={imageSrc}
+                                alt="challenge"
+                                className="max-h-64 w-auto rounded-md"
+                              />
+                            </div>
+                          ) : null}
+
+                          <p className="mt-3 text-lg leading-8 text-emerald-50">
+                            {response?.question || ""}
+                          </p>
+                        </>
+                      );
+                    })()}
+
+                    <form
+                      onSubmit={handleSubmitAnswer}
+                      className="mt-5 space-y-3"
+                    >
+                      <Input
+                        id="tech-hunt-answer"
+                        value={challengeAnswer}
+                        onChange={(event) =>
+                          setChallengeAnswer(event.target.value)
+                        }
+                        placeholder="Enter answer"
+                        autoComplete="off"
+                        className="h-12 border-white/10 bg-slate-900/80 text-base text-slate-100 placeholder:text-slate-500"
+                      />
+                      <Button
+                        type="submit"
+                        disabled={answerLoading || !challengeAnswer.trim()}
+                        className="h-12 w-full bg-[#B8FFE1] px-6 text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out"
+                      >
+                        {answerLoading ? "Submitting..." : "Submit answer"}
+                        <ArrowRight className="ml-3 h-4 w-4" />
+                      </Button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
             {response?.status === "waiting" ? (
               <div className="rounded-xl border border-emerald-300/20 bg-emerald-300/10 p-4 text-emerald-50">
                 <p className="flex items-center gap-2 font-medium">
@@ -749,13 +899,13 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                     members at this level.
                   </p>
                 ) : null}
-                {response.clue ? (
+                {response.clue || response.nextClue ? (
                   <div className="rounded-xl border border-emerald-300/20 bg-slate-950/50 p-4">
                     <p className="text-xs uppercase tracking-[0.3em] text-emerald-200/70">
                       Next clue
                     </p>
                     <p className="mt-2 text-lg leading-8 text-emerald-50">
-                      {response.clue}
+                      {response.clue || response.nextClue}
                     </p>
                   </div>
                 ) : null}
@@ -785,11 +935,13 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                     <p className="text-sm text-slate-200">
                       {response?.status === "completed"
                         ? "Finished"
-                        : response?.status === "level_completed"
-                          ? "Unlocked"
-                          : response?.status === "waiting"
-                            ? "In sync"
-                            : "Ready"}
+                        : response?.status === "question_unlocked"
+                          ? "Challenge live"
+                          : response?.status === "level_completed"
+                            ? "Unlocked"
+                            : response?.status === "waiting"
+                              ? "In sync"
+                              : "Ready"}
                     </p>
                   </div>
                 </CardContent>

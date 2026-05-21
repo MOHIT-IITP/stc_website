@@ -7,7 +7,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 config({ path: path.join(__dirname, "../.env") });
 
 import connectDB from "../lib/connectdb";
-import { TECH_HUNT_SEED_DATA } from "../config/techHuntSeedData";
+import {
+  TECH_HUNT_SEED_DATA,
+  TECH_HUNT_QUESTIONS,
+} from "../config/techHuntSeedData";
+import EventSettings from "../schema/EventSettings";
 import Team from "../schema/Team";
 import Route from "../schema/TechHuntRoute";
 
@@ -21,7 +25,12 @@ async function seedTechHunt() {
     const routeDocs = await Route.create(
       TECH_HUNT_SEED_DATA.map((entry) => ({
         routeCode: entry.route.routeCode,
-        levels: entry.route.levels,
+        levels: entry.route.levels.map((level) => ({
+          ...level,
+          question: TECH_HUNT_QUESTIONS[level.questionIndex]?.question || "",
+          answer: TECH_HUNT_QUESTIONS[level.questionIndex]?.answer || "",
+          imageUrl: TECH_HUNT_QUESTIONS[level.questionIndex]?.imageUrl ?? null,
+        })),
         totalLevels: entry.route.levels.length,
       })),
     );
@@ -42,6 +51,25 @@ async function seedTechHunt() {
         status: "pending" as const,
         completed: false,
       })),
+    );
+
+    await EventSettings.findOneAndUpdate(
+      {},
+      {
+        $set: {
+          techHuntActive: true,
+          cooldownDuration: 60,
+          maxAttemptsPerMinute: 10,
+        },
+        $setOnInsert: {
+          eventStartedAt: new Date(),
+        },
+      },
+      {
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true,
+      },
     );
 
     console.log(

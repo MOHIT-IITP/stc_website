@@ -15,6 +15,9 @@ export interface ITeam extends Document {
   routeCode: string;
   currentLevel: number;
   status: "pending" | "active" | "completed" | "disqualified";
+  questionLevel?: number | null;
+  questionUnlockedFor?: string | null;
+  questionUnlockedAt?: Date | null;
   cooldownUntil?: Date;
   startedAt: Date;
   completed: boolean;
@@ -107,6 +110,23 @@ const TeamSchema = new Schema<ITeam>(
       type: String,
       enum: ["pending", "active", "completed", "disqualified"],
       default: "pending",
+    },
+
+    questionLevel: {
+      type: Number,
+      default: null,
+    },
+
+    questionUnlockedFor: {
+      type: String,
+      default: null,
+      lowercase: true,
+      trim: true,
+    },
+
+    questionUnlockedAt: {
+      type: Date,
+      default: null,
     },
 
     cooldownUntil: {

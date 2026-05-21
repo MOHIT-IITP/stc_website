@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/connectdb";
+import { isQuestionPending, isQuestionUnlockedForMember } from "@/lib/techHunt";
 import Team from "@/schema/Team";
 import Route from "@/schema/TechHuntRoute";
 import Verification from "@/schema/Verification";
@@ -30,12 +31,16 @@ async function getMembersStatus(team: any, level: number) {
 
   // Create a normalized list of verified emails
   const verifiedEmails = verifications.map((v: any) =>
-    String(v.memberEmail || "").toLowerCase().trim(),
+    String(v.memberEmail || "")
+      .toLowerCase()
+      .trim(),
   );
 
   // Map team members to their status, ensuring we handle both doc and plain object formats
   return team.members.map((m: any) => {
-    const mEmail = String(m.email || "").toLowerCase().trim();
+    const mEmail = String(m.email || "")
+      .toLowerCase()
+      .trim();
     const isVerified = verifiedEmails.includes(mEmail);
 
     return {
@@ -84,7 +89,14 @@ export async function GET(request: NextRequest) {
     }
 
     const routeDoc = team.routeId as unknown as {
-      levels: Array<{ level: number; route: string; clue: string }>;
+      levels: Array<{
+        level: number;
+        route: string;
+        clue: string;
+        question?: string;
+        answer?: string;
+        imageUrl?: string | null;
+      }>;
       totalLevels: number;
     };
     const currentLevel = team.currentLevel || 1;
@@ -93,6 +105,12 @@ export async function GET(request: NextRequest) {
     );
     const currentRouteCheckpoint = routeDoc.levels.find(
       (level) => level.route === route,
+    );
+    const questionPending = isQuestionPending(team, currentLevel);
+    const questionUnlockedForMember = isQuestionUnlockedForMember(
+      team,
+      currentLevel,
+      email,
     );
 
     if (!currentCheckpoint || team.completed) {
@@ -156,6 +174,28 @@ export async function GET(request: NextRequest) {
         (level) => level.level === requestedLevel + 1,
       );
       const levelWasCompleted = verifiedCount >= team.members.length;
+      const questionVisible = isQuestionUnlockedForMember(
+        team,
+        currentLevel,
+        email,
+      );
+
+      if (questionPending && questionVisible) {
+        return NextResponse.json({
+          success: true,
+          status: "question_unlocked",
+          message: "Question challenge unlocked.",
+          teamName: team.teamName,
+          currentLevel: requestedLevel,
+          totalLevels: routeDoc.totalLevels,
+          verifiedCount,
+          totalMembers: team.members.length,
+          members: await getMembersStatus(team, requestedLevel),
+          questionUnlocked: true,
+          question: currentCheckpoint?.question,
+          imageUrl: currentCheckpoint?.imageUrl || null,
+        });
+      }
 
       if (memberAlreadyVerified) {
         return NextResponse.json({
@@ -176,8 +216,10 @@ export async function GET(request: NextRequest) {
 
       return NextResponse.json({
         success: true,
-        status: "waiting",
-        message: "You have not verified this earlier checkpoint yet.",
+        status: questionPending ? "waiting" : "waiting",
+        message: questionPending
+          ? "Waiting for the final teammate to solve the challenge."
+          : "You have not verified this earlier checkpoint yet.",
         teamName: team.teamName,
         currentLevel: requestedLevel,
         totalLevels: routeDoc.totalLevels,
@@ -226,6 +268,23 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    if (questionPending && questionUnlockedForMember) {
+      return NextResponse.json({
+        success: true,
+        status: "question_unlocked",
+        message: "Question challenge unlocked.",
+        teamName: team.teamName,
+        currentLevel,
+        totalLevels: routeDoc.totalLevels,
+        verifiedCount,
+        totalMembers: team.members.length,
+        members: await getMembersStatus(team, currentLevel),
+        questionUnlocked: true,
+        question: currentCheckpoint?.question,
+        imageUrl: currentCheckpoint?.imageUrl || null,
+      });
+    }
+
     return NextResponse.json({
       success: true,
       status: memberAlreadyVerified ? "duplicate" : "waiting",
@@ -238,6 +297,7 @@ export async function GET(request: NextRequest) {
       verifiedCount,
       totalMembers: team.members.length,
       members: await getMembersStatus(team, requestedLevel),
+      questionUnlocked: false,
     });
   } catch (error) {
     console.error("Treasure Hunt progress sync failed:", error);
@@ -307,7 +367,14 @@ export async function POST(request: NextRequest) {
     }
 
     const routeDoc = team.routeId as unknown as {
-      levels: Array<{ level: number; route: string; clue: string }>;
+      levels: Array<{
+        level: number;
+        route: string;
+        clue: string;
+        question?: string;
+        answer?: string;
+        imageUrl?: string | null;
+      }>;
       totalLevels: number;
     };
     const currentLevel = team.currentLevel || 1;
@@ -316,6 +383,12 @@ export async function POST(request: NextRequest) {
     );
     const requestedCheckpoint = routeDoc.levels.find(
       (level) => level.route === route,
+    );
+    const questionPending = isQuestionPending(team, currentLevel);
+    const questionUnlockedForMember = isQuestionUnlockedForMember(
+      team,
+      currentLevel,
+      email,
     );
 
     if (!currentCheckpoint) {
@@ -505,6 +578,29 @@ export async function POST(request: NextRequest) {
         isValid: true,
       });
 
+      if (questionPending) {
+        return NextResponse.json({
+          success: true,
+          status: questionUnlockedForMember ? "question_unlocked" : "waiting",
+          message: questionUnlockedForMember
+            ? "Question challenge unlocked."
+            : "Waiting for the final teammate to solve the challenge.",
+          teamName: team.teamName,
+          currentLevel,
+          totalLevels: routeDoc.totalLevels,
+          verifiedCount,
+          totalMembers: team.members.length,
+          members: await getMembersStatus(team, currentLevel),
+          questionUnlocked: questionUnlockedForMember,
+          question: questionUnlockedForMember
+            ? currentCheckpoint?.question
+            : undefined,
+          imageUrl: questionUnlockedForMember
+            ? currentCheckpoint?.imageUrl || null
+            : undefined,
+        });
+      }
+
       return NextResponse.json({
         success: false,
         status: "duplicate",
@@ -548,51 +644,39 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    if (currentLevel >= routeDoc.totalLevels) {
-      team.status = "completed";
-      team.completed = true;
-      team.completedAt = team.completedAt || new Date();
-      team.currentLevel = currentLevel + 1;
-      await team.save();
-
-      return NextResponse.json({
-        success: true,
-        status: "completed",
-        message: "Treasure hunt completed.",
-        teamName: team.teamName,
-        currentLevel: team.currentLevel,
-        totalLevels: routeDoc.totalLevels,
-        verifiedCount,
-        totalMembers: team.members.length,
-        members: team.members.map((m: any) => ({
-          name: m.name,
-          email: m.email,
-          verified: true,
-        })),
-        clue: "Report to the organizers.",
-        completedAt: team.completedAt,
-      });
-    }
-
-    team.currentLevel = currentLevel + 1;
+    team.questionLevel = currentLevel;
+    team.questionUnlockedFor = email;
+    team.questionUnlockedAt = new Date();
     team.status = "active";
     await team.save();
 
-    const nextLevel = routeDoc.levels.find(
-      (level) => level.level === team.currentLevel,
-    );
+    try {
+      const mod = await import("@/lib/techHuntRealtime");
+      await mod.broadcastTechHuntEvent("question_unlocked", {
+        teamId: team._id.toString(),
+        teamName: team.teamName,
+        routeCode: team.routeCode,
+        level: currentLevel,
+        question: currentCheckpoint?.question || "",
+        imageUrl: currentCheckpoint?.imageUrl || null,
+        unlockedFor: email,
+      });
+    } catch (e) {
+      // realtime disabled — ignore
+    }
 
     return NextResponse.json({
       success: true,
-      status: "level_completed",
-      message: "Level completed.",
+      status: "question_unlocked",
+      message: "All members verified successfully. Question unlocked.",
       teamName: team.teamName,
-      currentLevel: team.currentLevel,
+      currentLevel,
       totalLevels: routeDoc.totalLevels,
       verifiedCount,
       totalMembers: team.members.length,
       members: await getMembersStatus(team, currentLevel),
-      clue: nextLevel?.clue,
+      questionUnlocked: true,
+      question: currentCheckpoint?.question,
     });
   } catch (error) {
     console.error("Treasure Hunt verification failed:", error);
