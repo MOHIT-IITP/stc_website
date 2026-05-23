@@ -416,7 +416,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                   <TableHead>Status</TableHead>
                   <TableHead>Level / Next Dest</TableHead>
                   <TableHead>Cooldown</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  {/* <TableHead className="text-right">Actions</TableHead> */}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -526,7 +526,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         </span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right space-x-2">
+                    {/* <TableCell className="text-right space-x-2">
                       <Button
                         variant="outline"
                         size="icon"
@@ -591,7 +591,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                       >
                         Finish
                       </Button>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

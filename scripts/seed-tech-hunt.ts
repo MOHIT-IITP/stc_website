@@ -15,6 +15,12 @@ import EventSettings from "../schema/EventSettings";
 import Team from "../schema/Team";
 import Route from "../schema/TechHuntRoute";
 
+type SeedQuestion = {
+  question: string;
+  answer: string | string[];
+  imageUrl: string | null;
+};
+
 async function seedTechHunt() {
   try {
     await connectDB();
@@ -27,9 +33,15 @@ async function seedTechHunt() {
         routeCode: entry.route.routeCode,
         levels: entry.route.levels.map((level) => ({
           ...level,
-          question: TECH_HUNT_QUESTIONS[level.questionIndex]?.question || "",
-          answer: TECH_HUNT_QUESTIONS[level.questionIndex]?.answer || "",
-          imageUrl: TECH_HUNT_QUESTIONS[level.questionIndex]?.imageUrl ?? null,
+          question:
+            (TECH_HUNT_QUESTIONS[level.questionIndex] as SeedQuestion)
+              ?.question || "",
+          answer:
+            (TECH_HUNT_QUESTIONS[level.questionIndex] as SeedQuestion)
+              ?.answer || "",
+          imageUrl:
+            (TECH_HUNT_QUESTIONS[level.questionIndex] as SeedQuestion)
+              ?.imageUrl ?? null,
         })),
         totalLevels: entry.route.levels.length,
       })),

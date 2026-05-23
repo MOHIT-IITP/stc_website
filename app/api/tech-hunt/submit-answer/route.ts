@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/connectdb";
-import { isQuestionPending, normalizeTechHuntAnswer } from "@/lib/techHunt";
+import {
+  isQuestionPending,
+  normalizeTechHuntAnswer,
+  normalizeTechHuntAnswers,
+} from "@/lib/techHunt";
 import Team from "@/schema/Team";
 import Route from "@/schema/TechHuntRoute";
 import Verification from "@/schema/Verification";
@@ -210,12 +214,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const expectedAnswer = normalizeTechHuntAnswer(
-      currentCheckpoint.answer || "",
-    );
+    const expectedAnswers = normalizeTechHuntAnswers(currentCheckpoint.answer);
     const submittedAnswer = normalizeTechHuntAnswer(answer);
 
-    if (!submittedAnswer || submittedAnswer !== expectedAnswer) {
+    if (!submittedAnswer || !expectedAnswers.includes(submittedAnswer)) {
       return NextResponse.json({
         success: false,
         message: "Incorrect answer. Try again.",

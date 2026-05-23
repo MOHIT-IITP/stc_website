@@ -3,7 +3,7 @@ export type TechHuntLevel = {
   route: string;
   clue: string;
   question?: string;
-  answer?: string;
+  answer?: string | string[];
 };
 
 export type TechHuntRouteDoc = {
@@ -18,6 +18,12 @@ export function normalizeTechHuntAnswer(value: string) {
     .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+export function normalizeTechHuntAnswers(value?: string | string[] | null) {
+  return (Array.isArray(value) ? value : [value || ""])
+    .map((entry) => normalizeTechHuntAnswer(entry))
+    .filter(Boolean);
 }
 
 export function getChallengeForLevel(

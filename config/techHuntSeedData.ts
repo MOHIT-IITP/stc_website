@@ -1,31 +1,39 @@
-export const TECH_HUNT_QUESTIONS = [
+export const TECH_HUNT_QUESTIONS: Array<{
+  id: number;
+  type: string;
+  question: string;
+  answer: string | string[];
+  imageUrl: string | null;
+}> = [
   {
     id: 0,
     type: "hex",
-    question: "Decode this hex color and type its CSS name: #FF4500",
-    answer: "orangered",
+    question:
+      "746865 206f6e6c79 206e756d626572 207772697474656e 2077697468 206c657474657273 20696e 20616c7068616265746963616c 206f726465723f (answer format : 776f7264)",
+    answer: "forty",
     imageUrl: null,
   },
   {
     id: 1,
-    type: "jumble",
-    question: "Unjumble this word: XHOPNIE",
-    answer: "phoenix",
-    imageUrl: null,
+    type: "image",
+    question: "Only light reveals truth",
+    answer: "Relic",
+    imageUrl: "/phoenix/tech-hunt/ShadowImage-1.png",
   },
   {
     id: 2,
     type: "hex",
-    question: "What color does #1E90FF represent? (CSS name)",
-    answer: "dodgerblue",
+    question:
+      "57686174 20686173 2068616e6473 20627574 2063616e6e6f74 20636c61703f (Answer format: 776f7264)",
+    answer: "clock",
     imageUrl: null,
   },
   {
     id: 3,
-    type: "jumble",
-    question: "Unjumble: CTEHNOLOYG",
-    answer: "technology",
-    imageUrl: null,
+    type: "morse",
+    question: "Solve the Riddle:",
+    answer: "THE SIGIL IS BROKEN",
+    imageUrl: "/phoenix/tech-hunt/morse-code-1.jpeg",
   },
   {
     id: 4,
@@ -44,8 +52,9 @@ export const TECH_HUNT_QUESTIONS = [
   {
     id: 6,
     type: "hex",
-    question: "Decode this hex: #FFD700. What color is it? (CSS name)",
-    answer: "gold",
+    question:
+      "77686174 2072657665616c73 2068696464656e 207061746873 20776974686f7574 20737065616b696e673f (Answer format: 776f7264)",
+    answer: "map",
     imageUrl: null,
   },
   {
@@ -65,15 +74,16 @@ export const TECH_HUNT_QUESTIONS = [
   {
     id: 9,
     type: "image",
-    question: "What IIT Patna landmark is shown in this image?",
-    answer: "admin block",
-    imageUrl: "public/ayush-jha.png",
+    question: "Solve the riddle shown in this image.",
+    answer: ["phoenix", "STC", "Student Technical Council"],
+    imageUrl: "/phoenix/tech-hunt/riddle-1.png",
   },
   {
     id: 10,
     type: "hex",
-    question: "What color is #800080? (CSS name)",
-    answer: "purple",
+    question:
+      "77686174 206265636f6d6573 2076616c7561626c65 206f6e6c79 207768656e 2068696464656e3f (Answer format: 776f7264)",
+    answer: ["treasure", "secret"],
     imageUrl: null,
   },
   {
@@ -85,23 +95,24 @@ export const TECH_HUNT_QUESTIONS = [
   },
   {
     id: 12,
-    type: "jumble",
-    question: "Unjumble: RDOCYE",
-    answer: "codeyr",
-    imageUrl: null,
+    type: "image",
+    question: "Brightness breaks the illusion",
+    answer: "Vault",
+    imageUrl: "/phoenix/tech-hunt/ShadowImage-2.png",
   },
   {
     id: 13,
     type: "image",
-    question: "Name the programming language whose logo is shown.",
-    answer: "python",
-    imageUrl: "/public/ayush-jha.png",
+    question: "Darkness protects the message",
+    answer: "Prism",
+    imageUrl: "/phoenix/tech-hunt/ShadowImage-3.png",
   },
   {
     id: 14,
     type: "hex",
-    question: "Decode #00FF00. What color is it? (CSS name)",
-    answer: "lime",
+    question:
+      "77686174 2067657473 20776574746572 20746865 206d6f7265 206974 2064726965733f (Answer format: 486578636f6465)",
+    answer: "746f77656c",
     imageUrl: null,
   },
   {
@@ -113,9 +124,10 @@ export const TECH_HUNT_QUESTIONS = [
   },
   {
     id: 16,
-    type: "encode",
-    question: "Decode ROT13: VVCG CNGAB",
-    answer: "iitp patna",
+    type: "hex",
+    question:
+      "77686174 206c6f736573 20697473 2068656164 20696e 20746865206d6f726e696e67 20627574 2067657473 206974 206261636b 206174 206e696768743f (Answer format: 486578636f6465)",
+    answer: "70696c6c6f77",
     imageUrl: null,
   },
   {
@@ -123,7 +135,7 @@ export const TECH_HUNT_QUESTIONS = [
     type: "image",
     question: "What binary tree structure is shown in this image?",
     answer: "bst",
-    imageUrl: "/public/ayush-jha.png",
+    imageUrl: "https://placeholder.com/tech-hunt/q17.jpg",
   },
   {
     id: 18,
@@ -135,8 +147,9 @@ export const TECH_HUNT_QUESTIONS = [
   {
     id: 19,
     type: "hex",
-    question: "What color is #FF69B4? (CSS name)",
-    answer: "hotpink",
+    question:
+      "77686174 20686173 206d616e79 206b657973 20627574 2063616e6e6f74 206f70656e 20612073696e676c65 206c6f636b3f (Answer format: 486578636f6465)",
+    answer: "7069616e6f",
     imageUrl: null,
   },
 ];
@@ -1095,68 +1108,6 @@ export const TECH_HUNT_SEED_DATA = [
     },
   },
   {
-    teamName: "Pirates of the Ganges (2)",
-    leaderName: "HIMANSHU KUMAR",
-    leaderEmail: "himanshu_ua2503cdh644@iitp.ac.in",
-    members: [
-      {
-        name: "HIMANSHU KUMAR",
-        email: "himanshu_ua2503cdh644@iitp.ac.in",
-      },
-      {
-        name: "ADITYA KUMAR",
-        email: "aditya_ua2503cdh22@iitp.ac.in",
-      },
-    ],
-    route: {
-      routeCode: "ROUTE_PIRATES_OF_THE_GANGE_15",
-      levels: [
-        {
-          level: 1,
-          route: "oat",
-          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
-          questionIndex: 1,
-        },
-        {
-          level: 2,
-          route: "clh",
-          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
-          questionIndex: 9,
-        },
-        {
-          level: 3,
-          route: "airplane",
-          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
-          questionIndex: 10,
-        },
-        {
-          level: 4,
-          route: "nescafe",
-          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
-          questionIndex: 5,
-        },
-        {
-          level: 5,
-          route: "married-hostel-road",
-          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
-          questionIndex: 8,
-        },
-        {
-          level: 6,
-          route: "graffiti",
-          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
-          questionIndex: 3,
-        },
-        {
-          level: 7,
-          route: "admin-block",
-          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
-          questionIndex: 17,
-        },
-      ],
-    },
-  },
-  {
     teamName: "Shreya",
     leaderName: "Shreya Kumari",
     leaderEmail: "shreya_ua2503aih221@iitp.ac.in",
@@ -1697,68 +1648,6 @@ export const TECH_HUNT_SEED_DATA = [
     },
   },
   {
-    teamName: "Strawhats",
-    leaderName: "Abhinav Chavan",
-    leaderEmail: "abhinav_ua2504aih287@iitp.ac.in",
-    members: [
-      {
-        name: "Abhinav Chavan",
-        email: "abhinav_ua2504aih287@iitp.ac.in",
-      },
-      {
-        name: "Placeholder Member 1",
-        email: "placeholder+team+0@example.invalid",
-      },
-    ],
-    route: {
-      routeCode: "ROUTE_STRAWHATS_24",
-      levels: [
-        {
-          level: 1,
-          route: "oat",
-          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
-          questionIndex: 7,
-        },
-        {
-          level: 2,
-          route: "married-hostel-road",
-          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
-          questionIndex: 3,
-        },
-        {
-          level: 3,
-          route: "graffiti",
-          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
-          questionIndex: 11,
-        },
-        {
-          level: 4,
-          route: "nescafe",
-          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
-          questionIndex: 14,
-        },
-        {
-          level: 5,
-          route: "clh",
-          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
-          questionIndex: 2,
-        },
-        {
-          level: 6,
-          route: "airplane",
-          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
-          questionIndex: 9,
-        },
-        {
-          level: 7,
-          route: "admin-block",
-          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
-          questionIndex: 19,
-        },
-      ],
-    },
-  },
-  {
     teamName: "Pratyush Pathak",
     leaderName: "Pratyush Pathak",
     leaderEmail: "pratyush_ua2504cdh127@iitp.ac.in",
@@ -2034,72 +1923,6 @@ export const TECH_HUNT_SEED_DATA = [
           route: "admin-block",
           clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
           questionIndex: 0,
-        },
-      ],
-    },
-  },
-  {
-    teamName: "Modem (2)",
-    leaderName: "Devottam Kumar",
-    leaderEmail: "Devottam_ua2503cdh403@iitp.ac.in",
-    members: [
-      {
-        name: "Devottam Kumar",
-        email: "Devottam_ua2503cdh403@iitp.ac.in",
-      },
-      {
-        name: "Suhread Maity",
-        email: "suhread_2312res959@iitp.ac.in",
-      },
-      {
-        name: "Ashwin Singh",
-        email: "ashwin_ua2504aih55@iitp.ac.in",
-      },
-    ],
-    route: {
-      routeCode: "ROUTE_MODEM_29",
-      levels: [
-        {
-          level: 1,
-          route: "married-hostel-road",
-          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
-          questionIndex: 8,
-        },
-        {
-          level: 2,
-          route: "oat",
-          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
-          questionIndex: 16,
-        },
-        {
-          level: 3,
-          route: "nescafe",
-          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
-          questionIndex: 11,
-        },
-        {
-          level: 4,
-          route: "airplane",
-          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
-          questionIndex: 7,
-        },
-        {
-          level: 5,
-          route: "graffiti",
-          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
-          questionIndex: 4,
-        },
-        {
-          level: 6,
-          route: "clh",
-          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
-          questionIndex: 5,
-        },
-        {
-          level: 7,
-          route: "admin-block",
-          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
-          questionIndex: 9,
         },
       ],
     },
@@ -2528,10 +2351,6 @@ export const TECH_HUNT_SEED_DATA = [
       {
         name: "Saurabh Mehta",
         email: "saurabh_2312res896@iitp.ac.in",
-      },
-      {
-        name: "Alok Kumar",
-        email: "alok_2312res78@iitp.ac.in",
       },
     ],
     route: {
@@ -3234,68 +3053,6 @@ export const TECH_HUNT_SEED_DATA = [
           route: "admin-block",
           clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
           questionIndex: 5,
-        },
-      ],
-    },
-  },
-  {
-    teamName: "The Puzzle Pirates",
-    leaderName: "Dilasha Paul",
-    leaderEmail: "dilasha_ua2504cdh199@iitp.ac.in",
-    members: [
-      {
-        name: "Dilasha Paul",
-        email: "dilasha_ua2504cdh199@iitp.ac.in",
-      },
-      {
-        name: "Arunima Ganguly",
-        email: "arunima_ua2503cdh388@iitp.ac.in",
-      },
-    ],
-    route: {
-      routeCode: "ROUTE_THE_PUZZLE_PIRATES_47",
-      levels: [
-        {
-          level: 1,
-          route: "oat",
-          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
-          questionIndex: 6,
-        },
-        {
-          level: 2,
-          route: "nescafe",
-          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
-          questionIndex: 17,
-        },
-        {
-          level: 3,
-          route: "graffiti",
-          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
-          questionIndex: 9,
-        },
-        {
-          level: 4,
-          route: "clh",
-          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
-          questionIndex: 8,
-        },
-        {
-          level: 5,
-          route: "airplane",
-          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
-          questionIndex: 10,
-        },
-        {
-          level: 6,
-          route: "married-hostel-road",
-          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
-          questionIndex: 19,
-        },
-        {
-          level: 7,
-          route: "admin-block",
-          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
-          questionIndex: 2,
         },
       ],
     },
@@ -4172,7 +3929,7 @@ export const TECH_HUNT_SEED_DATA = [
         email: "amarjeet_24a12res78@iitp.ac.in",
       },
       {
-        name: "Jayati Phuloria",
+        name: "Pragati Phuloria",
         email: "jayati_ua2504cdh83@iitp.ac.in",
       },
       {
@@ -4290,6 +4047,1576 @@ export const TECH_HUNT_SEED_DATA = [
           route: "admin-block",
           clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
           questionIndex: 18,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "The Smashers",
+    leaderName: "Shubham Pandey",
+    leaderEmail: "shubham_us2604aih40@iitp.ac.in",
+    members: [
+      {
+        name: "Shubham Pandey",
+        email: "shubham_us2604aih40@iitp.ac.in",
+      },
+      {
+        name: "Ajeet Rathod",
+        email: "rathod_us2603aih39@iitp.ac.in",
+      },
+      {
+        name: "Maruti Nandan Bagherwal",
+        email: "maruti_us2604aih48@iitp.ac.in",
+      },
+      {
+        name: "Akhilesh",
+        email: "akhilesh_us2603aih08@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_THE_SMASHERS_63",
+      levels: [
+        {
+          level: 1,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 0,
+        },
+        {
+          level: 2,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 14,
+        },
+        {
+          level: 3,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 10,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 13,
+        },
+        {
+          level: 5,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 16,
+        },
+        {
+          level: 6,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 12,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 3,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "The Pirates",
+    leaderName: "Gyanshu",
+    leaderEmail: "gyanshu_us2603cdh83@iitp.ac.in",
+    members: [
+      {
+        name: "Gyanshu",
+        email: "gyanshu_us2603cdh83@iitp.ac.in",
+      },
+      {
+        name: "Ashutosh Kumar Santosh",
+        email: "ashutosh_us2604aih12@iitp.ac.in",
+      },
+      {
+        name: "Saksham kumar tiwari",
+        email: "saksham_us2604cdh25@iitp.ac.in",
+      },
+      {
+        name: "Razat Pratap Singh",
+        email: "razat_us2604aih36@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_THE_PIRATES_64",
+      levels: [
+        {
+          level: 1,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 10,
+        },
+        {
+          level: 2,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 2,
+        },
+        {
+          level: 3,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 5,
+        },
+        {
+          level: 4,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 13,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 4,
+        },
+        {
+          level: 6,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 14,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 16,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Team alpha",
+    leaderName: "Md Kashif ajmal",
+    leaderEmail: "md_us2603cdh34@iitp.ac.in",
+    members: [
+      {
+        name: "Md Kashif ajmal",
+        email: "md_us2603cdh34@iitp.ac.in",
+      },
+      {
+        name: "Abdur Rahman",
+        email: "abdur_us2604cdh02@iitp.ac.in",
+      },
+      {
+        name: "Ashish Kumar Pandey",
+        email: "ashish_us2603cdh20@iitp.ac.in",
+      },
+      {
+        name: "Fahim alam",
+        email: "fahim_us2604aih19@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_TEAM_ALPHA_65",
+      levels: [
+        {
+          level: 1,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 2,
+        },
+        {
+          level: 2,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 8,
+        },
+        {
+          level: 3,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 14,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 15,
+        },
+        {
+          level: 5,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 11,
+        },
+        {
+          level: 6,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 7,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 12,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Mystery milii",
+    leaderName: "Abhishek Gupta",
+    leaderEmail: "abhishek_ua2504aih11@iitp.ac.in",
+    members: [
+      {
+        name: "Abhishek Gupta",
+        email: "abhishek_ua2504aih11@iitp.ac.in",
+      },
+      {
+        name: "MD Ayan",
+        email: "md_ua2503cdh794@iitp.ac.in",
+      },
+      {
+        name: "Anurag saroj",
+        email: "anurag_ua2504aih41@iitp.ac.in",
+      },
+      {
+        name: "Aditya upadhyay",
+        email: "aditya_ua2504cdh16@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_MYSTERY_MILII_66",
+      levels: [
+        {
+          level: 1,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 3,
+        },
+        {
+          level: 2,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 8,
+        },
+        {
+          level: 3,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 4,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 13,
+        },
+        {
+          level: 5,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 0,
+        },
+        {
+          level: 6,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 18,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 15,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Krishna",
+    leaderName: "Shivam Kumar",
+    leaderEmail: "shivam_ua2503aih208@iitp.ac.in",
+    members: [
+      {
+        name: "Shivam Kumar",
+        email: "shivam_ua2503aih208@iitp.ac.in",
+      },
+      {
+        name: "Shashank Kumar",
+        email: "shashank_ua2503aih406@iitp.ac.in",
+      },
+      {
+        name: "Vikash Kumar",
+        email: "vikash_ua2504cdh184@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_KRISHNA_67",
+      levels: [
+        {
+          level: 1,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 5,
+        },
+        {
+          level: 2,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 3,
+        },
+        {
+          level: 3,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 17,
+        },
+        {
+          level: 4,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 0,
+        },
+        {
+          level: 5,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 13,
+        },
+        {
+          level: 6,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 16,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 15,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "TREE-SHOOL",
+    leaderName: "Sheodutta Shivam",
+    leaderEmail: "sheodutta_ua2504aih214@iitp.ac.in",
+    members: [
+      {
+        name: "Sheodutta Shivam",
+        email: "sheodutta_ua2504aih214@iitp.ac.in",
+      },
+      {
+        name: "Rahul Raj",
+        email: "rahul_ua2503cdh466@iitp.ac.in",
+      },
+      {
+        name: "Mohit Kumar",
+        email: "mohit_ua2503cdh186@iitp.ac.in",
+      },
+      {
+        name: "Bagul Shlok Nitin",
+        email: "bagul_ua2504aih349@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_TREESHOOL_68",
+      levels: [
+        {
+          level: 1,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 8,
+        },
+        {
+          level: 2,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 1,
+        },
+        {
+          level: 3,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 11,
+        },
+        {
+          level: 4,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 19,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 18,
+        },
+        {
+          level: 6,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 2,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 7,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Marvelous Soldiers",
+    leaderName: "DIPANKAR BISWAS",
+    leaderEmail: "dipankar_ua2504aih297@iitp.ac.in",
+    members: [
+      {
+        name: "DIPANKAR BISWAS",
+        email: "dipankar_ua2504aih297@iitp.ac.in",
+      },
+      {
+        name: "kaushal kumar jha",
+        email: "kaushal_ua2504aih112@iitp.ac.in",
+      },
+      {
+        name: "kundan kumar",
+        email: "kundan_ua2503aih445@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_MARVELOUS_SOLDIERS_69",
+      levels: [
+        {
+          level: 1,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 0,
+        },
+        {
+          level: 2,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 5,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 13,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 14,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 11,
+        },
+        {
+          level: 6,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 1,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 12,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "The Scouts",
+    leaderName: "Subha Paul",
+    leaderEmail: "subha_ua2503cdh735@iitp.ac.in",
+    members: [
+      {
+        name: "Subha Paul",
+        email: "subha_ua2503cdh735@iitp.ac.in",
+      },
+      {
+        name: "Sidhant sharma",
+        email: "sidhant_ua2504aih231@iitp.ac.in",
+      },
+      {
+        name: "Tejas Jaswant",
+        email: "tejas_ua2504cdh175@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_THE_SCOUTS_70",
+      levels: [
+        {
+          level: 1,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 4,
+        },
+        {
+          level: 2,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 12,
+        },
+        {
+          level: 3,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 5,
+        },
+        {
+          level: 4,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 19,
+        },
+        {
+          level: 5,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 13,
+        },
+        {
+          level: 6,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 14,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 15,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "3 idiots",
+    leaderName: "Debalina",
+    leaderEmail: "debalina_us2604aih17@iitp.ac.in",
+    members: [
+      {
+        name: "Debalina",
+        email: "debalina_us2604aih17@iitp.ac.in",
+      },
+      {
+        name: "Supriya kumari",
+        email: "supriya_us2604cdh30@iitp.ac.in",
+      },
+      {
+        name: "Shalni Kumari",
+        email: "shalni_us2604cdh27@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_3_IDIOTS_71",
+      levels: [
+        {
+          level: 1,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 10,
+        },
+        {
+          level: 2,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 12,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 8,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 14,
+        },
+        {
+          level: 5,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 2,
+        },
+        {
+          level: 6,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 3,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 11,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Hunter X",
+    leaderName: "Maruti nandan bagherwal",
+    leaderEmail: "maruti_us2604aih48@iitp.ac.in",
+    members: [
+      {
+        name: "Maruti nandan bagherwal",
+        email: "maruti_us2604aih48@iitp.ac.in",
+      },
+      {
+        name: "Sumit Kumar",
+        email: "sumit_us2604cdh29@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_HUNTER_X_72",
+      levels: [
+        {
+          level: 1,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 6,
+        },
+        {
+          level: 2,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 14,
+        },
+        {
+          level: 3,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 16,
+        },
+        {
+          level: 4,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 9,
+        },
+        {
+          level: 5,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 7,
+        },
+        {
+          level: 6,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 19,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 3,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Saralakkho Holmes",
+    leaderName: "Avinandan De",
+    leaderEmail: "avinandan_ua2504aih59@iitp.ac.in",
+    members: [
+      {
+        name: "Avinandan De",
+        email: "avinandan_ua2504aih59@iitp.ac.in",
+      },
+      {
+        name: "Diponkar Debnath",
+        email: "diponkar_ua2504cdh63@iitp.ac.in",
+      },
+      {
+        name: "Diwakar Jha",
+        email: "diwakar_ua2503aih354@iitp.ac.in",
+      },
+      {
+        name: "Aditya Raj",
+        email: "aditya_ua2503aih322@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_SARALAKKHO_HOLMES_73",
+      levels: [
+        {
+          level: 1,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 15,
+        },
+        {
+          level: 2,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 18,
+        },
+        {
+          level: 3,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 10,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 7,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 5,
+        },
+        {
+          level: 6,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 9,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 14,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Magadh blasters",
+    leaderName: "Gautam Kumar",
+    leaderEmail: "gautam_2312res864@iitp.ac.in",
+    members: [
+      {
+        name: "Gautam Kumar",
+        email: "gautam_2312res864@iitp.ac.in",
+      },
+      {
+        name: "Chandan kumar das",
+        email: "chandan_ua2503cdh621@iitp.ac.in",
+      },
+      {
+        name: "Rishi Anand",
+        email: "rishi_us2604cdh23@iitp.ac.in",
+      },
+      {
+        name: "Ramanuj vishwakarma",
+        email: "ramanuj_ua2503cdh691@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_MAGADH_BLASTERS_74",
+      levels: [
+        {
+          level: 1,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 3,
+        },
+        {
+          level: 2,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 18,
+        },
+        {
+          level: 3,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 7,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 6,
+        },
+        {
+          level: 5,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 14,
+        },
+        {
+          level: 6,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 10,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 19,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Lutera",
+    leaderName: "Ripunjay Mishra",
+    leaderEmail: "ripunjay_ua2504aih176@iitp.ac.in",
+    members: [
+      {
+        name: "Ripunjay Mishra",
+        email: "ripunjay_ua2504aih176@iitp.ac.in",
+      },
+      {
+        name: "Mileend",
+        email: "mileend_ua2503aih132@iitp.ac.in",
+      },
+      {
+        name: "Himanshu Raj",
+        email: "himanshu_ua2503cdh136@iitp.ac.in",
+      },
+      {
+        name: "Tarun Thakur",
+        email: "tarun_ua2503cdh818@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_LUTERA_75",
+      levels: [
+        {
+          level: 1,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 1,
+        },
+        {
+          level: 2,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 14,
+        },
+        {
+          level: 3,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 3,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 4,
+        },
+        {
+          level: 5,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 11,
+        },
+        {
+          level: 6,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 9,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 13,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "1000 Sunny",
+    leaderName: "Kumari Anshika singh",
+    leaderEmail: "kumari_ua2503cdh427@iitp.ac.in",
+    members: [
+      {
+        name: "Kumari Anshika singh",
+        email: "kumari_ua2503cdh427@iitp.ac.in",
+      },
+      {
+        name: "Pratiksha kumari",
+        email: "pratiksha_ua2504cdh125@iitp.ac.in",
+      },
+      {
+        name: "Pratibha kumari",
+        email: "pratibha_ua2503aih319@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_1000_SUNNY_76",
+      levels: [
+        {
+          level: 1,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 16,
+        },
+        {
+          level: 2,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 8,
+        },
+        {
+          level: 3,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 4,
+        },
+        {
+          level: 4,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 3,
+        },
+        {
+          level: 5,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 14,
+        },
+        {
+          level: 6,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 1,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 13,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Code_627",
+    leaderName: "Suhas Dhande",
+    leaderEmail: "suhas_ua2504cdh168@iitp.ac.in",
+    members: [
+      {
+        name: "Suhas Dhande",
+        email: "suhas_ua2504cdh168@iitp.ac.in",
+      },
+      {
+        name: "Subhojyoti Sinha",
+        email: "subhojyoti_ua2504aih244@iitp.ac.in",
+      },
+      {
+        name: "Vedvit Poddar",
+        email: "vedvit_ua2504aih265@iitp.ac.in",
+      },
+      {
+        name: "Aashutosh Raj",
+        email: "aashutosh_ua2503cdh575@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_CODE627_77",
+      levels: [
+        {
+          level: 1,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 2,
+        },
+        {
+          level: 2,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 13,
+        },
+        {
+          level: 3,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 17,
+        },
+        {
+          level: 4,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 6,
+        },
+        {
+          level: 5,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 12,
+        },
+        {
+          level: 6,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 8,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 0,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Hunter Guys",
+    leaderName: "Dhritisman saikia",
+    leaderEmail: "dhritisman_us2603cdh24@iitp.ac.in",
+    members: [
+      {
+        name: "Dhritisman saikia",
+        email: "dhritisman_us2603cdh24@iitp.ac.in",
+      },
+      {
+        name: "Aryan Maurya",
+        email: "aryan_us2603cdh19@iitp.ac.in",
+      },
+      {
+        name: "Anuj kumar patel",
+        email: "anuj_us2603cdh17@iitp.ac.in",
+      },
+      {
+        name: "Suraj Kumar Singh",
+        email: "suraj_us2603cdh67@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_HUNTER_GUYS_78",
+      levels: [
+        {
+          level: 1,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 7,
+        },
+        {
+          level: 2,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 9,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 18,
+        },
+        {
+          level: 4,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 2,
+        },
+        {
+          level: 5,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 13,
+        },
+        {
+          level: 6,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 19,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 15,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Treasure  seekers",
+    leaderName: "Iman Ghosh",
+    leaderEmail: "iman_ua2504aih102@iitp.ac.in",
+    members: [
+      {
+        name: "Iman Ghosh",
+        email: "iman_ua2504aih102@iitp.ac.in",
+      },
+      {
+        name: "Shivam Kumar",
+        email: "shivam_ua2504aih328@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_TREASURE__SEEKERS_79",
+      levels: [
+        {
+          level: 1,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 11,
+        },
+        {
+          level: 2,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 2,
+        },
+        {
+          level: 3,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 17,
+        },
+        {
+          level: 4,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 9,
+        },
+        {
+          level: 5,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 19,
+        },
+        {
+          level: 6,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 0,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 4,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Treasure Haunterz",
+    leaderName: "Mahima Kumari",
+    leaderEmail: "mahima_ua2504aih123@iitp.ac.in",
+    members: [
+      {
+        name: "Mahima Kumari",
+        email: "mahima_ua2504aih123@iitp.ac.in",
+      },
+      {
+        name: "Suraj Kumar Tiwari",
+        email: "suraj_ua2503aih417@iitp.ac.in",
+      },
+      {
+        name: "Ayushi Garg",
+        email: "ayushi_ua2504aih63@iitp.ac.in",
+      },
+      {
+        name: "Harshika",
+        email: "harshika_ua2504cdh77@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_TREASURE_HAUNTERZ_80",
+      levels: [
+        {
+          level: 1,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 10,
+        },
+        {
+          level: 2,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 3,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 13,
+        },
+        {
+          level: 4,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 18,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 5,
+        },
+        {
+          level: 6,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 8,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 12,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Lucky bustards",
+    leaderName: "Somdutta Harh",
+    leaderEmail: "somdutta_ua2504aih236@iitp.ac.in",
+    members: [
+      {
+        name: "Somdutta Harh",
+        email: "somdutta_ua2504aih236@iitp.ac.in",
+      },
+      {
+        name: "Suryo kanto",
+        email: "suryokanto_ua2503aih253@iitp.ac.in",
+      },
+      {
+        name: "Harshit gautam",
+        email: "harshit_ua2503cdh643@iitp.ac.in",
+      },
+      {
+        name: "Kanishk Dubey",
+        email: "kanishk_ua2504cdh85@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_LUCKY_BUSTARDS_81",
+      levels: [
+        {
+          level: 1,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 18,
+        },
+        {
+          level: 2,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 8,
+        },
+        {
+          level: 3,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 1,
+        },
+        {
+          level: 4,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 12,
+        },
+        {
+          level: 5,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 16,
+        },
+        {
+          level: 6,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 10,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 19,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "चक्रव्यूह",
+    leaderName: "Harshit Jyotirmay",
+    leaderEmail: "harshit_ua2504cdh79@iitp.ac.in",
+    members: [
+      {
+        name: "Harshit Jyotirmay",
+        email: "harshit_ua2504cdh79@iitp.ac.in",
+      },
+      {
+        name: "Rishav Sinha",
+        email: "rishav_ua2503cdh234@iitp.ac.in",
+      },
+      {
+        name: "Sameer kumar",
+        email: "sameer_ua2504cdh148@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_चकरवयह_82",
+      levels: [
+        {
+          level: 1,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 0,
+        },
+        {
+          level: 2,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 7,
+        },
+        {
+          level: 3,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 16,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 6,
+        },
+        {
+          level: 5,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 9,
+        },
+        {
+          level: 6,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 2,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 14,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "The explorers",
+    leaderName: "Abhilasha Kumari Jha",
+    leaderEmail: "abhilasha_ua2503cdh362@iitp.ac.in",
+    members: [
+      {
+        name: "Abhilasha Kumari Jha",
+        email: "abhilasha_ua2503cdh362@iitp.ac.in",
+      },
+      {
+        name: "Muskan Kumari",
+        email: "muskan_ua2503aih379@iitp.ac.in",
+      },
+      {
+        name: "Isha kumari",
+        email: "isha_ua2503cdh139@iitp.ac.in",
+      },
+      {
+        name: "Isha kumari",
+        email: "isha_ua2503cdh417@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_THE_EXPLORERS_83",
+      levels: [
+        {
+          level: 1,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 0,
+        },
+        {
+          level: 2,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 16,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 17,
+        },
+        {
+          level: 4,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 5,
+        },
+        {
+          level: 5,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 13,
+        },
+        {
+          level: 6,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 19,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 10,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "Suryakant",
+    leaderName: "Suryakant",
+    leaderEmail: "suryakant_ua2503aih308@iitp.ac.in",
+    members: [
+      {
+        name: "Suryakant",
+        email: "suryakant_ua2503aih308@iitp.ac.in",
+      },
+      {
+        name: "Shivam Dhakad",
+        email: "shivam_ua2503cdh281@iitp.ac.in",
+      },
+      {
+        name: "Kartikey Gupta",
+        email: "kartikey_ua2504aih305@iitp.ac.in",
+      },
+      {
+        name: "Shubham Gupta",
+        email: "shubham_ua2504aih333@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_SURYAKANT_84",
+      levels: [
+        {
+          level: 1,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 4,
+        },
+        {
+          level: 2,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 2,
+        },
+        {
+          level: 3,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 18,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 10,
+        },
+        {
+          level: 5,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 0,
+        },
+        {
+          level: 6,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 19,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 7,
+        },
+      ],
+    },
+  },
+  {
+    teamName: "HYPER K",
+    leaderName: "HARI KRISHNA NAIR",
+    leaderEmail: "hari_us26cdh15@iitp.ac.in",
+    members: [
+      {
+        name: "HARI KRISHNA NAIR",
+        email: "hari_us26cdh15@iitp.ac.in",
+      },
+      {
+        name: "Shree Krishna Krish",
+        email: "shree_us2604aih39@iitp.ac.in",
+      },
+      {
+        name: "YASH RAJ",
+        email: "yash_us2603cdh76@iitp.ac.in",
+      },
+      {
+        name: "PURUSHOTTAM KUMAR",
+        email: "purushottam_us2603aih37@iitp.ac.in",
+      },
+    ],
+    route: {
+      routeCode: "ROUTE_HYPER_K_85",
+      levels: [
+        {
+          level: 1,
+          route: "nescafe",
+          clue: "The air here is never truly silent. Thoughts are exchanged faster than time itself, while exhaustion is quietly traded for another hour of life.",
+          questionIndex: 0,
+        },
+        {
+          level: 2,
+          route: "clh",
+          clue: "The First Seal hides where questions outnumber answers. Beneath bright panels and ordered rows, wisdom is spoken, forgotten, and reborn each hour.",
+          questionIndex: 13,
+        },
+        {
+          level: 3,
+          route: "oat",
+          clue: "Not all chambers were built to contain people. Some were built to contain voices, performances, and worlds that exist only for a moment.",
+          questionIndex: 16,
+        },
+        {
+          level: 4,
+          route: "airplane",
+          clue: "Once entrusted to outrun the horizon, it now watches journeys it can no longer join. Seek the relic that remembers motion.",
+          questionIndex: 6,
+        },
+        {
+          level: 5,
+          route: "married-hostel-road",
+          clue: "Where the campus gathers to move, perform, and compete, a quieter passage stretches toward lives already settled. Seek not the destination, but the road that leads beside it.",
+          questionIndex: 8,
+        },
+        {
+          level: 6,
+          route: "graffiti",
+          clue: "Not every phoenix rises to the sky. Some remain trapped within walls.",
+          questionIndex: 11,
+        },
+        {
+          level: 7,
+          route: "admin-block",
+          clue: "You have followed echoes, symbols, and forgotten routes. Now seek the structure that governs them all.",
+          questionIndex: 14,
         },
       ],
     },

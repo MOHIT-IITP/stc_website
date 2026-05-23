@@ -5,7 +5,7 @@ export interface ILevel {
   route: string;
   clue: string;
   question: string;
-  answer: string;
+  answer: string | string[];
   imageUrl?: string | null;
 }
 
@@ -45,9 +45,8 @@ const LevelSchema = new Schema<ILevel>(
     },
 
     answer: {
-      type: String,
+      type: [String],
       required: true,
-      trim: true,
     },
     imageUrl: {
       type: String,
