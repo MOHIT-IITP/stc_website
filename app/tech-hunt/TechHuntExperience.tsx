@@ -157,6 +157,35 @@ function TechHuntNavbar({
   );
 }
 
+function linkify(text?: string): React.ReactNode {
+  if (!text) return null;
+  const urlRegex = /(https?:\/\/[^\s)]+)/g;
+  const nodes: Array<string | React.ReactNode> = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = urlRegex.exec(text)) !== null) {
+    const idx = match.index;
+    if (idx > lastIndex) nodes.push(text.slice(lastIndex, idx));
+    const url = match[0];
+    nodes.push(
+      <a
+        key={idx}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-emerald-200 underline"
+      >
+        {url}
+      </a>,
+    );
+    lastIndex = idx + url.length;
+  }
+
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
+}
+
 export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
   const isCheckpointMode = Boolean(route);
   const normalizedRoute = (route || "").trim().toLowerCase();
@@ -175,7 +204,6 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
   const [challengeAnswer, setChallengeAnswer] = useState("");
   const [answerLoading, setAnswerLoading] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
-
   const syncProgress = useCallback(
     async (syncEmail: string) => {
       if (!route || !syncEmail) return;
@@ -634,8 +662,8 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   disabled={locked}
-                  placeholder="Enter your College Mail ID"
-                  className="h-12 border-white/10 bg-slate-900/80 text-base text-slate-100 placeholder:text-slate-500"
+                  placeholder="Enter your College email ID"
+                  className="h-14 w-full rounded-full border border-white/10 bg-black/60 px-5 text-base text-slate-100 placeholder:text-slate-500"
                   autoComplete="email"
                 />
                 <Button
@@ -645,9 +673,9 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                     !email.trim() ||
                     (locked && email.trim().toLowerCase() !== rememberedEmail)
                   }
-                  className="h-12 bg-[#B8FFE1] px-6 text-[#052015] hover:bg-[#D2FFE9] transition-colors duration-150 ease-in-out"
+                  className="h-14 rounded-full bg-[#0b7b4d] px-8 text-white hover:bg-[#0f9a61] transition-colors duration-150 ease-in-out"
                 >
-                  {loading ? "Verifying..." : "Verify"}
+                  {loading ? "Verifying..." : "Verify Identity"}
                 </Button>
               </div>
             </form>
@@ -762,8 +790,10 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                         <>
                           {imageSrc ? (
                             <div className="mt-3">
-                              <img
+                              <Image
                                 src={imageSrc}
+                                height={200}
+                                width={200}
                                 alt="challenge"
                                 className="max-h-64 w-auto rounded-md"
                               />
@@ -771,7 +801,7 @@ export default function TechHuntExperience({ route }: TechHuntExperienceProps) {
                           ) : null}
 
                           <p className="mt-3 text-lg leading-8 text-emerald-50">
-                            {response?.question || ""}
+                            {linkify(response?.question || "")}
                           </p>
                         </>
                       );

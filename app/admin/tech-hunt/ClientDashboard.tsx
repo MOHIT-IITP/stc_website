@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
@@ -63,33 +63,48 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
     return String(value);
   };
 
-  const getVerificationDerivedLevel = (team: any) => {
+  const getTeamVerificationInfo = (team: any) => {
     const teamId = normalizeId(team._id);
-    const latestVerifiedLevel = verifications
-      .filter(
-        (verification: any) =>
-          normalizeId(verification.teamId) === teamId && verification.isValid,
-      )
-      .reduce((maxLevel: number, verification: any) => {
-        const level = Number(verification.level);
-        return Number.isFinite(level) && level > maxLevel ? level : maxLevel;
-      }, 0);
+    const validVerifications = verifications.filter(
+      (verification: any) =>
+        normalizeId(verification.teamId) === teamId && verification.isValid,
+    );
 
+    const verifiedLevels = Array.from<number>(
+      new Set(
+        validVerifications
+          .map((verification: any) => Number(verification.level))
+          .filter((level: number) => Number.isFinite(level) && level > 0),
+      ),
+    ).sort((a: number, b: number) => a - b);
+
+    const latestVerifiedLevel = verifiedLevels[verifiedLevels.length - 1] || 0;
     const totalLevels = Number(
       team.routeId?.totalLevels || team.routeId?.levels?.length || 0,
     );
+    const isCompleted = totalLevels > 0 && latestVerifiedLevel >= totalLevels;
 
-    if (team.completed && totalLevels > 0) {
-      return totalLevels;
-    }
+    return {
+      validVerifications,
+      verifiedLevels,
+      latestVerifiedLevel,
+      totalLevels,
+      isCompleted,
+    };
+  };
 
-    return latestVerifiedLevel;
+  const getVerificationDerivedLevel = (team: any) => {
+    return getTeamVerificationInfo(team).latestVerifiedLevel;
   };
 
   const rankedTeams = [...teams]
     .sort((a: any, b: any) => {
-      if (a.completed !== b.completed) return a.completed ? -1 : 1;
-      if (a.completed) {
+      const aInfo = getTeamVerificationInfo(a);
+      const bInfo = getTeamVerificationInfo(b);
+
+      if (aInfo.isCompleted !== bInfo.isCompleted)
+        return aInfo.isCompleted ? -1 : 1;
+      if (aInfo.isCompleted) {
         return (
           new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime()
         );
@@ -179,23 +194,14 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
       };
     }
 
-    const teamId = normalizeId(team._id);
-    const validVerifications = verifications.filter(
-      (verification: any) =>
-        normalizeId(verification.teamId) === teamId && verification.isValid,
-    );
-
-    const verifiedLevels = Array.from<number>(
-      new Set(
-        validVerifications
-          .map((verification: any) => Number(verification.level))
-          .filter((level: number) => Number.isFinite(level) && level > 0),
-      ),
-    ).sort((a: number, b: number) => a - b);
-
-    const latestVerifiedLevel = verifiedLevels[verifiedLevels.length - 1] || 0;
+    const {
+      validVerifications,
+      verifiedLevels,
+      latestVerifiedLevel,
+      totalLevels,
+      isCompleted,
+    } = getTeamVerificationInfo(team);
     const levels = team.routeId.levels;
-    const totalLevels = Number(team.routeId?.totalLevels || levels.length || 0);
     const currentCheckpoint = levels.find(
       (level: any) => level.level === latestVerifiedLevel,
     );
@@ -203,10 +209,10 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
       team.questionLevel &&
       team.questionUnlockedFor &&
       Number(team.questionLevel) === Number(team.currentLevel) &&
-      !team.completed,
+      !isCompleted,
     );
 
-    if (team.completed || latestVerifiedLevel >= totalLevels) {
+    if (isCompleted) {
       return {
         levelText: `Lvl ${totalLevels}`,
         destination: "Finished Route",
@@ -241,8 +247,12 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
 
   // Determine Leaderboard
   const sortedTeams = [...teams].sort((a: any, b: any) => {
-    if (a.completed !== b.completed) return a.completed ? -1 : 1;
-    if (a.completed) {
+    const aInfo = getTeamVerificationInfo(a);
+    const bInfo = getTeamVerificationInfo(b);
+
+    if (aInfo.isCompleted !== bInfo.isCompleted)
+      return aInfo.isCompleted ? -1 : 1;
+    if (aInfo.isCompleted) {
       return (
         new Date(a.completedAt).getTime() - new Date(b.completedAt).getTime()
       );
@@ -263,7 +273,8 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
       routeTotalLevels || team.currentLevel || 1,
     );
     const hasCompletedRoute = Boolean(
-      team.completed || team.currentLevel > routeTotalLevels,
+      getTeamVerificationInfo(team).isCompleted ||
+      team.currentLevel > routeTotalLevels,
     );
 
     return team.members.map((member: any) => {
@@ -438,12 +449,12 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         team.questionUnlockedFor &&
                         Number(team.questionLevel) ===
                           Number(team.currentLevel) &&
-                        !team.completed ? (
+                        !getTeamVerificationInfo(team).isCompleted ? (
                           <Badge className="bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/10">
                             Question pending
                           </Badge>
                         ) : null}
-                        {team.completed ? (
+                        {getTeamVerificationInfo(team).isCompleted ? (
                           <Badge className="bg-emerald-500/10 text-emerald-700 hover:bg-emerald-500/10">
                             Cleared all levels
                           </Badge>
@@ -465,20 +476,22 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                         variant={
                           team.status === "disqualified"
                             ? "destructive"
-                            : team.status === "completed"
+                            : getTeamVerificationInfo(team).isCompleted
                               ? "default"
                               : "secondary"
                         }
                       >
-                        {team.completed
+                        {getTeamVerificationInfo(team).isCompleted
                           ? "completed all levels"
                           : team.questionLevel &&
                               team.questionUnlockedFor &&
                               Number(team.questionLevel) ===
                                 Number(team.currentLevel) &&
-                              !team.completed
+                              !getTeamVerificationInfo(team).isCompleted
                             ? "question pending"
-                            : team.status}
+                            : team.status === "completed"
+                              ? "verification missing"
+                              : team.status}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -630,7 +643,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                               : "destructive"
                           }
                         >
-                          {selectedTeam.completed
+                          {getTeamVerificationInfo(selectedTeam).isCompleted
                             ? "Scanned every location"
                             : member.hasScannedCurrentLevel
                               ? `Scanned L${selectedTeam.currentLevel}`
@@ -684,7 +697,7 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                       <div className="font-medium">{team.teamName}</div>
                     </TableCell>
                     <TableCell>
-                      {team.completed
+                      {getTeamVerificationInfo(team).isCompleted
                         ? `Cleared all ${team.routeId?.totalLevels || "??"} levels`
                         : getVerificationDerivedLevel(team) > 0
                           ? `Level ${getVerificationDerivedLevel(team)} / ${team.routeId?.totalLevels || "??"}`
@@ -692,7 +705,11 @@ export default function ClientDashboard({ initialData }: { initialData: any }) {
                     </TableCell>
                     <TableCell>
                       <Badge>
-                        {team.completed ? "Finished all levels" : team.status}
+                        {getTeamVerificationInfo(team).isCompleted
+                          ? "Finished all levels"
+                          : team.status === "completed"
+                            ? "verification missing"
+                            : team.status}
                       </Badge>
                     </TableCell>
                   </TableRow>

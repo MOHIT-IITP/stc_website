@@ -122,7 +122,24 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
 
 export default function FeaturedEvents() {
   const [events, setEvents] = useState([] as Event[]);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const railRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollRail = (direction: number) => {
+    const container = railRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const card = container.querySelector<HTMLElement>("[data-rail-card]");
+    const step =
+      card?.offsetWidth ?? Math.min(container.clientWidth * 0.85, 320);
+
+    container.scrollBy({
+      left: direction * step,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -172,47 +189,6 @@ export default function FeaturedEvents() {
     [events],
   );
 
-  const handleScroll = (direction: "left" | "right") => {
-    const container = scrollContainerRef.current;
-
-    if (!container) {
-      return;
-    }
-
-    const items = Array.from(container.children).filter(
-      (child): child is HTMLElement => child instanceof HTMLElement,
-    );
-
-    if (!items.length) {
-      return;
-    }
-
-    const currentLeft = container.scrollLeft;
-    let currentIndex = 0;
-
-    for (let index = 0; index < items.length; index += 1) {
-      if (items[index].offsetLeft <= currentLeft + 2) {
-        currentIndex = index;
-      } else {
-        break;
-      }
-    }
-
-    const targetIndex =
-      direction === "left"
-        ? Math.max(currentIndex - 1, 0)
-        : Math.min(currentIndex + 1, items.length - 1);
-
-    const targetItem = items[targetIndex];
-
-    container.scrollTo({
-      left:
-        targetItem.offsetLeft -
-        (container.clientWidth - targetItem.clientWidth) / 2,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <section
       id="events"
@@ -244,35 +220,34 @@ export default function FeaturedEvents() {
 
         {/* Events Grid */}
         <div className="relative w-full max-w-368">
-          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 flex items-center justify-between px-1 sm:hidden">
-            <button
-              type="button"
-              onClick={() => handleScroll("left")}
-              aria-label="Scroll featured events left"
-              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition-transform duration-200 active:scale-95"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
+          <button
+            type="button"
+            aria-label="Scroll featured events left"
+            onClick={() => scrollRail(-1)}
+            className="absolute left-2 top-1/2 z-20 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-slate-950/80 text-white shadow-lg shadow-black/25 backdrop-blur-md transition hover:border-emerald-400/40 hover:bg-slate-900 sm:hidden"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
 
-            <button
-              type="button"
-              onClick={() => handleScroll("right")}
-              aria-label="Scroll featured events right"
-              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition-transform duration-200 active:scale-95"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
+          <button
+            type="button"
+            aria-label="Scroll featured events right"
+            onClick={() => scrollRail(1)}
+            className="absolute right-2 top-1/2 z-20 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-slate-950/80 text-white shadow-lg shadow-black/25 backdrop-blur-md transition hover:border-emerald-400/40 hover:bg-slate-900 sm:hidden"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
 
           <div
-            ref={scrollContainerRef}
-            className="flex w-full gap-5 overflow-x-auto px-[9vw] pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:justify-items-center sm:gap-8 sm:overflow-visible sm:px-0 sm:pb-0 md:gap-6 lg:grid-cols-4 xl:gap-10 sm:snap-none snap-x snap-mandatory scroll-smooth touch-pan-x"
+            ref={railRef}
+            className="flex w-full gap-5 overflow-x-auto overflow-y-hidden px-[9vw] pb-4 [scrollbar-width:none] [-ms-overflow-style:none] sm:grid sm:grid-cols-2 sm:justify-items-center sm:gap-8 sm:overflow-visible sm:px-0 sm:pb-0 md:gap-6 lg:grid-cols-4 xl:gap-10 sm:snap-none snap-x snap-mandatory scroll-smooth touch-pan-x [&::-webkit-scrollbar]:hidden"
           >
             {featuredEvents.map((event, id) => {
               return (
                 <motion.div
                   key={event._id}
-                  className="group relative aspect-300/443 flex-none w-[82vw] max-w-[20rem] snap-center overflow-hidden rounded-lg transition-transform duration-300 sm:w-full sm:max-w-84 xl:max-w-88"
+                  data-rail-card
+                  className="group relative aspect-300/443 flex-none w-[calc(100vw-4rem)] max-w-[20rem] snap-center snap-always overflow-hidden rounded-lg transition-transform duration-300 sm:w-full sm:max-w-84 xl:max-w-88"
                   initial={{ opacity: 0, y: 28 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
@@ -298,7 +273,9 @@ export default function FeaturedEvents() {
                           rel="noopener noreferrer"
                           className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.6rem,1.8vw,0.78rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-4"
                         >
-                          <span className="truncate">{event.redirectLabel}</span>
+                          <span className="truncate">
+                            {event.redirectLabel}
+                          </span>
                         </Link>
                       )}
 

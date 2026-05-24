@@ -31,23 +31,26 @@ export const TECH_HUNT_QUESTIONS: Array<{
   {
     id: 3,
     type: "morse",
-    question: "Solve the Riddle:",
-    answer: "THE SIGIL IS BROKEN",
-    imageUrl: "/phoenix/tech-hunt/morse-code-1.jpeg",
+    question:
+      "Solve the Riddle: (Try to write the code manually instead of just copy-pasting it. The effort is part of the fun!)",
+    answer: "EMBERS NEVER DIE",
+    imageUrl: "/phoenix/tech-hunt/morse-code-1.png",
   },
   {
     id: 4,
-    type: "encode",
-    question: "Decode this ROT13: CUBRAVK",
-    answer: "phoenix",
+    type: "video",
+    question:
+      "https://youtu.be/SQTYLOp3FSI (Focus on the visuals, not the audio)",
+    answer: "Potion",
     imageUrl: null,
   },
   {
     id: 5,
-    type: "jumble",
-    question: "Unjumble: VOIITNNNAO",
-    answer: "innovation",
-    imageUrl: null,
+    type: "morse",
+    question:
+      "Solve the Riddle: (Try to write the code manually instead of just copy-pasting it. The effort is part of the fun!)",
+    answer: "ONLY FIRE SURVIVES",
+    imageUrl: "/phoenix/tech-hunt/morse-code-2.png",
   },
   {
     id: 6,
@@ -59,17 +62,19 @@ export const TECH_HUNT_QUESTIONS: Array<{
   },
   {
     id: 7,
-    type: "encode",
-    question: "Decode this binary: 01000110 01001001 01010010 01000101",
-    answer: "fire",
+    type: "video",
+    question:
+      "https://youtu.be/GdyiN0_OdUM (Focus on the visuals, not the audio)",
+    answer: "Vortex",
     imageUrl: null,
   },
   {
     id: 8,
-    type: "jumble",
-    question: "Unjumble: CEISNE",
-    answer: "science",
-    imageUrl: null,
+    type: "morse",
+    question:
+      "Solve the Riddle: (Try to write the code manually instead of just copy-pasting it. The effort is part of the fun!)",
+    answer: "SEEK THE FALLEN WINGS",
+    imageUrl: "/phoenix/tech-hunt/morse-code-3.png",
   },
   {
     id: 9,
@@ -88,9 +93,10 @@ export const TECH_HUNT_QUESTIONS: Array<{
   },
   {
     id: 11,
-    type: "encode",
-    question: "Convert ASCII 80 72 79 69 78 73 88 to text",
-    answer: "phoenix",
+    type: "video",
+    question:
+      "https://youtu.be/qfoCsvCOM_M (Focus on the visuals, not the audio)",
+    answer: "Funny",
     imageUrl: null,
   },
   {
@@ -117,10 +123,11 @@ export const TECH_HUNT_QUESTIONS: Array<{
   },
   {
     id: 15,
-    type: "jumble",
-    question: "Unjumble: OTIRBNMO",
-    answer: "robotmin",
-    imageUrl: null,
+    type: "morse",
+    question:
+      "Solve the Riddle: (Try to write the code manually instead of just copy-pasting it. The effort is part of the fun!)",
+    answer: "THE CODE WAS FRACTURED",
+    imageUrl: "/phoenix/tech-hunt/morse-code-4.png",
   },
   {
     id: 16,
@@ -133,16 +140,17 @@ export const TECH_HUNT_QUESTIONS: Array<{
   {
     id: 17,
     type: "image",
-    question: "What binary tree structure is shown in this image?",
-    answer: "bst",
-    imageUrl: "https://placeholder.com/tech-hunt/q17.jpg",
+    question: "Darkness protects the message",
+    answer: "Spell",
+    imageUrl: "/phoenix/tech-hunt/ShadowImage-4.png",
   },
   {
     id: 18,
-    type: "jumble",
-    question: "Unjumble: ABCREHK",
-    answer: "hacker",
-    imageUrl: null,
+    type: "morse",
+    question:
+      "Solve the Riddle: (Try to write the code manually instead of just copy-pasting it. The effort is part of the fun!)",
+    answer: "THE DISTORTION WAS INTENTIONAL",
+    imageUrl: "/phoenix/tech-hunt/morse-code-5.png",
   },
   {
     id: 19,

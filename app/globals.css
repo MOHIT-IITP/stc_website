@@ -178,16 +178,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: rgba(2, 6, 23, 0.92);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.98),
+    rgba(15, 23, 42, 0.98)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(2, 6, 23, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: linear-gradient(
+    180deg,
+    rgba(51, 65, 85, 0.98),
+    rgba(15, 118, 110, 0.9)
+  );
 }
 
 /* Smooth scrolling */
@@ -237,6 +246,38 @@ html {
 
 .japanese-blur {
   filter: blur(13px);
+}
+
+.phoenix-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(30, 41, 59, 0.98) rgba(2, 6, 23, 0.85);
+}
+
+.phoenix-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.phoenix-scrollbar::-webkit-scrollbar-track {
+  background: rgba(2, 6, 23, 0.85);
+  border-radius: 999px;
+}
+
+.phoenix-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.98),
+    rgba(15, 23, 42, 0.98)
+  );
+  border-radius: 999px;
+  border: 2px solid rgba(2, 6, 23, 0.5);
+}
+
+.phoenix-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(51, 65, 85, 0.98),
+    rgba(15, 118, 110, 0.9)
+  );
 }
 
 @theme inline {
