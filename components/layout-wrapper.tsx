@@ -8,10 +8,10 @@ import AdminNav from "./adminNav";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isPhoenixPage = pathname === "/phoenix";
   const isTechHuntPage = pathname === "/tech-hunt";
+  const isStandalonePage = pathname === "/phoenix" || pathname === "/apex";
 
-  if (isPhoenixPage) {
+  if (isStandalonePage) {
     return <>{children}</>;
   }
 

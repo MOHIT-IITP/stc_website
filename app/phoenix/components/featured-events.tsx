@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Download } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import PhoenixBg from "./phoenix-bg";
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface Event {
   _id: string;
@@ -122,6 +122,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
 
 export default function FeaturedEvents() {
   const [events, setEvents] = useState([] as Event[]);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -171,6 +172,47 @@ export default function FeaturedEvents() {
     [events],
   );
 
+  const handleScroll = (direction: "left" | "right") => {
+    const container = scrollContainerRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const items = Array.from(container.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement,
+    );
+
+    if (!items.length) {
+      return;
+    }
+
+    const currentLeft = container.scrollLeft;
+    let currentIndex = 0;
+
+    for (let index = 0; index < items.length; index += 1) {
+      if (items[index].offsetLeft <= currentLeft + 2) {
+        currentIndex = index;
+      } else {
+        break;
+      }
+    }
+
+    const targetIndex =
+      direction === "left"
+        ? Math.max(currentIndex - 1, 0)
+        : Math.min(currentIndex + 1, items.length - 1);
+
+    const targetItem = items[targetIndex];
+
+    container.scrollTo({
+      left:
+        targetItem.offsetLeft -
+        (container.clientWidth - targetItem.clientWidth) / 2,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
       id="events"
@@ -201,63 +243,85 @@ export default function FeaturedEvents() {
         </motion.div>
 
         {/* Events Grid */}
-        <div className="grid w-full max-w-368 grid-cols-1 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4 sm:gap-8 md:gap-6 xl:gap-10">
-          {featuredEvents.map((event, id) => {
-            return (
-              <motion.div
-                key={event._id}
-                className="group relative aspect-300/443 w-full max-w-[20rem] overflow-hidden rounded-lg transition-transform duration-300 sm:max-w-84 xl:max-w-88"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: (id % 4) * 0.05 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-              >
-                <Image
-                  src={event.img}
-                  alt={event.title}
-                  fill
-                  sizes="(min-width: 1280px) 22rem, (min-width: 640px) 21rem, min(100vw - 2rem, 20rem)"
-                  className="object-contain"
-                />
+        <div className="relative w-full max-w-368">
+          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 z-20 flex items-center justify-between px-1 sm:hidden">
+            <button
+              type="button"
+              onClick={() => handleScroll("left")}
+              aria-label="Scroll featured events left"
+              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition-transform duration-200 active:scale-95"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
 
-                {/* Register Button */}
-                <div
-                  className="absolute left-1/2 z-10 flex w-fit max-w-[calc(100%-1rem)] -translate-x-1/2 flex-row items-center justify-center gap-1.5 whitespace-nowrap sm:max-w-[calc(100%-1.5rem)] sm:gap-2"
-                  style={{ bottom: "clamp(3rem, 16%, 6.25rem)" }}
+            <button
+              type="button"
+              onClick={() => handleScroll("right")}
+              aria-label="Scroll featured events right"
+              className="pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/45 text-white shadow-lg shadow-black/25 backdrop-blur-md transition-transform duration-200 active:scale-95"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div
+            ref={scrollContainerRef}
+            className="flex w-full gap-5 overflow-x-auto px-[9vw] pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:justify-items-center sm:gap-8 sm:overflow-visible sm:px-0 sm:pb-0 md:gap-6 lg:grid-cols-4 xl:gap-10 sm:snap-none snap-x snap-mandatory scroll-smooth touch-pan-x"
+          >
+            {featuredEvents.map((event, id) => {
+              return (
+                <motion.div
+                  key={event._id}
+                  className="group relative aspect-300/443 flex-none w-[82vw] max-w-[20rem] snap-center overflow-hidden rounded-lg transition-transform duration-300 sm:w-full sm:max-w-84 xl:max-w-88"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.55, delay: (id % 4) * 0.05 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                 >
-                  {event.redirectLink &&
-                    event.redirectLabel &&
-                    event.redirectLabel !== "" && (
-                      <Link
-                        href={event.redirectLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.6rem,1.8vw,0.78rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-4"
-                      >
-                        <span className="truncate">{event.redirectLabel}</span>
-                      </Link>
-                    )}
+                  <Image
+                    src={event.img}
+                    alt={event.title}
+                    fill
+                    sizes="(min-width: 1280px) 22rem, (min-width: 640px) 21rem, min(100vw - 2rem, 20rem)"
+                    className="object-contain"
+                  />
 
-                  {event.resourcesLink &&
-                    event.resourcesLabel &&
-                    event.resourcesLabel !== "" && (
-                      <Link
-                        href={event.resourcesLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#059669] px-3 py-2 text-[clamp(0.58rem,1.7vw,0.7rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 hover:bg-[#047857] sm:px-4"
-                      >
-                        <Download className="mr-1 h-3.5 w-3.5 shrink-0" />
-                        <span className="truncate font-bold">
-                          {event.resourcesLabel}
-                        </span>
-                      </Link>
-                    )}
-                </div>
-              </motion.div>
-            );
-          })}
+                  {/* Register Button */}
+                  <div className="absolute left-1/2 z-10 flex w-fit max-w-[calc(100%-1rem)] -translate-x-1/2 flex-row items-center justify-center gap-1.5 whitespace-nowrap bottom-[clamp(3rem,16%,6.25rem)] sm:max-w-[calc(100%-1.5rem)] sm:gap-2">
+                    {event.redirectLink &&
+                      event.redirectLabel &&
+                      event.redirectLabel !== "" && (
+                        <Link
+                          href={event.redirectLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#d2b56d] px-3 py-2 text-[clamp(0.6rem,1.8vw,0.78rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 sm:px-4"
+                        >
+                          <span className="truncate">{event.redirectLabel}</span>
+                        </Link>
+                      )}
+
+                    {event.resourcesLink &&
+                      event.resourcesLabel &&
+                      event.resourcesLabel !== "" && (
+                        <Link
+                          href={event.resourcesLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex min-h-9 flex-none items-center justify-center overflow-hidden rounded-full border border-white/25 bg-[#059669] px-3 py-2 text-[clamp(0.58rem,1.7vw,0.7rem)] font-semibold leading-none text-black backdrop-blur-md transition-all duration-300 hover:bg-[#047857] sm:px-4"
+                        >
+                          <Download className="mr-1 h-3.5 w-3.5 shrink-0" />
+                          <span className="truncate font-bold">
+                            {event.resourcesLabel}
+                          </span>
+                        </Link>
+                      )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
