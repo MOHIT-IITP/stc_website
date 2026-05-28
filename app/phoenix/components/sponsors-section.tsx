@@ -1,6 +1,7 @@
 "use client";
 import PhoenixBg from "./phoenix-bg";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 
 export default function SponsorsSection() {
@@ -112,7 +113,6 @@ export default function SponsorsSection() {
               ref={railRef}
               className="flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-4 pb-4 touch-pan-x overscroll-x-contain [scrollbar-width:none] [-ms-overflow-style:none] sm:grid sm:grid-cols-1 sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-2 lg:grid-cols-3 md:gap-8 sm:snap-none scroll-smooth [&::-webkit-scrollbar]:hidden"
             >
-              <div aria-hidden="true" className="shrink-0 w-4" />
               {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.name}
@@ -124,7 +124,9 @@ export default function SponsorsSection() {
                   <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-8 text-center">
                     <div className="relative w-full max-w-[280px] md:max-w-[320px] h-40 md:h-52 flex items-center justify-center">
                       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-36 md:w-48 h-36 md:h-48 rounded-full opacity-0 group-hover:opacity-100 transform scale-95 group-hover:scale-105 transition-all duration-700 pointer-events-none filter blur-4xl bg-[radial-gradient(circle,rgba(245,158,11,0.55)_0%,rgba(245,158,11,0.28)_40%,transparent_75%)]"></div>
-                      <img
+                      <Image
+                        height={208}
+                        width={320}
                         src={sponsor.logo}
                         alt={`${sponsor.name} Logo`}
                         className="relative z-10 w-full h-full object-contain px-4 md:px-6 drop-shadow-[0_14px_34px_rgba(245,158,11,0.25)] group-hover:scale-[1.05] transition-transform duration-700"
