@@ -49,6 +49,11 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
     phoenixTitle: "CLIENT EXPERIENCE",
   },
   {
+    title: "Chess Tournament 2",
+    img: "/phoenix/events/Chess-2.png",
+    phoenixTitle: "Chess Tournament 2",
+  },
+  {
     title: "Free Fire Tournament",
     img: "/phoenix/events/freefire.png",
     phoenixTitle: "FREE FIRE",

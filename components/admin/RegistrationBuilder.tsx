@@ -1080,7 +1080,7 @@ export default function RegistrationBuilder() {
                   />
                   <Label htmlFor="required">Required</Label>
                 </div>
-                <div className="flex items-center space-x-2">
+                {/* <div className="flex items-center space-x-2">
                   <Switch
                     id="important"
                     checked={editingField.important}
@@ -1089,7 +1089,7 @@ export default function RegistrationBuilder() {
                     }
                   />
                   <Label htmlFor="important">Important</Label>
-                </div>
+                </div> */}
               </div>
 
               {/* Email-specific options */}
