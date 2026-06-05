@@ -25,11 +25,31 @@ interface FeaturedEvent {
   title: string;
   img: string;
   phoenixTitle: string;
+  aliases?: string[];
 }
 
 type PhoenixEvent = Event & {
   img: string;
   phoenixTitle: string;
+};
+
+const normalizePhoenixTitle = (value?: string) => value?.trim().toLowerCase() ?? "";
+
+const matchesPhoenixTitle = (
+  eventTitle: string | undefined,
+  featuredEvent: FeaturedEvent,
+) => {
+  const candidateTitles = [
+    featuredEvent.phoenixTitle,
+    featuredEvent.title,
+    ...(featuredEvent.aliases ?? []),
+  ];
+
+  const normalizedEventTitle = normalizePhoenixTitle(eventTitle);
+
+  return candidateTitles.some(
+    (candidate) => normalizePhoenixTitle(candidate) === normalizedEventTitle,
+  );
 };
 
 const FEATURED_EVENTS: FeaturedEvent[] = [
@@ -49,9 +69,10 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
     phoenixTitle: "CLIENT EXPERIENCE",
   },
   {
-    title: "Chess Tournament 2",
-    img: "/phoenix/events/Chess-2.png",
-    phoenixTitle: "Chess Tournament 2",
+    title: "Chess Seniors Tournament",
+    img: "/phoenix/events/senior-chess.png",
+    phoenixTitle: "Chess seniors tournament",
+    aliases: ["CHESS 2", "Chess Tournament Phase-2"],
   },
   {
     title: "Free Fire Tournament",
@@ -82,6 +103,7 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
     title: "Chess Tournament",
     img: "/phoenix/events/chess.png",
     phoenixTitle: "CHESS",
+    aliases: ["Chess Tournament"],
   },
   {
     title: "Cricket Tournament",
@@ -181,8 +203,8 @@ export default function FeaturedEvents() {
         .map((event) => {
           const featuredEvent = FEATURED_EVENTS.find(
             (item) =>
-              item.phoenixTitle.toLowerCase() ===
-              event.phoenixTitle?.trim().toLowerCase(),
+              matchesPhoenixTitle(event.phoenixTitle, item) ||
+              matchesPhoenixTitle(event.title, item),
           );
 
           return {

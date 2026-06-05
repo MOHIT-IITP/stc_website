@@ -578,7 +578,7 @@ export default function AdminEventsPage() {
                   <option value="BADMINTON">Girs Badminton Tournament</option>
                   <option value="CAPTURE THE FLAG">Capture The Flag</option>
                   <option value="CHESS">Chess Tournament</option>
-                  <option value="CHESS 2">Chess Tournament 2</option>
+                  <option value="CHESS SENIORS TOURNAMENT">Chess Seniors Tournament</option>
                   <option value="CRICKET">Cricket Tournament</option>
                   <option value="FOOTBALL">Football Tournament</option>
                   <option value="FOUNDER SESSION">Founder Session</option>
