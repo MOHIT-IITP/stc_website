@@ -569,6 +569,8 @@ export default function AdminEventsPage() {
                 >
                   <option value="">Select Phoenix Title</option>
                   <option value="Hack & Tech">Hack N Tech</option>
+                  <option value="CLIENT EXPERIENCE">Client Experience</option>
+
                   <option value="BGMI">BGMI Tournament</option>
                   <option value="FREE FIRE">Free Fire Tournament</option>
                   <option value="IDEA">Idea Station</option>
@@ -634,7 +636,7 @@ export default function AdminEventsPage() {
                 checked={formData.isImportant}
                 onChange={(e) =>
                   setFormData({ ...formData, isImportant: e.target.checked })
-                }
+                } 
                 className="w-4 h-4"
               />
               <Label htmlFor="isImportant">Mark as Important</Label>

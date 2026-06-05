@@ -44,6 +44,11 @@ const FEATURED_EVENTS: FeaturedEvent[] = [
     phoenixTitle: "BGMI",
   },
   {
+    title: "Client Experience",
+    img: "/phoenix/events/client-experience.png",
+    phoenixTitle: "CLIENT EXPERIENCE",
+  },
+  {
     title: "Free Fire Tournament",
     img: "/phoenix/events/freefire.png",
     phoenixTitle: "FREE FIRE",
