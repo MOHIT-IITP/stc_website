@@ -61,8 +61,16 @@ export async function POST(request: NextRequest) {
             }
         }
 
+        const teamMembers = Array.isArray(body.teamMembers)
+            ? body.teamMembers.map((m: any) => ({
+                name: typeof m.name === 'string' ? m.name.trim() : '',
+                email: typeof m.email === 'string' ? m.email.trim() : ''
+            })).filter((m: any) => m.name || m.email)
+            : undefined;
+
         const certificate = await Certificate.create({
             ...body,
+            teamMembers,
             description: body.description || undefined,
             CertificateId: certificateId,
             createdAt: body.createdAt || new Date(),
@@ -112,6 +120,13 @@ export async function PUT(request: NextRequest) {
             }
         }
 
+        const teamMembers = Array.isArray(body.teamMembers)
+            ? body.teamMembers.map((m: any) => ({
+                name: typeof m.name === 'string' ? m.name.trim() : '',
+                email: typeof m.email === 'string' ? m.email.trim() : ''
+            })).filter((m: any) => m.name || m.email)
+            : undefined;
+
         const updatedCertificate = await Certificate.findByIdAndUpdate(
             id,
             {
@@ -123,6 +138,15 @@ export async function PUT(request: NextRequest) {
                 joinedTo: body.joinedTo || undefined,
                 description: body.description || undefined,
                 createdAt: body.createdAt || existingCertificate.createdAt,
+                isHackathon: body.isHackathon ?? existingCertificate.isHackathon,
+                isEvent: body.isEvent ?? existingCertificate.isEvent,
+                teamName: body.teamName || undefined,
+                teamMembers: teamMembers || undefined,
+                projectName: body.projectName || undefined,
+                eventName: body.eventName || undefined,
+                eventVenue: body.eventVenue || undefined,
+                organizedBy: body.organizedBy || undefined,
+                winnerEmail: body.winnerEmail || undefined,
             },
             { new: true, runValidators: true }
         );

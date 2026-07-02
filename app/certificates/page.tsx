@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Award, Search, ShieldCheck, FileCheck2 } from "lucide-react";
+import { ShieldCheck, Search, FileCheck2, Award } from "lucide-react";
 
 export default function CertificatesPage() {
     const [certificateId, setCertificateId] = useState("");
@@ -19,46 +19,35 @@ export default function CertificatesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 pt-16">
-            <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl"></div>
-                    <div className="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-xl"></div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        <div className="min-h-screen bg-[#f8fafc] pt-32 pb-20">
+            {/* Page header */}
+            <div className="max-w-lg mx-auto px-4 text-center mb-10">
+                <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[#0f2a4d]/10 mb-5">
+                    <ShieldCheck className="w-5 h-5 text-[#0f2a4d]" />
                 </div>
+                <h1 className="text-3xl font-semibold text-[#0f2a4d] tracking-tight mb-2">
+                    Verify Certificate
+                </h1>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                    Enter the unique certificate ID to instantly verify its authenticity
+                    and view the certificate details.
+                </p>
+            </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center">
-                        <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
-                            <ShieldCheck className="w-10 h-10 text-white" />
-                        </div>
-                        <h1 className="text-5xl font-bold mb-6">
-                            Certificate Verification
-                        </h1>
-                        <p className="text-xl max-w-3xl mx-auto opacity-90">
-                            Verify the authenticity of certificates issued by Student
-                            Technical Council, IIT Patna
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section className="py-20">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12 border border-gray-100 -mt-16 relative z-20">
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                                Enter Certificate ID
-                            </h2>
-                            <p className="text-gray-600">
-                                Enter the unique certificate ID to verify its authenticity
-                            </p>
-                        </div>
-
-                        <form onSubmit={handleVerify} className="space-y-6">
+            {/* Search card */}
+            <div className="max-w-lg mx-auto px-4">
+                <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+                    <form onSubmit={handleVerify} className="space-y-4">
+                        <div>
+                            <label
+                                htmlFor="certificate-id-input"
+                                className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2"
+                            >
+                                Certificate ID
+                            </label>
                             <div className="relative">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <Search className="h-5 w-5 text-gray-400" />
+                                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                    <Search className="h-4 w-4 text-slate-400" />
                                 </div>
                                 <Input
                                     id="certificate-id-input"
@@ -66,60 +55,64 @@ export default function CertificatesPage() {
                                     placeholder="e.g. STC-A1B2-C3D4"
                                     value={certificateId}
                                     onChange={(e) => setCertificateId(e.target.value)}
-                                    className="pl-12 h-14 text-lg border-2 border-gray-200 focus:border-blue-500 rounded-xl"
+                                    className="pl-10 h-12 text-base border-slate-200 focus:border-[#1a4b8c] focus:ring-2 focus:ring-[#1a4b8c]/10 rounded-xl text-slate-800 placeholder:text-slate-400"
                                     required
                                 />
                             </div>
-
-                            <Button
-                                type="submit"
-                                className="w-full h-14 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                            >
-                                <ShieldCheck className="w-5 h-5 mr-2" />
-                                Verify Certificate
-                            </Button>
-                        </form>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-                        <div className="text-center p-6 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-xl mb-4">
-                                <ShieldCheck className="w-6 h-6 text-blue-600" />
-                            </div>
-                            <h3 className="font-semibold text-gray-900 mb-2">
-                                Instant Verification
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                                Verify any STC certificate in seconds with the unique ID
-                            </p>
                         </div>
 
-                        <div className="text-center p-6 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-xl mb-4">
-                                <FileCheck2 className="w-6 h-6 text-green-600" />
-                            </div>
-                            <h3 className="font-semibold text-gray-900 mb-2">
-                                Authentic Records
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                                All certificates are securely stored and tamper-proof
-                            </p>
-                        </div>
+                        <Button
+                            type="submit"
+                            className="w-full h-12 text-base bg-[#0f2a4d] hover:bg-[#1a4b8c] text-white rounded-xl font-medium transition-colors duration-200 shadow-sm"
+                        >
+                            <ShieldCheck className="w-4 h-4 mr-2" />
+                            Verify Certificate
+                        </Button>
+                    </form>
 
-                        <div className="text-center p-6 rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 rounded-xl mb-4">
-                                <Award className="w-6 h-6 text-purple-600" />
-                            </div>
-                            <h3 className="font-semibold text-gray-900 mb-2">
-                                Official Recognition
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                                Issued by Student Technical Council, IIT Patna
-                            </p>
-                        </div>
+                    {/* Divider */}
+                    <div className="border-t border-slate-100 mt-7 pt-5">
+                        <p className="text-xs text-slate-400 text-center leading-relaxed">
+                            Certificates are issued and verified by{" "}
+                            <span className="font-medium text-slate-500">
+                                Student Technical Council, IIT Patna
+                            </span>
+                        </p>
                     </div>
                 </div>
-            </section>
+
+                {/* Feature rows */}
+                <div className="mt-8 grid grid-cols-3 gap-4">
+                    {[
+                        {
+                            icon: ShieldCheck,
+                            title: "Instant Verification",
+                            desc: "Verify in seconds with the unique ID",
+                        },
+                        {
+                            icon: FileCheck2,
+                            title: "Tamper-Proof",
+                            desc: "Securely stored, authentic records",
+                        },
+                        {
+                            icon: Award,
+                            title: "Official Records",
+                            desc: "Issued by STC, IIT Patna",
+                        },
+                    ].map(({ icon: Icon, title, desc }) => (
+                        <div
+                            key={title}
+                            className="flex flex-col items-center text-center p-4 rounded-xl border border-slate-150 bg-white"
+                        >
+                            <div className="w-8 h-8 rounded-lg bg-[#0f2a4d]/5 flex items-center justify-center mb-2.5">
+                                <Icon className="w-4 h-4 text-[#0f2a4d]" />
+                            </div>
+                            <p className="text-xs font-semibold text-slate-700 mb-0.5">{title}</p>
+                            <p className="text-[11px] text-slate-400 leading-snug">{desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

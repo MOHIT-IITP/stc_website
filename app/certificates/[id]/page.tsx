@@ -14,18 +14,32 @@ import {
     ArrowLeft,
     AlertCircle,
     Loader2,
+    Trophy,
+    Users,
+    Code2,
+    MapPin,
+    Sparkles,
 } from "lucide-react";
 
 interface CertificateData {
     _id: string;
     CertificateId: string;
-    name: string;
-    position: string;
+    name?: string;
+    position?: string;
     club?: string;
     joinedFrom?: string;
     joinedTo?: string;
     description?: string;
     createdAt: string;
+    isHackathon?: boolean;
+    isEvent?: boolean;
+    teamName?: string;
+    teamMembers?: { name: string; email: string }[];
+    projectName?: string;
+    eventName?: string;
+    eventVenue?: string;
+    organizedBy?: string;
+    winnerEmail?: string;
 }
 
 function formatDate(dateStr: string) {
@@ -34,6 +48,105 @@ function formatDate(dateStr: string) {
         month: "long",
         year: "numeric",
     });
+}
+
+/** A clean label + value row used throughout the detail card */
+function DetailRow({
+    icon: Icon,
+    label,
+    value,
+    mono = false,
+    subtle = false,
+}: {
+    icon: React.ElementType;
+    label: string;
+    value: React.ReactNode;
+    mono?: boolean;
+    subtle?: boolean;
+}) {
+    return (
+        <div className="flex items-start gap-3 py-4 border-b border-slate-100 last:border-0">
+            <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                <Icon className="w-3.5 h-3.5 text-slate-500" />
+            </div>
+            <div className="flex flex-col gap-0.5 flex-1">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+                    {label}
+                </span>
+                <span
+                    className={`text-sm font-medium leading-snug ${
+                        mono ? "font-mono text-[#0f2a4d]" : ""
+                    } ${subtle ? "text-slate-500" : "text-slate-800"}`}
+                >
+                    {value}
+                </span>
+            </div>
+        </div>
+    );
+}
+
+/** Shared card wrapper for all certificate types */
+function CertCard({
+    typeLabel,
+    children,
+    certId,
+    issuedAt,
+}: {
+    typeLabel: string;
+    children: React.ReactNode;
+    certId: string;
+    issuedAt: string;
+}) {
+    return (
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            {/* Brand accent top bar */}
+            <div className="h-1 bg-[#0f2a4d]" />
+
+            {/* Organization header */}
+            <div className="flex items-center gap-3 px-6 py-4 border-b border-slate-100">
+                <img
+                    src="/images/stc-logo.jpg"
+                    alt="STC Logo"
+                    className="w-8 h-8 rounded-lg object-cover border border-slate-200"
+                />
+                <div className="flex flex-col">
+                    <span className="text-xs font-semibold text-slate-700 leading-tight">
+                        Student Technical Council
+                    </span>
+                    <span className="text-[10px] text-slate-400 leading-tight">
+                        Indian Institute of Technology Patna
+                    </span>
+                </div>
+                <span className="ml-auto text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                    {typeLabel}
+                </span>
+            </div>
+
+            {/* Certificate ID strip */}
+            <div className="px-6 py-3.5 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+                    Certificate ID
+                </span>
+                <span className="text-sm font-mono font-bold text-[#0f2a4d] bg-white border border-slate-200 px-3 py-1 rounded-lg">
+                    {certId}
+                </span>
+            </div>
+
+            {/* Main detail rows */}
+            <div className="px-6">{children}</div>
+
+            {/* Footer */}
+            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-[10px] text-slate-400">
+                    Issued on {formatDate(issuedAt)}
+                </span>
+                <div className="flex items-center gap-1 text-emerald-600">
+                    <ShieldCheck className="w-3 h-3" />
+                    <span className="text-[10px] font-semibold">Verified</span>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default function CertificateDetailPage() {
@@ -68,42 +181,44 @@ export default function CertificateDetailPage() {
         }
     };
 
+    /* ── Loading ── */
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 pt-16 flex items-center justify-center">
+            <div className="min-h-screen bg-white pt-24 flex items-center justify-center">
                 <div className="text-center">
-                    <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
-                    <p className="text-lg text-gray-600">Verifying certificate...</p>
+                    <Loader2 className="w-8 h-8 animate-spin text-[#0f2a4d] mx-auto mb-3" />
+                    <p className="text-sm text-slate-500">Verifying certificate…</p>
                 </div>
             </div>
         );
     }
 
+    /* ── Error ── */
     if (error || !certificate) {
         return (
-            <div className="min-h-screen bg-gray-50 pt-16">
-                <section className="bg-linear-to-r from-red-500 to-red-700 text-white py-16">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                        <AlertCircle className="w-16 h-16 mx-auto mb-4 opacity-90" />
-                        <h1 className="text-4xl font-bold mb-4">
-                            Certificate Not Found
-                        </h1>
-                        <p className="text-xl opacity-90 max-w-2xl mx-auto">
-                            {error || "No certificate found with this ID."}
-                        </p>
-                    </div>
-                </section>
-
-                <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-                    <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 -mt-8 relative z-10">
-                        <p className="text-gray-600 mb-2">Certificate ID searched:</p>
-                        <p className="text-lg font-mono font-bold text-gray-900 mb-6 bg-gray-50 py-3 px-4 rounded-lg inline-block">
-                            {decodeURIComponent(id)}
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="min-h-screen bg-[#f8fafc] pt-24 pb-16">
+                <div className="max-w-md mx-auto px-4">
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                        <div className="h-1 bg-red-500" />
+                        <div className="p-8 text-center">
+                            <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-4">
+                                <AlertCircle className="w-6 h-6 text-red-500" />
+                            </div>
+                            <h1 className="text-lg font-semibold text-slate-800 mb-1">
+                                Certificate Not Found
+                            </h1>
+                            <p className="text-sm text-slate-500 mb-4 leading-relaxed">
+                                {error || "No certificate found with this ID."}
+                            </p>
+                            <div className="text-xs text-slate-400 mb-6">
+                                Searched for:{" "}
+                                <span className="font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                                    {decodeURIComponent(id)}
+                                </span>
+                            </div>
                             <Link href="/certificates">
-                                <Button className="bg-blue-600 hover:bg-blue-700">
-                                    <ArrowLeft className="w-4 h-4 mr-2" />
+                                <Button className="bg-[#0f2a4d] hover:bg-[#1a4b8c] text-white rounded-xl text-sm h-10">
+                                    <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
                                     Try Another ID
                                 </Button>
                             </Link>
@@ -114,168 +229,233 @@ export default function CertificateDetailPage() {
         );
     }
 
-    return (
-        <div className="min-h-screen bg-gray-50 pt-16">
-            <section className="bg-linear-to-r from-green-600 to-emerald-700 text-white py-16 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-xl"></div>
-                    <div className="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-xl"></div>
-                </div>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl mb-4">
-                        <ShieldCheck className="w-8 h-8 text-white" />
-                    </div>
-                    <h1 className="text-4xl font-bold mb-2">Certificate Verified</h1>
-                    <p className="text-lg opacity-90">
-                        This certificate has been successfully verified as authentic
-                    </p>
-                </div>
-            </section>
-
-            <div className="max-w-3xl mx-auto px-4 py-12">
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden -mt-8 relative z-10">
-                    <div className="bg-linear-to-r from-[#0f2a4d] to-[#1a4b8c] p-8 text-white text-center">
-                        <div className="flex justify-center mb-4">
-                            <img
-                                src="/images/stc-logo.jpg"
-                                alt="STC Logo"
-                                className="w-16 h-16 rounded-xl shadow-lg border-2 border-white/30"
-                            />
-                        </div>
-                        <h2 className="text-sm font-medium uppercase tracking-widest opacity-80 mb-1">
-                            Student Technical Council
-                        </h2>
-                        <p className="text-xs opacity-60 tracking-wider">
-                            Indian Institute of Technology Patna
-                        </p>
-                    </div>
-
-                    <div className="p-8 sm:p-10">
-                        <div className="flex justify-center mb-8">
-                            <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 border border-green-200 px-4 py-2 rounded-full text-sm font-semibold">
-                                <ShieldCheck className="w-4 h-4" />
-                                Verified Certificate
-                            </div>
-                        </div>
-
-                        <div className="text-center mb-8">
-                            <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
-                                Certificate ID
-                            </p>
-                            <p className="text-xl font-mono font-bold text-[#0f2a4d] bg-blue-50 py-2 px-4 rounded-lg inline-block">
-                                {certificate.CertificateId}
-                            </p>
-                        </div>
-
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-                            <Award className="w-5 h-5 text-[#1a4b8c]" />
-                            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
-                        </div>
-
-                        <div className="space-y-5">
-                            <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                    <User className="w-5 h-5 text-blue-600" />
-                                </div>
-                                <div>
-                                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                        Certificate Holder
-                                    </p>
-                                    <p className="text-lg font-semibold text-gray-900">
-                                        {certificate.name}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                                    <Briefcase className="w-5 h-5 text-purple-600" />
-                                </div>
-                                <div>
-                                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                        Position
-                                    </p>
-                                    <p className="text-lg font-semibold text-gray-900">
-                                        {certificate.position}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {certificate.club && (
-                                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                        <Building2 className="w-5 h-5 text-green-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                            Club / Wing
-                                        </p>
-                                        <p className="text-lg font-semibold text-gray-900">
-                                            {certificate.club}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {certificate.description && (
-                                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                                        <Award className="w-5 h-5 text-yellow-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                            Description
-                                        </p>
-                                        <p className="text-lg font-semibold text-gray-900 whitespace-pre-line">
-                                            {certificate.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-
-                            {(certificate.joinedFrom || certificate.joinedTo) && (
-                                <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                                        <CalendarDays className="w-5 h-5 text-orange-600" />
-                                    </div>
-                                    <div>
-                                        <p className="text-xs uppercase tracking-wider text-gray-500 mb-0.5">
-                                            Tenure
-                                        </p>
-                                        <p className="text-lg font-semibold text-gray-900">
-                                            {certificate.joinedFrom
-                                                ? formatDate(certificate.joinedFrom)
-                                                : "—"}{" "}
-                                            →{" "}
-                                            {certificate.joinedTo
-                                                ? formatDate(certificate.joinedTo)
-                                                : "Present"}
-                                        </p>
-                                    </div>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
-
-                    <div className="bg-gray-50 border-t border-gray-100 px-8 py-4 text-center">
-                        <p className="text-xs text-gray-500">
-                            This certificate was issued by the Student Technical Council, IIT
-                            Patna and is verified authentic.
-                        </p>
+    /* ── Shared page shell ── */
+    const PageShell = ({ children }: { children: React.ReactNode }) => (
+        <div className="min-h-screen bg-[#f8fafc] pt-24 pb-16">
+            <div className="max-w-xl mx-auto px-4">
+                {/* Verified banner */}
+                <div className="flex items-center justify-center mb-6">
+                    <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-200 px-4 py-2 rounded-full text-sm font-semibold">
+                        <ShieldCheck className="w-4 h-4" />
+                        Certificate Verified
                     </div>
                 </div>
 
-                <div className="text-center mt-8">
+                {children}
+
+                {/* Back link */}
+                <div className="text-center mt-6">
                     <Link href="/certificates">
-                        <Button variant="outline" className="border-blue-200 text-blue-700 hover:bg-blue-50">
-                            <ArrowLeft className="w-4 h-4 mr-2" />
+                        <Button
+                            variant="outline"
+                            className="border-slate-200 text-[#0f2a4d] hover:bg-slate-50 rounded-xl text-sm h-10"
+                        >
+                            <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
                             Verify Another Certificate
                         </Button>
                     </Link>
                 </div>
             </div>
         </div>
+    );
+
+    /* ── Hackathon Certificate ── */
+    if (certificate.isHackathon) {
+        return (
+            <PageShell>
+                <CertCard
+                    typeLabel="Hackathon"
+                    certId={certificate.CertificateId}
+                    issuedAt={certificate.createdAt}
+                >
+                    <DetailRow
+                        icon={Sparkles}
+                        label="Event"
+                        value={certificate.eventName || "Hack N Tech 3.0"}
+                    />
+                    <DetailRow
+                        icon={Trophy}
+                        label="Team Name"
+                        value={certificate.teamName || "—"}
+                    />
+                    {certificate.projectName && (
+                        <DetailRow
+                            icon={Code2}
+                            label="Project"
+                            value={certificate.projectName}
+                        />
+                    )}
+                    {certificate.eventVenue && (
+                        <DetailRow
+                            icon={MapPin}
+                            label="Venue"
+                            value={certificate.eventVenue}
+                        />
+                    )}
+                    {certificate.organizedBy && (
+                        <DetailRow
+                            icon={Building2}
+                            label="Organised By"
+                            value={certificate.organizedBy}
+                        />
+                    )}
+                    {certificate.teamMembers && certificate.teamMembers.length > 0 && (
+                        <div className="py-4 border-b border-slate-100 last:border-0">
+                            <div className="flex items-center gap-2 mb-3">
+                                <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                                    <Users className="w-3.5 h-3.5 text-slate-500" />
+                                </div>
+                                <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+                                    Team Members
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ml-9">
+                                {certificate.teamMembers.map(
+                                    (member: { name: string; email: string }, idx: number) => (
+                                        <div
+                                            key={idx}
+                                            className="bg-slate-50 border border-slate-100 rounded-xl p-3"
+                                        >
+                                            <p className="text-sm font-medium text-slate-800 leading-tight">
+                                                {member.name}
+                                            </p>
+                                            <p className="text-[11px] text-slate-400 font-mono mt-0.5 leading-tight truncate">
+                                                {member.email}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    {certificate.description && (
+                        <div className="py-4 last:border-0">
+                            <p className="text-xs text-slate-400 italic leading-relaxed">
+                                "{certificate.description}"
+                            </p>
+                        </div>
+                    )}
+                </CertCard>
+            </PageShell>
+        );
+    }
+
+    /* ── Event Certificate ── */
+    if (certificate.isEvent) {
+        return (
+            <PageShell>
+                <CertCard
+                    typeLabel="Event Winner"
+                    certId={certificate.CertificateId}
+                    issuedAt={certificate.createdAt}
+                >
+                    <DetailRow
+                        icon={Sparkles}
+                        label="Event"
+                        value={certificate.eventName || "—"}
+                    />
+                    <DetailRow
+                        icon={User}
+                        label="Winner"
+                        value={
+                            <span className="flex flex-col gap-0.5">
+                                <span>{certificate.name}</span>
+                                {certificate.winnerEmail && (
+                                    <span className="text-[11px] font-mono text-slate-400">
+                                        {certificate.winnerEmail}
+                                    </span>
+                                )}
+                            </span>
+                        }
+                    />
+                    <DetailRow
+                        icon={Award}
+                        label="Position / Standing"
+                        value={
+                            <span className="text-[#0f2a4d] font-semibold">
+                                {certificate.position}
+                            </span>
+                        }
+                    />
+                    {certificate.eventVenue && (
+                        <DetailRow
+                            icon={MapPin}
+                            label="Venue"
+                            value={certificate.eventVenue}
+                        />
+                    )}
+                    {certificate.organizedBy && (
+                        <DetailRow
+                            icon={Building2}
+                            label="Organised By"
+                            value={certificate.organizedBy}
+                        />
+                    )}
+                    {certificate.description && (
+                        <div className="py-4 last:border-0">
+                            <p className="text-xs text-slate-400 italic leading-relaxed">
+                                "{certificate.description}"
+                            </p>
+                        </div>
+                    )}
+                </CertCard>
+            </PageShell>
+        );
+    }
+
+    /* ── Standard / Membership Certificate ── */
+    return (
+        <PageShell>
+            <CertCard
+                typeLabel="STC Member"
+                certId={certificate.CertificateId}
+                issuedAt={certificate.createdAt}
+            >
+                {certificate.name && (
+                    <DetailRow
+                        icon={User}
+                        label="Certificate Holder"
+                        value={certificate.name}
+                    />
+                )}
+                {certificate.position && (
+                    <DetailRow
+                        icon={Briefcase}
+                        label="Position"
+                        value={certificate.position}
+                    />
+                )}
+                {certificate.club && (
+                    <DetailRow
+                        icon={Building2}
+                        label="Club / Wing"
+                        value={certificate.club}
+                    />
+                )}
+                {(certificate.joinedFrom || certificate.joinedTo) && (
+                    <DetailRow
+                        icon={CalendarDays}
+                        label="Tenure"
+                        value={`${
+                            certificate.joinedFrom
+                                ? formatDate(certificate.joinedFrom)
+                                : "—"
+                        } → ${
+                            certificate.joinedTo
+                                ? formatDate(certificate.joinedTo)
+                                : "Present"
+                        }`}
+                    />
+                )}
+                {certificate.description && (
+                    <DetailRow
+                        icon={Award}
+                        label="Description"
+                        value={certificate.description}
+                        subtle
+                    />
+                )}
+            </CertCard>
+        </PageShell>
     );
 }
