@@ -4,6 +4,7 @@ import { Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import AppConfig from "@/config/appConfig";
+import Image from "next/image";
 import { coreTeam, councilMembers, developers } from "@/DataStore/store";
 
 
@@ -51,10 +52,12 @@ function TeamMemberCard({
           {/* Avatar */}
           <div className="relative w-32 h-32 rounded-full overflow-hidden flex-shrink-0 shadow-lg group-hover:shadow-xl transform transition-all duration-500 group-hover:scale-105">
             {member.image ? (
-              <img
+              <Image
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
+                height={80}
+                width={80}
                 onError={(e) => {
                   // Fallback to initials if image fails to load
                   const target = e.target as HTMLImageElement;
