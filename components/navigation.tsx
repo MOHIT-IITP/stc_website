@@ -106,6 +106,7 @@ export function Navigation() {
   ];
 
   const moreItems = [
+    { href: "/founders", label: "Founding Team" },
     { href: "/calendar", label: "Event Calendar" },
     { href: "/registration", label: "Registration" },
     { href: "/results", label: "Results" },

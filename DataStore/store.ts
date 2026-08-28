@@ -1,5 +1,49 @@
 import AppConfig from "@/config/appConfig";
 
+// ============ FOUNDERS OF STC ============
+const founders = [
+  {
+    name: "Gautam Kumar",
+    designation: "Founder • Served as President",
+    department: "Founding Team • 2024–2026",
+    image: AppConfig.imageUrls.founders.gautam,
+    email: "",
+    linkedin: "",
+    description:
+      "One of the founding leaders who laid the foundation for STC, giving IIT Patna Hybrid Programs a strong, student-led platform for representation and leadership.",
+  },
+  {
+    name: "Aryan Singh",
+    designation: "Founder • Served as Vice President",
+    department: "Founding Team • 2024–2026",
+    image: AppConfig.imageUrls.founders.aryan,
+    email: "",
+    linkedin: "",
+    description:
+      "One of the founding leaders who helped build a Council that connects students, creates meaningful initiatives, and sets a foundation for future student leadership.",
+  },
+  {
+    name: "Ritu Raj",
+    designation: "Founder • Served as General Secretary",
+    department: "Founding Team • 2024–2026",
+    image: AppConfig.imageUrls.founders.ritu,
+    email: "",
+    linkedin: "",
+    description:
+      "One of the founding leaders who helped establish STC as the highest-authority student council for IIT Patna Hybrid Programs.",
+  },
+  {
+    name: "Hridyanand Gupta",
+    designation: "Founder • Served as Treasurer",
+    department: "Founding Team • 2024–2026",
+    image: AppConfig.imageUrls.founders.hridyanand,
+    email: "",
+    linkedin: "",
+    description:
+      "One of the founding leaders who contributed to building the foundation and inspiring the next generation of the Student Technical Council.",
+  },
+];
+
 // ============ CORE TEAM DATA ============
 const coreTeam = [
   {
@@ -1122,5 +1166,5 @@ const domains = {
   },
 };
 // Export all team data for use in components
-export { coreTeam, councilMembers, developers };
+export { founders, coreTeam, councilMembers, developers };
 export default domains;

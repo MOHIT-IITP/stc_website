@@ -225,6 +225,14 @@ const AppConfig = {
     generalSecretary: "/Pics/Core/gen sec (1).png",
     treasurer: "/Pics/Core/treasurer (1).png",
 
+    //Founders Images
+    founders: {
+      gautam: "/founders/gautam.png",
+      aryan: "/founders/aryan.png",
+      ritu: "/founders/ritu.png",
+      hridyanand: "/founders/hridyanand.png",
+    },
+
     //Council Members Images
     councilHead: "/Pics/Council/CH.png",
     editorInChief: "/Pics/Council/CH.png",

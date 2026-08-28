@@ -104,29 +104,6 @@ export function HeroSection() {
             </div>
           ))}
         </div>
-
-        <div className="flex justify-center">
-          <Link
-            href="/phoenix"
-            aria-label="Open Phoenix event page"
-            className="group relative mt-4 inline-flex items-center justify-center overflow-hidden rounded-2xl border border-emerald-200/20 bg-[linear-gradient(145deg,rgba(13,36,31,0.96),rgba(5,16,14,0.96))] px-5 py-4 shadow-[0_12px_35px_rgba(4,18,16,0.6)] ring-1 ring-emerald-300/15 transition-all duration-500 hover:-translate-y-0.5 hover:border-emerald-200/45 hover:shadow-[0_16px_45px_rgba(20,115,96,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-200/60"
-          >
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-300/0 via-emerald-200/0 to-teal-100/0 transition-all duration-500 group-hover:from-emerald-300/10 group-hover:via-emerald-200/5 group-hover:to-transparent"></div>
-
-            <div className="relative flex items-center">
-              <img
-src={AppConfig.imageUrls.phoenix.logo}
-                alt="Phoenix"
-                className="h-30 w-auto object-contain drop-shadow-[0_0_18px_rgba(197,255,238,0.3)] transition-all duration-500 group-hover:brightness-110 sm:h-24 md:h-28"
-              />
-            </div>
-
-            <div className="absolute -left-1 -top-1 h-4 w-4 rounded-tl-xl border-l-2 border-t-2 border-emerald-200/60"></div>
-            <div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-br-xl border-b-2 border-r-2 border-emerald-200/60"></div>
-
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-emerald-100/0 transition-all duration-500 group-hover:bg-emerald-100/5"></div>
-          </Link>
-        </div>
       </div>
     </section>
   );

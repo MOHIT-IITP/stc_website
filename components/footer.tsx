@@ -117,6 +117,18 @@ export default function Footer() {
                 </li>
                 <li>
                 <Link
+                  href="/founders"
+                  className={`group relative text-gray-300 hover:text-${theme.accent}-400 transition-all duration-300`}
+                >
+                  <span className="relative flex items-center">
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      Founders
+                    </span>
+                  </span>
+                </Link>
+                </li>
+                <li>
+                <Link
                   href="/events"
                   className={`group relative text-gray-300 hover:text-${theme.accent}-400 transition-all duration-300`}
                 >

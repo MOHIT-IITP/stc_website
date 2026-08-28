@@ -3,37 +3,27 @@
 import { Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import AppConfig from "@/config/appConfig";
 import Image from "next/image";
-import { coreTeam, councilMembers, developers } from "@/DataStore/store";
+import { founders } from "@/DataStore/store";
 
-
-interface TeamMember {
+interface FounderMember {
   name: string;
   designation: string;
   department: string;
   image: string;
   email: string;
   linkedin: string;
-  team?: string;
   description?: string;
 }
 
-function TeamMemberCard({
+function FounderCard({
   member,
   index,
 }: {
-  member: TeamMember;
+  member: FounderMember;
   index: number;
 }) {
-  // Generate colors based on index for variety
-  const colorThemes = [
-    { bg: "bg-blue-500", text: "text-blue-500", border: "border-blue-500" },
-    { bg: "bg-blue-500", text: "text-blue-500", border: "border-blue-500" },
-    { bg: "bg-blue-500", text: "text-blue-500", border: "border-blue-500" },
-    { bg: "bg-blue-500", text: "text-blue-500", border: "border-blue-500" },
-  ];
-  const colors = colorThemes[index % colorThemes.length];
+  const colors = { bg: "bg-blue-500", text: "text-blue-500", border: "border-blue-500" };
 
   return (
     <motion.div
@@ -103,12 +93,6 @@ function TeamMemberCard({
               </p>
             </div>
 
-            {member.team && (
-              <p className="text-muted-foreground mb-6 leading-relaxed border-l-2 border-gray-200 pl-4 italic">
-                {member.team} Team
-              </p>
-            )}
-
             {/* Contact Links */}
             {(member.email || member.linkedin) && (
               <div className="flex justify-center md:justify-start space-x-4">
@@ -141,13 +125,16 @@ function TeamMemberCard({
   );
 }
 
-export default function TeamPage() {
+export default function FoundersPage() {
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
-      {/* Core Team */}
-      <section className="py-20">
+      {/* Founders of STC */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <p className="text-sm font-semibold tracking-widest text-[#1d4ed8] uppercase mb-3">
+              Founding Team • 2024–2026
+            </p>
             <h2
               className="
       text-4xl md:text-5xl font-extrabold 
@@ -156,92 +143,31 @@ export default function TeamPage() {
       mb-4 tracking-tight
     "
             >
-              Core Leadership Team
+              Founders of STC
             </h2>
 
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              The executive leadership providing strategic direction and
-              governance
+              The bright minds and great leaders behind the highest-authority
+              student council for IIT Patna Hybrid Programs. STC was founded
+              to give IIT Patna Hybrid Programs a strong, student-led
+              platform for representation, leadership, collaboration and
+              opportunity.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            {coreTeam.map((member, index) => (
-              <TeamMemberCard key={member.name} member={member} index={index} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            {founders.map((member, index) => (
+              <FounderCard key={member.name} member={member} index={index} />
             ))}
           </div>
+
+          <p className="text-center text-gray-500 italic">
+            Building the foundation. Inspiring the next generation. A
+            founding chapter. A lasting legacy.
+          </p>
         </div>
       </section>
 
-      {/* council Team */}
-      <section className="py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2
-              className="
-      text-4xl md:text-5xl font-extrabold 
-      text-[#1d4ed8] 
-      drop-shadow-sm 
-      mb-4 tracking-tight
-    "
-            >
-              Council Team
-            </h2>
-
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Meet the council team of Student Technical Council IIT Patna
-              Hybrid Programs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            {councilMembers.map((member, index) => (
-              <TeamMemberCard key={member.name} member={member} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/*Developers*/}
-      <section className="py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2
-              className="
-       text-4xl md:text-5xl font-extrabold 
-      text-[#1d4ed8] 
-      drop-shadow-sm 
-      mb-4 tracking-tight
-    "
-            >
-              STC Developers
-            </h2>
-
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Meet the Core Developers of Student Technical Council IIT Patna
-              Hybrid Programs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            {developers.map((member, index) => (
-              <TeamMemberCard key={member.name} member={member} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-      <div>
-        <div className="flex flex-col items-center justify-center py-16 relative">
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-700 mb-2 flex items-center gap-2">
-            More Positions Coming Soon
-            <span className="relative flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
-            </span>
-          </h2>
-          <p className="text-gray-500 text-base">Stay tuned for updates!</p>
-        </div>
-      </div>
       {/* Contact CTA */}
       <section className="py-16 bg-blue-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
