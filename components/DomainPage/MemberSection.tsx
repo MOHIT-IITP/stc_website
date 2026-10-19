@@ -18,6 +18,32 @@ interface MemberSectionProps {
   members: Member[];
 }
 
+const getRolePriority = (role: string) => {
+  const normalizedRole = role.toLowerCase().replace(/[\s-]/g, "");
+
+  if (normalizedRole === "coordinator" || normalizedRole === "cord") {
+    return 0;
+  }
+
+  if (normalizedRole === "subcoordinator" || normalizedRole === "subcord") {
+    return 1;
+  }
+
+  if (normalizedRole === "member" || normalizedRole === "members") {
+    return 2;
+  }
+
+  if (normalizedRole === "creative") {
+    return 3;
+  }
+
+  if (normalizedRole === "pr" || normalizedRole === "publicrelations") {
+    return 4;
+  }
+
+  return 5;
+};
+
 const normalizeExternalUrl = (url: string) => {
   if (/^https?:\/\//i.test(url)) {
     return url;
@@ -27,6 +53,16 @@ const normalizeExternalUrl = (url: string) => {
 };
 
 export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
+  const orderedMembers = members
+    .map((member, index) => ({ member, index }))
+    .sort((a, b) => {
+      const priorityDifference =
+        getRolePriority(a.member.role) - getRolePriority(b.member.role);
+
+      return priorityDifference || a.index - b.index;
+    })
+    .map(({ member }) => member);
+
   const getGridConfig = (count: number) => {
     // Base styles for all screen sizes
     const baseStyles = "w-full mx-auto px-4 sm:px-6";
@@ -94,12 +130,12 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
     };
   };
 
-  const gridConfig = getGridConfig(members.length);
+  const gridConfig = getGridConfig(orderedMembers.length);
 
   // For 5 cards, we'll split them into two separate rows with responsive layout
-  if (members.length === 5 && gridConfig.specialLayout) {
-    const firstRow = members.slice(0, 2);
-    const secondRow = members.slice(2);
+  if (orderedMembers.length === 5 && gridConfig.specialLayout) {
+    const firstRow = orderedMembers.slice(0, 2);
+    const secondRow = orderedMembers.slice(2);
 
     return (
       <section className="pb-8 sm:pb-12 md:pb-16">
@@ -173,7 +209,7 @@ export const MemberSection: React.FC<MemberSectionProps> = ({ members }) => {
         <div
           className={`grid ${gridConfig.grid} ${gridConfig.gap} w-full mx-auto`}
         >
-          {members.map((member) => (
+          {orderedMembers.map((member) => (
             <div key={member.id} className="flex justify-center px-2 w-full">
               <ProfileCard member={member} />
             </div>
